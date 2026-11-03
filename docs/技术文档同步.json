@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "doc_hash": "658594843ea59964b7a7d91a8ed1e6d44bbfbc321e94aa7910f6076d78ab3d28",
+  "fingerprints": {
+    ".gitignore": "580217d478cf6da388081dd5a2f0f4e0e6661f1a3925528a767ff2629acf6ffb",
+    "app.js": "19158f7f46c83f6f2fb441fb9a1af3970619ac1485920d23057e1fecdf9a5ae1",
+    "index.html": "91a08f213b311a03b225cf32e41e0bd265e414e9709cc994367c6ee9dcd711d9",
+    "manifest.json": "00be2e5030b8024f07314ef558aca601816a46fda272a214b5ebfd9cc43dfb4a",
+    "scripts/check_technical_docs.py": "5849b968b8e554520469007801ca30a270ef5694b2da4c9c3705874cbb645f12",
+    "styles.css": "2687633d71f95567bb987339c4b704ee02530d5bce8c9ca3c37544ece1fe138d",
+    "sw.js": "b54c8aa1553e4b58b7803058d425d61bb1d23331e276490a74c7df58d679cad9"
+  },
+  "records": [
+    {
+      "date": "2026-11-01T21:27:04+08:00",
+      "summary": "初始立项：心智随身听 PWA 架构与数据模型",
+      "impact": "architecture",
+      "sections": "目标与范围、技术栈、模块与目录、数据模型、关键流程、部署配置",
+      "doc_hash": "2b521855ccf0e3c381c0515a04000a79a18cf483ae6388570556d157f0ea12b9"
+    },
+    {
+      "date": "2026-11-01T21:29:32+08:00",
+      "summary": "实现心智随身听 PWA 核心代码：HTML、CSS、JS、Manifest、Service Worker",
+      "impact": "implementation",
+      "sections": "仅实现既有技术架构定义的前端 PWA 与离线播放核心，因为所有模块与接口契约均已在架构文档定义，对系统架构无新增变更",
+      "doc_hash": "2b521855ccf0e3c381c0515a04000a79a18cf483ae6388570556d157f0ea12b9"
+    },
+    {
+      "date": "2026-11-03T21:03:34+08:00",
+      "summary": "升级sw.js和app.js的离线缓存与Range分片支持",
+      "impact": "architecture",
+      "sections": "技术决策, 迭代同步, 接口与契约, 关键流程",
+      "doc_hash": "658594843ea59964b7a7d91a8ed1e6d44bbfbc321e94aa7910f6076d78ab3d28"
+    },
+    {
+      "date": "2026-11-03T21:03:54+08:00",
+      "summary": "添加标准 .gitignore 忽略系统隐藏文件",
+      "impact": "implementation",
+      "sections": "仅忽略操作系统缓存文件与临时文件，不影响项目功能与技术架构",
+      "doc_hash": "658594843ea59964b7a7d91a8ed1e6d44bbfbc321e94aa7910f6076d78ab3d28"
+    }
+  ]
+}

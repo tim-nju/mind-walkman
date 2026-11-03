@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>心智随身听</title>
+  
+  <!-- iOS PWA Meta Tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="心智随身听">
+  <meta name="theme-color" content="#121214">
+  
+  <link rel="apple-touch-icon" href="./public/icons/icon-192.png">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Top Bar -->
+    <header class="app-header">
+      <div class="header-branding">
+        <span class="app-logo">🎧</span>
+        <h1 class="app-title">心智随身听</h1>
+      </div>
+      <div class="header-badges">
+        <span class="badge offline-badge" id="offlineStatus">⚡ 离线就绪</span>
+        <button class="badge-btn" id="btnCacheAll" title="缓存完整音频到本地">📥 离线缓存</button>
+      </div>
+    </header>
+
+    <!-- Main Player Card (Sticky / Top Focus) -->
+    <section class="player-card">
+      <div class="track-artwork">
+        <div class="album-aura"></div>
+        <div class="artwork-center">
+          <span class="track-icon">🌱</span>
+          <div class="playing-bars" id="playingVisualizer">
+            <span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="track-meta">
+        <h2 class="track-title" id="trackTitle">从极致追求物质成功到重新认识生命</h2>
+        <div class="track-sub">
+          <span class="track-speaker">黎雄</span>
+          <span class="dot">·</span>
+          <span class="track-date">2026-10-31 聚会原声</span>
+        </div>
+        <div class="active-chapter-pill" id="activeChapterPill">
+          <span class="ch-icon">📍</span>
+          <span class="ch-text" id="activeChapterText">正在载入章节...</span>
+        </div>
+      </div>
+
+      <!-- Scrubber -->
+      <div class="scrubber-area">
+        <div class="time-display">
+          <span class="time-current" id="timeCurrent">00:00</span>
+          <span class="time-total" id="timeTotal">01:16:52</span>
+        </div>
+        <div class="progress-bar-container" id="progressBar">
+          <div class="progress-buffered" id="progressBuffered"></div>
+          <div class="progress-current" id="progressCurrent"></div>
+          <div class="progress-handle" id="progressHandle"></div>
+          <div class="ab-marker a-marker" id="markerA" style="display:none;"></div>
+          <div class="ab-marker b-marker" id="markerB" style="display:none;"></div>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="control-cluster">
+        <!-- Commute Quick Seek & Play -->
+        <button class="ctrl-btn btn-secondary" id="btnSkipBack" title="快退 15 秒">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+            <path d="M12.5 3C7.8 3 4 6.8 4 11.5c0 1.9.6 3.6 1.7 5L4 18.2l4.8.8-.8-4.8-1.5 1.5C7.5 14.5 7 13.1 7 11.5 7 8.5 9.5 6 12.5 6s5.5 2.5 5.5 5.5-2.5 5.5-5.5 5.5c-1.2 0-2.3-.4-3.2-1.1l-1.4 1.4c1.3 1.1 2.9 1.7 4.6 1.7 4.7 0 8.5-3.8 8.5-8.5S17.2 3 12.5 3z"/>
+            <text x="12.5" y="14" font-size="7" font-weight="bold" text-anchor="middle" fill="currentColor">15</text>
+          </svg>
+        </button>
+
+        <button class="ctrl-btn btn-play" id="btnPlay">
+          <svg class="icon-play" viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+          <svg class="icon-pause" viewBox="0 0 24 24" width="32" height="32" fill="currentColor" style="display:none;">
+            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+          </svg>
+        </button>
+
+        <button class="ctrl-btn btn-secondary" id="btnSkipForward" title="快进 30 秒">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+            <path d="M11.5 3C16.2 3 20 6.8 20 11.5c0 1.9-.6 3.6-1.7 5l1.7 1.7-4.8.8.8-4.8 1.5 1.5c1-1.2 1.5-2.6 1.5-4.2C19 8.5 16.5 6 13.5 6S8 8.5 8 11.5s2.5 5.5 5.5 5.5c1.2 0 2.3-.4 3.2-1.1l1.4 1.4c-1.3 1.1-2.9 1.7-4.6 1.7-4.7 0-8.5-3.8-8.5-8.5S8.8 3 11.5 3z"/>
+            <text x="13.5" y="14" font-size="7" font-weight="bold" text-anchor="middle" fill="currentColor">30</text>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Quick Tuning Bar (Speed + Loop + A-B Repeat) -->
+      <div class="tuning-bar">
+        <button class="pill-toggle" id="btnSpeed" title="播放倍速">1.0x</button>
+        <button class="pill-toggle" id="btnLoop" title="循环模式">🔂 单曲循环</button>
+        <button class="pill-toggle" id="btnAB" title="A-B 复读循环">A-B 复读</button>
+      </div>
+
+      <!-- A-B Control Strip (Expandable) -->
+      <div class="ab-panel" id="abPanel" style="display: none;">
+        <span class="ab-label" id="abStatusText">点击【设为A】选择复读起点</span>
+        <div class="ab-buttons">
+          <button class="ab-btn" id="btnSetA">设为 A</button>
+          <button class="ab-btn" id="btnSetB">设为 B</button>
+          <button class="ab-btn btn-danger" id="btnClearAB">清除</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Synchronized Chapters & Core Takeaways -->
+    <section class="chapters-section">
+      <div class="section-title-bar">
+        <h3 class="section-title">核心篇章与金句导航</h3>
+        <span class="section-hint">点击任意要点秒跳音频</span>
+      </div>
+
+      <div class="chapter-list" id="chapterList">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </section>
+
+    <!-- Key Takeaway Card (Bottom Quote) -->
+    <footer class="wisdom-footer">
+      <div class="quote-box">
+        <p class="quote-text">“没有人可以伤害我，除非我允许。伤不伤害你，决定权在你怎么去解读它。”</p>
+        <span class="quote-author">—— 黎雄 现场自述</span>
+      </div>
+      <p class="footer-note">心智随身听 · PWA 离线播放版 · 支持 iOS 锁屏与耳机线控</p>
+    </footer>
+  </div>
+
+  <!-- Audio Element -->
+  <audio id="audioPlayer" preload="metadata" playsinline src="./public/audio/lixiong-20261031.mp3"></audio>
+
+  <script src="./app.js"></script>
+</body>
+</html>
