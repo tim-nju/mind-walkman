@@ -1,14 +1,31 @@
 {
   "version": 1,
-  "doc_hash": "658594843ea59964b7a7d91a8ed1e6d44bbfbc321e94aa7910f6076d78ab3d28",
+  "doc_hash": "aac7c74ea182cb57cebcb0a1082ac4d1a628a57eb74dabeafe7cd65b0d7260e3",
   "fingerprints": {
-    ".gitignore": "580217d478cf6da388081dd5a2f0f4e0e6661f1a3925528a767ff2629acf6ffb",
-    "app.js": "19158f7f46c83f6f2fb441fb9a1af3970619ac1485920d23057e1fecdf9a5ae1",
-    "index.html": "91a08f213b311a03b225cf32e41e0bd265e414e9709cc994367c6ee9dcd711d9",
+    ".gitignore": "f43dbacbd41e455757686df381735a02688db3c50238daaf0e4c61830bf46336",
+    "app.js": "bf633adfac2d2bc2db2794aab978772c28a011c33a631b43dbd8ef9f7b918b29",
+    "controls.js": "a7fffdb0568b8fffbac790aeef1c6c9356a4b267f6166700d8fe401c00226c08",
+    "course-data.js": "bcb96d81fc19ff71512ba48822559c48919df57d5e6e96d784fcde17e9cec6ae",
+    "docs/acceptance.json": "dec918fb20cdad20b0bc25d3e7c451e8a32dda0be4ecea09f2416a09505f0177",
+    "docs/daodejing-source-directory.json": "4c01a944552001aef8175d97c833990458f093396a764e4feb536fb03c2c8a3a",
+    "docs/qa/bilibili-source-map.json": "5f790a2581782459cd4667b3cad5271bda1aaf563cf153ca1181cc2598e39e49",
+    "importer.js": "0d3ea0607e05381b860784ae196d48f57d71290bb3eaac6664e547c389e5170a",
+    "index.html": "a5297494351c63da9b8e70a5be6f6d6afabc57f6480b517cd57046d1e71e629c",
     "manifest.json": "00be2e5030b8024f07314ef558aca601816a46fda272a214b5ebfd9cc43dfb4a",
+    "scripts/acceptance.mjs": "c081945db4daf08e1b90dd3af0d6697cd83dbf1c21bc08e411c385db9332984b",
+    "scripts/backup-check.mjs": "3694c0bf55dcadc75e1b88dde41c97369cbca2294d6f41556508b98b052398c5",
+    "scripts/backup-course.mjs": "beb3b0fd62ed56dd08a4ec4964d0db07bd57fb8a6cd21f6b7e91f3dddadd4eb1",
+    "scripts/browser-check.mjs": "b9f85c6adf0a19236730cabe1afb1069ce56b51361827fd557d5d56d2b9d3fd7",
     "scripts/check_technical_docs.py": "5849b968b8e554520469007801ca30a270ef5694b2da4c9c3705874cbb645f12",
-    "styles.css": "2687633d71f95567bb987339c4b704ee02530d5bce8c9ca3c37544ece1fe138d",
-    "sw.js": "b54c8aa1553e4b58b7803058d425d61bb1d23331e276490a74c7df58d679cad9"
+    "scripts/import-check.mjs": "0cb625d657869c404c898fcdb23c7033a58610b9593e579189b383b2f830fd60",
+    "scripts/serve.mjs": "9b42a59a456b0a67e6be0feda879b9a39f9dbd8fbffbe69fb1f9f8a8ef67d20d",
+    "scripts/server-check.mjs": "4561b271592f19cb96da0ea3a6c3e38ee5003097ffcdc4193b1b6de4382e52a1",
+    "scripts/sw-check.mjs": "df57e27a796bc37d255906aeaa0d24687d42258f11da2b819c99bbdfd0cc1aba",
+    "scripts/upgrade-check.mjs": "520b5c5cd26b67fc9d459c107057a766318a8d0785b570d02071b9658d22387a",
+    "storage.js": "1fe96d2d452c904b508e28bd775bca06235642e8732963dce0724f89306fe10f",
+    "styles.css": "655445d0268500a70d9b9d24e25ca50bcd28dd49ecd12ea0b1c0832724a6c582",
+    "sw.js": "043347267a4b1bc4e259b61dd5c1e5ac20bd155634f351f723af93c7bf0e24b9",
+    "tracks.js": "2d893c6f03583355b5e51b89aa553008bf6c8421cfd6f57e9e29fd76226ea4cc"
   },
   "records": [
     {
@@ -38,6 +55,27 @@
       "impact": "implementation",
       "sections": "仅忽略操作系统缓存文件与临时文件，不影响项目功能与技术架构",
       "doc_hash": "658594843ea59964b7a7d91a8ed1e6d44bbfbc321e94aa7910f6076d78ab3d28"
+    },
+    {
+      "date": "2026-11-08T19:05:50+08:00",
+      "summary": "107集专题、多音轨进度与离线队列，原音轨及v2缓存升级兼容，完整验收门禁和真实浏览器证据；iOS模拟器仍阻断",
+      "impact": "architecture",
+      "sections": "目标与范围,模块与目录,数据模型,接口与契约,关键流程,部署与配置,安全与隐私,测试与验收,技术决策,迭代同步",
+      "doc_hash": "76ceb3d17dc4395194a381e9941559d4a46b2948013a9f368e6d94c60b0eb2d0"
+    },
+    {
+      "date": "2026-11-08T20:50:10+08:00",
+      "summary": "新增107集私人专题与Files导入、原子iCloud本机备份和v9资源更新；真实桌面及iOS模拟器证据齐全，独立架构语义审阅通过",
+      "impact": "architecture",
+      "sections": "目标与范围、技术栈、模块与目录、数据模型、接口与契约、关键流程、部署与配置、安全与隐私、测试与验收、技术决策、迭代同步：记录私人媒体与公开程序分离、107集导入校验和进程中断恢复，明确云同步及真机边界",
+      "doc_hash": "4cbed45c35cda36e57072d8652b3b82f221fc7b298cb06e52f515f8f57ef172a"
+    },
+    {
+      "date": "2026-11-08T20:58:24+08:00",
+      "summary": "公开发布仅包含播放器和设计验证源码，私有课程及QA回执排除Git；独立审阅已确认排除规则，运行代码保持已验收v9",
+      "impact": "architecture",
+      "sections": "部署与配置、安全与隐私、迭代同步：明确公开程序与本机私人验收输入分离；新增Git排除规则，不改变播放、导入、存储或服务接口",
+      "doc_hash": "aac7c74ea182cb57cebcb0a1082ac4d1a628a57eb74dabeafe7cd65b0d7260e3"
     }
   ]
 }

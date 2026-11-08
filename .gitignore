@@ -3,3 +3,7 @@ __pycache__/
 *.pyc
 .idea/
 .vscode/
+public/audio/daodejing/
+.omo/evidence/
+docs/qa/*
+!docs/qa/bilibili-source-map.json

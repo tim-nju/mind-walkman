@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>心智随身听</title>
   
   <!-- iOS PWA Meta Tags -->
@@ -13,7 +13,7 @@
   
   <link rel="apple-touch-icon" href="./public/icons/icon-192.png">
   <link rel="manifest" href="./manifest.json">
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./styles.css?v=9">
 </head>
 <body>
   <div class="app-container">
@@ -24,11 +24,23 @@
         <h1 class="app-title">心智随身听</h1>
       </div>
       <div class="header-badges">
-        <span class="badge offline-badge" id="offlineStatus">⚡ 离线就绪</span>
-        <button class="badge-btn" id="btnCacheAll" title="缓存完整音频到本地">📥 离线缓存</button>
+        <span class="badge offline-badge" id="offlineStatus">正在检查缓存</span>
+        <button class="badge-btn" id="btnCacheAll" title="缓存完整音频到本地">缓存本集</button>
       </div>
     </header>
 
+    <section class="topic-picker"><label for="topicSelect">收听专题</label><select id="topicSelect"></select></section>
+    <section id="importSection" class="import-section" hidden aria-labelledby="importHeading">
+      <h2 id="importHeading">从 iCloud 导入课程</h2>
+      <p>在“文件”中选择 iCloud 云盘里的“应用备份 → 心智随身听 → 正解道德经”文件夹。导入后可离线收听，音频不会上传。</p>
+      <div class="import-actions">
+        <label class="file-choice">从文件夹导入<input id="folderInput" type="file" webkitdirectory multiple aria-label="从文件夹导入"></label>
+        <label class="file-choice">选择音频文件<input id="filesInput" type="file" multiple accept=".m4a,audio/mp4" aria-label="选择音频文件"></label>
+      </div>
+      <p class="status-line" id="importPreview" role="status">可一次选择整个文件夹，也可以分批选择音频文件。</p>
+      <div class="import-actions"><button class="pill-toggle" id="btnStartImport" hidden>开始导入</button><button class="pill-toggle" id="btnStopImport" hidden>停止后续导入</button></div>
+      <p class="status-line" id="importStatus" role="status"></p>
+    </section>
     <!-- Main Player Card (Sticky / Top Focus) -->
     <section class="player-card">
       <div class="track-artwork">
@@ -69,6 +81,9 @@
         </div>
       </div>
 
+      <input id="seekInput" type="range" min="0" max="4612" value="0" step="1" aria-label="播放进度">
+      <p id="playerStatus" class="status-line" role="status"></p>
+      <div class="track-navigation"><button class="pill-toggle" id="btnPrevious">上一集</button><button class="pill-toggle" id="btnNext">下一集</button></div>
       <!-- Controls -->
       <div class="control-cluster">
         <!-- Commute Quick Seek & Play -->
@@ -79,7 +94,7 @@
           </svg>
         </button>
 
-        <button class="ctrl-btn btn-play" id="btnPlay">
+        <button class="ctrl-btn btn-play" id="btnPlay" aria-label="播放">
           <svg class="icon-play" viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
             <path d="M8 5v14l11-7z"/>
           </svg>
@@ -114,6 +129,12 @@
       </div>
     </section>
 
+    <section class="library-section" aria-label="专题目录">
+      <div class="section-title-bar"><h3 class="section-title">专题目录</h3><span id="topicCount" class="section-hint"></span></div>
+      <div class="cache-actions"><button class="pill-toggle" id="btnCacheTopic">缓存整专题</button><button class="pill-toggle" id="btnStopCache" hidden>停止后续缓存</button></div>
+      <p id="cacheStatus" class="status-line" role="status">缓存整专题会下载所有音频，请留意设备剩余空间。</p>
+      <ol id="trackList" class="track-list"></ol>
+    </section>
     <!-- Synchronized Chapters & Core Takeaways -->
     <section class="chapters-section">
       <div class="section-title-bar">
@@ -137,8 +158,13 @@
   </div>
 
   <!-- Audio Element -->
-  <audio id="audioPlayer" preload="metadata" playsinline src="./public/audio/lixiong-20261031.mp3"></audio>
+  <audio id="audioPlayer" preload="metadata" playsinline></audio>
 
-  <script src="./app.js"></script>
+  <script src="./tracks.js?v=9"></script>
+  <script src="./course-data.js?v=9"></script>
+  <script src="./storage.js?v=9"></script>
+  <script src="./controls.js?v=9"></script>
+  <script src="./importer.js?v=9"></script>
+  <script src="./app.js?v=9"></script>
 </body>
 </html>

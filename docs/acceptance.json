@@ -1,0 +1,162 @@
+{
+  "version": 1,
+  "required": [
+    {
+      "id": "catalog-media",
+      "kind": "media",
+      "receipt": "docs/qa/media-receipt.json"
+    },
+    {
+      "id": "range-mime",
+      "kind": "test",
+      "command": "node scripts/sw-check.mjs"
+    },
+    {
+      "id": "private-range-server",
+      "kind": "test",
+      "command": "node scripts/server-check.mjs"
+    },
+    {
+      "id": "browser-regression",
+      "kind": "browser",
+      "receipt": ".omo/evidence/topic-player/browser-results.json",
+      "scenarios": [
+        "legacy-position-and-original-chapters",
+        "per-track-progress-speed-and-playback",
+        "switch-before-metadata-preserves-bookmark",
+        "delayed-cache-read-cannot-replace-latest-track",
+        "cache-commit-keeps-current-source-and-mime",
+        "quota-failure-keeps-prior-cache",
+        "stop-queue-keeps-completed-track",
+        "real-indexeddb-abort-does-not-report-cached",
+        "invalid-audio-rejected-before-cache",
+        "legacy-indexeddb-blob-remains-playable",
+        "natural-ended-advances-and-resets-bookmark",
+        "final-ended-stops-and-can-replay"
+      ]
+    },
+    {
+      "id": "private-file-import",
+      "kind": "browser",
+      "receipt": ".omo/evidence/private-import/import-results.json",
+      "scenarios": [
+        "public-shell-never-fetches-private-media",
+        "unknown-file-is-reported-before-import",
+        "folder-duplicate-names-block-import",
+        "same-size-corruption-fails-sha256-without-cache",
+        "partial-selection-requires-explicit-count",
+        "partial-file-input-import-persists-two-tracks",
+        "newly-imported-selected-track-plays-on-next-click",
+        "real-stop-button-keeps-completed-imports",
+        "folder-resume-skips-completed-and-imports-all-107",
+        "imported-library-offline-reloads-and-plays-last"
+      ]
+    },
+    {
+      "id": "icloud-local-backup",
+      "kind": "backup",
+      "receipt": "docs/qa/icloud-backup-receipt.json"
+    },
+    {
+      "id": "backup-recovery-command",
+      "kind": "test",
+      "command": "node scripts/backup-check.mjs --output-dir .omo/evidence/backup-recovery"
+    },
+    {
+      "id": "backup-recovery",
+      "kind": "external",
+      "receipt": ".omo/evidence/backup-recovery/backup-recovery-receipt.json",
+      "scenarios": [
+        "normal-copy",
+        "reuse-valid-existing",
+        "reject-corrupt-existing",
+        "reject-corrupt-source",
+        "resume-media-interruption",
+        "resume-manifest-interruption",
+        "mutation-rejects-nonatomic"
+      ]
+    },
+    {
+      "id": "legacy-upgrade",
+      "kind": "external",
+      "receipt": ".omo/evidence/topic-player/upgrade-results.json",
+      "scenarios": [
+        "legacy-v2-seeded",
+        "old-worker-new-html-loads-versioned-importer",
+        "upgrade-preserves-v2-audio-and-progress",
+        "upgraded-v2-offline-reload-seek-play"
+      ]
+    },
+    {
+      "id": "browser-offline",
+      "kind": "external",
+      "receipt": "docs/qa/browser-manual-receipt.json",
+      "scenarios": [
+        "offline-reload-play-seek",
+        "offline-uncached-failure",
+        "full-topic-cache-complete"
+      ]
+    },
+    {
+      "id": "ios-simulator",
+      "kind": "external",
+      "receipt": "docs/qa/ios-receipt.json",
+      "scenarios": [
+        "install-first-load",
+        "authorization",
+        "full-playback",
+        "offline-relaunch",
+        "downstream-read"
+      ]
+    },
+    {
+      "id": "independent-review",
+      "kind": "external",
+      "receipt": "docs/qa/review-receipt.json",
+      "scenarios": [
+        "coverage",
+        "code",
+        "architecture",
+        "visual"
+      ]
+    },
+    {
+      "id": "technical-docs",
+      "kind": "command",
+      "command": "python3 scripts/check_technical_docs.py check --root ."
+    }
+  ],
+  "releaseBoundary": "真实GitHub Pages仅发布应用壳；课程私有音频从iCloud文件夹导入，不公开上传。本轮不部署。",
+  "phoneOnly": {
+    "status": "unverified",
+    "requiredForClaim": [
+      "真机长课锁屏连续播放",
+      "实际耳机线控",
+      "用户本人PWA安装授权"
+    ]
+  },
+  "fingerprintFiles": [
+    "app.js",
+    "controls.js",
+    "storage.js",
+    "sw.js",
+    "index.html",
+    "styles.css",
+    "tracks.js",
+    "course-data.js",
+    "manifest.json",
+    "scripts/serve.mjs",
+    "scripts/browser-check.mjs",
+    "scripts/sw-check.mjs",
+    "scripts/acceptance.mjs",
+    "docs/acceptance.json",
+    "docs/daodejing-source-directory.json",
+    "scripts/server-check.mjs",
+    "scripts/upgrade-check.mjs",
+    "docs/qa/bilibili-source-map.json",
+    "importer.js",
+    "scripts/import-check.mjs",
+    "scripts/backup-course.mjs",
+    "scripts/backup-check.mjs"
+  ]
+}
