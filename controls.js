@@ -1,7 +1,8 @@
 let pointA = null;
 let pointB = null;
 function applyLoop() {
-  audio.loop = loopMode === 'one';
+  // Handle single-track repeat in ended so completion is persisted before replay.
+  audio.loop = false;
   byId('btnLoop').textContent = loopMode === 'one' ? '单曲循环' : loopMode === 'ab' ? 'A-B 复读' : '顺次播放';
   byId('btnLoop').classList.toggle('active', loopMode !== 'normal');
 }

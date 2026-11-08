@@ -7,6 +7,11 @@
       "receipt": "docs/qa/media-receipt.json"
     },
     {
+      "id": "progress-state",
+      "kind": "test",
+      "command": "node scripts/progress-check.mjs"
+    },
+    {
       "id": "range-mime",
       "kind": "test",
       "command": "node scripts/sw-check.mjs"
@@ -32,7 +37,11 @@
         "invalid-audio-rejected-before-cache",
         "legacy-indexeddb-blob-remains-playable",
         "natural-ended-advances-and-resets-bookmark",
-        "final-ended-stops-and-can-replay"
+        "final-ended-stops-and-can-replay",
+        "completed-survives-replay-and-reload-storage",
+        "single-repeat-records-completion",
+        "legacy-partial-corrupt-and-unknown-progress",
+        "pause-updates-visible-percentage-without-rebuilding-list"
       ]
     },
     {
@@ -157,6 +166,7 @@
     "importer.js",
     "scripts/import-check.mjs",
     "scripts/backup-course.mjs",
-    "scripts/backup-check.mjs"
+    "scripts/backup-check.mjs",
+    "scripts/progress-check.mjs"
   ]
 }

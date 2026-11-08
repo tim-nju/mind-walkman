@@ -21,17 +21,50 @@ const formatTime = seconds => {
   const value = Math.max(0, Math.floor(Number.isFinite(seconds) ? seconds : 0));
   return `${Math.floor(value / 60).toString().padStart(2, '0')}:${(value % 60).toString().padStart(2, '0')}`;
 };
+// Resume position and completion history are separate: replay must not erase completion.
+function readProgress(item) {
+  try {
+    const value = JSON.parse(localStorage.getItem(`mw_progress_${item.id}`) || 'null');
+    if (value && typeof value === 'object' && !Array.isArray(value)) return {
+      completed: value.completed === true,
+      furthest: Math.max(savedPosition(item), Number.isFinite(value.furthest) && value.furthest >= 0 ? value.furthest : 0),
+      duration: Number.isFinite(value.duration) && value.duration > 0 ? value.duration : 0
+    };
+  } catch { /* A corrupt new record must not hide the legacy bookmark. */ }
+  return { completed: false, furthest: savedPosition(item), duration: 0 };
+}
+function progressLabel(item) {
+  const value = readProgress(item);
+  if (value.completed) return '已听 100% · 已听完';
+  const duration = value.duration || item.duration;
+  if (!Number.isFinite(duration) || duration <= 0) return '进度未知';
+  // Reserve 100% for an observed ended event, not rounding or seeking near the end.
+  return `已听 ${Math.min(99, Math.max(0, Math.floor(value.furthest / duration * 100)))}%`;
+}
+function updateListProgress() {
+  for (const button of byId('trackList').querySelectorAll('[data-track-id]')) {
+    const item = allTracks.find(item => item.id === button.dataset.trackId);
+    if (item) button.querySelector('small').textContent = `${formatTime(item.duration)} · ${cacheKeys.has(item.id) ? '已缓存' : '未缓存'} · ${progressLabel(item)}`;
+  }
+}
 function savePosition() {
   if (!sourceReady) return;
   const position = audio.ended ? 0 : audio.currentTime;
+  if (!Number.isFinite(position) || position < 0) return;
+  const progress = readProgress(track);
+  progress.completed ||= audio.ended;
+  progress.furthest = Math.max(progress.furthest, audio.currentTime);
+  if (Number.isFinite(audio.duration) && audio.duration > 0) progress.duration = audio.duration;
+  localStorage.setItem(`mw_progress_${track.id}`, JSON.stringify(progress));
   localStorage.setItem(`mw_pos_${track.id}`, String(position));
   if (track.id === ORIGINAL_TRACK.id) localStorage.setItem('mw_pos', String(position));
+  updateListProgress();
 }
 function savedPosition(item) {
   const raw = localStorage.getItem(`mw_pos_${item.id}`) ??
     (item.id === ORIGINAL_TRACK.id ? localStorage.getItem('mw_pos') : null);
   const value = Number(raw);
-  return Number.isFinite(value) && value >= 0 && value < item.duration ? value : 0;
+  return Number.isFinite(value) && value >= 0 && (!Number.isFinite(item.duration) || item.duration <= 0 || value < item.duration) ? value : 0;
 }
 function renderList() {
   byId('trackList').replaceChildren(...topic.tracks.map((item, index) => {
@@ -43,7 +76,7 @@ function renderList() {
     const title = document.createElement('span');
     title.textContent = `${String(index + 1).padStart(3, '0')}  ${item.title}`;
     const detail = document.createElement('small');
-    detail.textContent = `${formatTime(item.duration)} · ${cacheKeys.has(item.id) ? '已缓存' : '未缓存'} · 已听 ${formatTime(savedPosition(item))}`;
+    detail.textContent = `${formatTime(item.duration)} · ${cacheKeys.has(item.id) ? '已缓存' : '未缓存'} · ${progressLabel(item)}`;
     button.append(title, detail);
     button.addEventListener('click', () => selectTrack(item, true));
     row.append(button);
@@ -175,16 +208,20 @@ audio.addEventListener('loadedmetadata', () => {
 });
 audio.addEventListener('error', () => { if (audio.getAttribute('src')) status(cacheKeys.has(track.id) ? '音频解码失败，请核对媒体文件。' : '音频加载失败；请联网重试或先缓存本集。'); });
 audio.addEventListener('ended', () => {
-  localStorage.setItem(`mw_pos_${track.id}`, '0');
-  if (track.id === ORIGINAL_TRACK.id) localStorage.setItem('mw_pos', '0');
-  if (loopMode === 'normal') nextTrack(1, true);
+  if (!sourceReady) return;
+  savePosition();
+  if (loopMode === 'one') {
+    audio.currentTime = 0;
+    playAudio();
+  } else if (loopMode === 'normal') nextTrack(1, true);
 });
+audio.addEventListener('pause', savePosition);
 setInterval(savePosition, 5000);
 window.addEventListener('pagehide', savePosition);
 document.addEventListener('visibilitychange', () => { if (document.hidden) savePosition(); });
 window.addEventListener('online', updateOfflineStatus);
 window.addEventListener('offline', updateOfflineStatus);
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?v=9').catch(error => {
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?v=10').catch(error => {
   if (error instanceof Error) byId('cacheStatus').textContent = `应用离线壳未就绪：${error.message}`; else throw error;
 });
 setupControls();

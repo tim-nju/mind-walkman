@@ -122,7 +122,7 @@ try {
     seekTo(audio.duration - 0.1); await playAudio();
     await qaWait(() => track.id === 'daodejing-003' && sourceReady && !audio.paused);
     audio.pause();
-    return { pass: localStorage.getItem('mw_pos_daodejing-002') === '0', id:track.id, priorPosition:localStorage.getItem('mw_pos_daodejing-002') };
+    return { pass: localStorage.getItem('mw_pos_daodejing-002') === '0' && progressLabel(COURSE_TOPIC.tracks[1]) === '已听 100% · 已听完', id:track.id, priorPosition:localStorage.getItem('mw_pos_daodejing-002') };
   });
   await check('final-ended-stops-and-can-replay', async () => {
     await selectTrack(COURSE_TOPIC.tracks.at(-1)); await qaWait(() => sourceReady);
@@ -130,6 +130,35 @@ try {
     const stopped = audio.paused && track.id === 'daodejing-107';
     await playAudio(); await qaWait(() => !audio.paused && audio.currentTime > 0.1); audio.pause();
     return { pass:stopped && audio.currentTime < 5, id:track.id, replayTime:audio.currentTime };
+  });
+  await check('completed-survives-replay-and-reload-storage', async () => {
+    await selectTrack(COURSE_TOPIC.tracks[1]); await qaWait(() => sourceReady);
+    seekTo(10); savePosition();
+    return {pass:progressLabel(track)==='已听 100% · 已听完' && savedPosition(track)===10,label:progressLabel(track)};
+  });
+  await check('single-repeat-records-completion', async () => {
+    await selectTrack(COURSE_TOPIC.tracks[3]); await qaWait(() => sourceReady);
+    loopMode='one'; applyLoop(); seekTo(audio.duration-0.1); await playAudio();
+    await qaWait(()=>readProgress(track).completed && audio.currentTime<5 && !audio.paused);
+    audio.pause(); return {pass:track.id==='daodejing-004' && !audio.loop && progressLabel(track).includes('100%'),label:progressLabel(track)};
+  });
+  await check('legacy-partial-corrupt-and-unknown-progress', async () => {
+    const item=COURSE_TOPIC.tracks[5];
+    localStorage.removeItem(`mw_progress_${item.id}`); localStorage.setItem(`mw_pos_${item.id}`,String(item.duration/2));
+    const legacy=progressLabel(item);
+    localStorage.setItem(`mw_progress_${item.id}`,'{broken'); const corrupt=progressLabel(item);
+    localStorage.setItem(`mw_progress_${item.id}`,'{}'); const invalidObject=progressLabel(item);
+    localStorage.setItem(`mw_pos_${item.id}`,'0'); const oldZero=progressLabel(item);
+    const unknown=progressLabel({id:'unknown-qa',duration:0});
+    localStorage.setItem('mw_progress_rounding-qa',JSON.stringify({furthest:99.99,duration:100}));
+    const rounded=progressLabel({id:'rounding-qa',duration:100});
+    return {pass:legacy==='已听 50%' && corrupt===legacy && invalidObject===legacy && oldZero==='已听 0%' && unknown==='进度未知' && rounded==='已听 99%',legacy,corrupt,oldZero,unknown,rounded};
+  });
+  await check('pause-updates-visible-percentage-without-rebuilding-list', async () => {
+    await selectTrack(COURSE_TOPIC.tracks[6]); await qaWait(()=>sourceReady);
+    const row=document.querySelector(`[data-track-id="${track.id}"]`);
+    seekTo(audio.duration/2); await playAudio(); audio.pause();
+    return {pass:row===document.querySelector(`[data-track-id="${track.id}"]`) && row.textContent.includes('已听 50%'),text:row.textContent};
   });
   await fs.writeFile(path.join(output,'browser.png'),await page.screenshot());
 } catch (error) {
