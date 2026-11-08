@@ -1,6 +1,7 @@
 const topics = [
   { id: 'lixiong', title: '黎雄 · 生命分享', speaker: '黎雄', tracks: [ORIGINAL_TRACK] },
-  COURSE_TOPIC
+  COURSE_TOPIC,
+  HOPE_TOPIC
 ];
 const byId = id => document.getElementById(id);
 const audio = byId('audioPlayer');
@@ -85,7 +86,8 @@ function renderList() {
   byId('topicCount').textContent = `${topic.tracks.length} 集 · 已缓存 ${topic.tracks.filter(item => cacheKeys.has(item.id)).length} 集`;
   byId('btnPrevious').disabled = topic.tracks.indexOf(track) === 0;
   byId('btnNext').disabled = topic.tracks.indexOf(track) === topic.tracks.length - 1;
-  byId('importSection').hidden = topic.id !== COURSE_TOPIC.id;
+  byId('importSection').hidden = !topic.tracks.some(item => item.privateAudio);
+  byId('importInstructions').textContent = `在“文件”中选择 iCloud 云盘里的“应用备份 → 心智随身听 → ${topic.backupFolder || '正解道德经'}”文件夹。导入后可离线收听，音频不会上传。`;
   byId('btnCacheAll').hidden = !canFetchTrack(track);
   byId('btnCacheTopic').hidden = topic.tracks.some(item => !canFetchTrack(item));
   byId('cacheStatus').hidden = !canFetchTrack(track);
@@ -110,6 +112,7 @@ async function selectTrack(next, autoplay = false) {
   audio.load();
   if (blobURL) { URL.revokeObjectURL(blobURL); blobURL = null; }
   track = next;
+  if (topic !== topics.find(item => item.tracks.includes(track))) resetImportSelection();
   topic = topics.find(item => item.tracks.includes(track));
   localStorage.setItem('mw_lastTrack', track.id);
   pendingPosition = savedPosition(track);
@@ -131,7 +134,7 @@ async function selectTrack(next, autoplay = false) {
   else if (canFetchTrack(track)) audio.src = track.audioSrc;
   else {
     pendingAutoplay = false;
-    status('本集尚未导入。请从 iCloud 的“正解道德经”文件夹导入后播放。');
+    status(`本集尚未导入。请从 iCloud 的“${topic.backupFolder || '正解道德经'}”文件夹导入后播放。`);
     updateOfflineStatus();
     updateProgressUI();
     return;
@@ -221,7 +224,7 @@ window.addEventListener('pagehide', savePosition);
 document.addEventListener('visibilitychange', () => { if (document.hidden) savePosition(); });
 window.addEventListener('online', updateOfflineStatus);
 window.addEventListener('offline', updateOfflineStatus);
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?v=10').catch(error => {
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?v=11').catch(error => {
   if (error instanceof Error) byId('cacheStatus').textContent = `应用离线壳未就绪：${error.message}`; else throw error;
 });
 setupControls();

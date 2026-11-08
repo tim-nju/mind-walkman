@@ -2,6 +2,42 @@
   "version": 1,
   "required": [
     {
+      "id": "hope-source-media",
+      "kind": "test",
+      "command": "node scripts/hope-check.mjs media"
+    },
+    {
+      "id": "hope-private-backup",
+      "kind": "test",
+      "command": "node scripts/hope-check.mjs backup"
+    },
+    {
+      "id": "hope-file-import",
+      "kind": "browser",
+      "receipt": ".omo/evidence/hope/import-results.json",
+      "scenarios": [
+        "hope-real-file-input-import-and-play",
+        "hope-same-size-corruption-rejected",
+        "topic-switch-clears-unexecuted-plan",
+        "running-import-remains-bound-to-selected-topic",
+        "hope-offline-cold-reopen",
+        "hope-restore-from-private-backup",
+        "hope-import-preserves-existing-progress-and-audio"
+      ]
+    },
+    {
+      "id": "hope-ios",
+      "kind": "external",
+      "receipt": "docs/qa/hope-ios-receipt.json",
+      "scenarios": [
+        "system-files-import",
+        "real-media-time-advances",
+        "offline-cold-reopen",
+        "private-backup-restore",
+        "old-course-and-progress-preserved"
+      ]
+    },
+    {
       "id": "catalog-media",
       "kind": "media",
       "receipt": "docs/qa/media-receipt.json"
@@ -135,7 +171,7 @@
       "command": "python3 scripts/check_technical_docs.py check --root ."
     }
   ],
-  "releaseBoundary": "真实GitHub Pages仅发布应用壳；课程私有音频从iCloud文件夹导入，不公开上传。本轮不部署。",
+  "releaseBoundary": "真实GitHub Pages仅发布应用壳；课程私有音频从iCloud文件夹导入，不公开上传。用户已授权父会话发布，原生桥接执行器不得提交或发布；完整门禁仍须如实报告阻断。",
   "phoneOnly": {
     "status": "unverified",
     "requiredForClaim": [
@@ -167,6 +203,9 @@
     "scripts/import-check.mjs",
     "scripts/backup-course.mjs",
     "scripts/backup-check.mjs",
-    "scripts/progress-check.mjs"
+    "scripts/progress-check.mjs",
+    "scripts/hope-check.mjs",
+    "scripts/hope-import-check.mjs",
+    "docs/hope-source.json"
   ]
 }

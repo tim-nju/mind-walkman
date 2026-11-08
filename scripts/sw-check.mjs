@@ -18,8 +18,10 @@ context.self.location.origin='https://tim-nju.github.io';
 context.caches.match=async()=>undefined;
 let networkUsed=false;
 context.fetch=async()=>{networkUsed=true;return new Response('unexpected network');};
-let privateResponse;
-handlers.get('fetch')({request:new Request('https://tim-nju.github.io/mind-walkman/public/audio/daodejing/001.m4a'),respondWith:value=>{privateResponse=value;}});
-assert.equal((await privateResponse).status,404);
+for (const file of ['daodejing/001.m4a', 'hope/hope-workplace-03.mp3']) {
+  let privateResponse;
+  handlers.get('fetch')({request:new Request(`https://tim-nju.github.io/mind-walkman/public/audio/${file}`),respondWith:value=>{privateResponse=value;}});
+  assert.equal((await privateResponse).status,404);
+}
 assert.equal(networkUsed,false);
 console.log('PASS public missing private media never reaches network');

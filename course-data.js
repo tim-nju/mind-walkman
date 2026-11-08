@@ -2,6 +2,7 @@ const COURSE_TOPIC = {
   "id": "daodejing",
   "title": "黄明哲 · 正解道德经",
   "speaker": "黄明哲",
+  "backupFolder": "正解道德经",
   "tracks": [
     {
       "id": "daodejing-001",
@@ -1502,4 +1503,26 @@ const COURSE_TOPIC = {
       "privateAudio": true
     }
   ]
+};
+
+const HOPE_TOPIC = {
+  id: 'hope-workplace',
+  title: '万力豪 · 职场生存法则（单集）',
+  speaker: '万力豪 Pastor Peter · The Hope',
+  backupFolder: '万力豪-职场生存法则03-st01a1bbfd',
+  tracks: [{
+    id: 'hope-workplace-03',
+    title: '别人的态度，逼出你的什么？',
+    speaker: '万力豪 Pastor Peter · The Hope',
+    date: '职场生存法则 #3 · 官方播客原音',
+    duration: 2415.312,
+    audioSrc: './public/audio/hope/hope-workplace-03.mp3',
+    mime: 'audio/mpeg',
+    chapters: [],
+    sourceUrl: 'https://player.soundon.fm/p/09b13f3a-af04-46fe-8c17-94fc254636ef/episodes/02b98e9c-e2ce-43f3-adf2-e1254e0be862',
+    bytes: 96616576,
+    sha256: 'a822a091588a7c56e46c7c0b3d4eebb2ea9a89bdeffc3a58dfb96b39f9c45425',
+    fileName: 'hope-workplace-03.mp3',
+    privateAudio: true
+  }]
 };

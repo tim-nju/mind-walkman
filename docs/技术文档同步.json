@@ -1,31 +1,35 @@
 {
   "version": 1,
-  "doc_hash": "cc1b10c75f1afc270f3a8ff2c08c9c1fbe02dda577f3a796eb0341ab7fcc80f6",
+  "doc_hash": "0e158bbd7127437e490847c6a03e9966f0c65f8f5d309f089af73b9a2c2b79b1",
   "fingerprints": {
-    ".gitignore": "f43dbacbd41e455757686df381735a02688db3c50238daaf0e4c61830bf46336",
-    "app.js": "d65dcadb0fb47a41726d9e2fba20c294b30d5150e28dc799e22291627d4f484c",
+    ".gitignore": "11426cdceae07639bfea445307a1ba6af9a5a000e86b911a729e82452c56c3e2",
+    "app.js": "37d88d5352847a86ebd9695a133c1f59cf91ae8c9af5093ef7d523467ade58d6",
     "controls.js": "62b24b94bb58742f3869c094a87249435b982612472105b51bebcb317b0bd98f",
-    "course-data.js": "bcb96d81fc19ff71512ba48822559c48919df57d5e6e96d784fcde17e9cec6ae",
-    "docs/acceptance.json": "5d7f4c14d53ca13847bb07952f976082e13a3d9b8dc9f883b7ead454fc0f5425",
+    "course-data.js": "989b3b21055aa36802d4d7638925673235c1605d404051c8a9babdb6ce9d4d9e",
+    "docs/acceptance.json": "7bdcfaf4eb06a1bbee6e42aa56b853974c91d5539dbd2edf0b19922e9f7a5c74",
     "docs/daodejing-source-directory.json": "4c01a944552001aef8175d97c833990458f093396a764e4feb536fb03c2c8a3a",
+    "docs/hope-source.json": "aabb99ff011481966cd374b25f38ca64be62aeacefb1700a005db70d2a8705e7",
     "docs/qa/bilibili-source-map.json": "5f790a2581782459cd4667b3cad5271bda1aaf563cf153ca1181cc2598e39e49",
-    "importer.js": "0d3ea0607e05381b860784ae196d48f57d71290bb3eaac6664e547c389e5170a",
-    "index.html": "e623985f6983c8e0edefa2b8ab203f3b7601cdf7f0c072f37cfe0a3455fc2028",
+    "importer.js": "a890a81a29b88887ab147dbdab76bf3d93441154f0a671ecc13ad61f3f855830",
+    "index.html": "a8edb7b6c24955047a0c452fe7d6f6438a382f49a9a0b5ef4566f74b614f60ae",
     "manifest.json": "00be2e5030b8024f07314ef558aca601816a46fda272a214b5ebfd9cc43dfb4a",
     "scripts/acceptance.mjs": "c081945db4daf08e1b90dd3af0d6697cd83dbf1c21bc08e411c385db9332984b",
     "scripts/backup-check.mjs": "3694c0bf55dcadc75e1b88dde41c97369cbca2294d6f41556508b98b052398c5",
-    "scripts/backup-course.mjs": "beb3b0fd62ed56dd08a4ec4964d0db07bd57fb8a6cd21f6b7e91f3dddadd4eb1",
+    "scripts/backup-course.mjs": "97b5d9ea706caa3b05e68444d41229f90ef62b20fe323db76637943519f0e8fd",
     "scripts/browser-check.mjs": "883a264ec7be43bfdd50847a06af18201d95dfc26def612378300502aafd2437",
     "scripts/check_technical_docs.py": "5849b968b8e554520469007801ca30a270ef5694b2da4c9c3705874cbb645f12",
+    "scripts/hope-check.mjs": "df1fdd131c6c51a45a426f19f1475a2a9e3601a9a0ca8e28e17d515948012248",
+    "scripts/hope-gate-check.mjs": "9b521b77f42ce1da04d920b6f9fc8ce6a94662c138f62d357fa26070ea0b8e65",
+    "scripts/hope-import-check.mjs": "6995cc1b96188424f940c0af26dd7126f949222b45ffa7355dc24e584d8b2109",
     "scripts/import-check.mjs": "0cb625d657869c404c898fcdb23c7033a58610b9593e579189b383b2f830fd60",
     "scripts/progress-check.mjs": "eb0efa06f4e78ff0e2f2481f6c4d28ba3528c2247fbff8866030b2a600f147f1",
     "scripts/serve.mjs": "9b42a59a456b0a67e6be0feda879b9a39f9dbd8fbffbe69fb1f9f8a8ef67d20d",
     "scripts/server-check.mjs": "4561b271592f19cb96da0ea3a6c3e38ee5003097ffcdc4193b1b6de4382e52a1",
-    "scripts/sw-check.mjs": "df57e27a796bc37d255906aeaa0d24687d42258f11da2b819c99bbdfd0cc1aba",
-    "scripts/upgrade-check.mjs": "520b5c5cd26b67fc9d459c107057a766318a8d0785b570d02071b9658d22387a",
+    "scripts/sw-check.mjs": "c6ee94525f3eae46e0456fe96f944ae593822fecc5ae93d9f9a7993cd186e0c3",
+    "scripts/upgrade-check.mjs": "da4924ba4e195170458c23741aec96359505a668170dee3b960474ae5b5fee1d",
     "storage.js": "1fe96d2d452c904b508e28bd775bca06235642e8732963dce0724f89306fe10f",
     "styles.css": "655445d0268500a70d9b9d24e25ca50bcd28dd49ecd12ea0b1c0832724a6c582",
-    "sw.js": "2bbd865c15763e02022e9fe2c98a5853c387c6efd0fffeec9fb6cdfb120b8f2d",
+    "sw.js": "0f93f94bd5a6f478579a3c6ac745980f81444341becbd158402b2657cafc1d4a",
     "tracks.js": "2d893c6f03583355b5e51b89aa553008bf6c8421cfd6f57e9e29fd76226ea4cc"
   },
   "records": [
@@ -84,6 +88,41 @@
       "impact": "architecture",
       "sections": "数据模型、接口与契约、关键流程、测试与验收、迭代同步",
       "doc_hash": "cc1b10c75f1afc270f3a8ff2c08c9c1fbe02dda577f3a796eb0341ab7fcc80f6"
+    },
+    {
+      "date": "2026-11-09T00:36:22+08:00",
+      "summary": "单集候选v11导入、私有备份、桌面实测与iOS阻断如实同步；独立审阅待父会话",
+      "impact": "architecture",
+      "sections": "模块与目录,部署与配置,测试与验收,迭代同步",
+      "doc_hash": "28844d1ece190700535958c911841bb968f3382d6734680972f793e6c848dbc2"
+    },
+    {
+      "date": "2026-11-09T00:41:25+08:00",
+      "summary": "最终七场景包含实际运行中专题切换；当前离线回执由本轮真实停服和107集导入产生；iOS及旧升级和独立审阅仍阻断",
+      "impact": "architecture",
+      "sections": "测试与验收,迭代同步",
+      "doc_hash": "fd55deeef69b4f34dee60290dad6c66f3f25eb1c883c4d9cf193c7e39f687787"
+    },
+    {
+      "date": "2026-11-09T01:02:26+08:00",
+      "summary": "固定首次单录音发布作为升级夹具，严格核对当前SW接管并保留旧媒体进度；旧回执不刷新",
+      "impact": "implementation",
+      "sections": "仅修改升级验收夹具和版本断言，因为生产壳、存储、媒体与部署契约均未改变；测试与验收及迭代同步已记录历史依据、实测结果和指纹失效范围。",
+      "doc_hash": "a5e5e9a35579d83353b73ac5b6ee5ed64c36aa6191ef8f306d4e31ad9bb0b510"
+    },
+    {
+      "date": "2026-11-09T01:51:13+08:00",
+      "summary": "Hope最终独立核对当前26项指纹和实际场景截图，修正发布授权、模拟器状态及线上未验证边界",
+      "impact": "architecture",
+      "sections": "目标与范围、模块与目录、数据模型、部署与配置、迭代同步：仅校正文档事实与证据状态，因为生产代码、存储、媒体和部署契约均未变化；明确主会话待完成完整门禁和实际发布。",
+      "doc_hash": "0e158bbd7127437e490847c6a03e9966f0c65f8f5d309f089af73b9a2c2b79b1"
+    },
+    {
+      "date": "2026-11-09T01:58:33+08:00",
+      "summary": "Hope独立审阅机械补全st_01a1bc4e：复核26项指纹及现有通过回执，登记已修正文档并补齐命令记录与审阅回执",
+      "impact": "implementation",
+      "sections": "仅完成已有独立审阅st_01a1bc3b的命令记录与机器回执，因为现行架构已于01:51:13显式同步且文档哈希相同；本任务不修改生产代码、测试、架构设计或部署契约。",
+      "doc_hash": "0e158bbd7127437e490847c6a03e9966f0c65f8f5d309f089af73b9a2c2b79b1"
     }
   ]
 }

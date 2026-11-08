@@ -1,5 +1,5 @@
-const CACHE_NAME = 'mind-walkman-shell-v10';
-const STATIC_ASSETS = ['./', './index.html', './styles.css?v=10', './tracks.js?v=10', './course-data.js?v=10', './storage.js?v=10', './controls.js?v=10', './importer.js?v=10', './app.js?v=10', './manifest.json', './public/icons/icon-192.png', './public/icons/icon-512.png'];
+const CACHE_NAME = 'mind-walkman-shell-v11';
+const STATIC_ASSETS = ['./', './index.html', './styles.css?v=11', './tracks.js?v=11', './course-data.js?v=11', './storage.js?v=11', './controls.js?v=11', './importer.js?v=11', './app.js?v=11', './manifest.json', './public/icons/icon-192.png', './public/icons/icon-512.png'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(STATIC_ASSETS)).then(() => self.skipWaiting()));
 });
@@ -11,7 +11,7 @@ async function mediaResponse(request) {
   const cached = await caches.match(new Request(request.url));
   if (!cached) {
     const url = new URL(request.url);
-    if (url.pathname.includes('/audio/daodejing/') && !['localhost', '127.0.0.1', '[::1]'].includes(url.hostname)) return new Response('请从 iCloud 文件夹导入课程', { status: 404 });
+    if (/\/audio\/(daodejing|hope)\//.test(url.pathname) && !['localhost', '127.0.0.1', '[::1]'].includes(url.hostname)) return new Response('请从 iCloud 文件夹导入课程', { status: 404 });
     try { return await fetch(request); }
     catch (error) { if (error instanceof Error) return new Response('音频未缓存', { status: 503 }); throw error; }
   }

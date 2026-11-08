@@ -6,10 +6,12 @@ import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const destination = process.argv[2];
-if (!destination) throw new Error('Usage: node scripts/backup-course.mjs <destination-directory>');
+const singleEpisode = process.argv[3] === '--hope';
+if (!destination || process.argv.length > 4 || (process.argv[3] && !singleEpisode)) throw new Error('Usage: node scripts/backup-course.mjs <destination-directory> [--hope]');
 const target = resolve(destination);
-const receipt = JSON.parse(await readFile(resolve(root, 'docs/qa/media-receipt.json'), 'utf8'));
-if (receipt.status !== 'pass' || receipt.checks.length !== 107) throw new Error('Validated 107-track receipt required');
+const receipt = JSON.parse(await readFile(resolve(root, singleEpisode ? 'docs/qa/hope-media-receipt.json' : 'docs/qa/media-receipt.json'), 'utf8'));
+const expectedCount = singleEpisode ? 1 : 107;
+if (receipt.status !== 'pass' || receipt.checks.length !== expectedCount) throw new Error(`Validated ${expectedCount}-track receipt required`);
 
 async function inspect(path) {
   const stat = await lstat(path);
@@ -34,10 +36,10 @@ const files = [];
 let copied = 0;
 let reused = 0;
 for (const [index, track] of receipt.checks.entries()) {
-  const filename = `${String(index + 1).padStart(3, '0')}.m4a`;
-  if (basename(track.path) !== filename || track.id !== `daodejing-${filename.slice(0, 3)}` ||
+  const filename = singleEpisode ? 'hope-workplace-03.mp3' : `${String(index + 1).padStart(3, '0')}.m4a`;
+  if (basename(track.path) !== filename || track.id !== (singleEpisode ? 'hope-workplace-03' : `daodejing-${filename.slice(0, 3)}`) ||
       !/^[a-f0-9]{64}$/.test(track.sha256) || track.decodeExitCode !== 0) throw new Error(`Invalid receipt entry: ${index}`);
-  const source = resolve(root, 'public/audio/daodejing', filename);
+  const source = resolve(root, singleEpisode ? 'public/audio/hope' : 'public/audio/daodejing', filename);
   const output = resolve(target, filename);
   if (await exists(output)) {
     if (!matches(await inspect(output), track)) throw new Error(`Existing backup differs; kept untouched: ${output}`);
@@ -56,7 +58,7 @@ for (const [index, track] of receipt.checks.entries()) {
   }
   files.push({ id: track.id, filename, bytes: track.bytes, sha256: track.sha256, duration: track.duration });
 }
-const manifest = { schema: 1, topic: '黄明哲·正解道德经', files };
+const manifest = { schema: 1, topic: singleEpisode ? '万力豪·职场生存法则03' : '黄明哲·正解道德经', files };
 const manifestPath = resolve(target, 'manifest.json');
 const manifestText = `${JSON.stringify(manifest, null, 2)}\n`;
 if (await exists(manifestPath)) {
@@ -71,7 +73,7 @@ if (await exists(manifestPath)) {
 const result = { status: 'pass', verifiedAt: new Date().toISOString(), destination: target,
   count: files.length, bytes: files.reduce((sum, file) => sum + file.bytes, 0), copied, reused,
   cloudSync: 'unverified', manifestSha256: createHash('sha256').update(await readFile(manifestPath)).digest('hex') };
-const reportPath = resolve(root, 'docs/qa/icloud-backup-receipt.json');
+const reportPath = resolve(root, singleEpisode ? 'docs/qa/hope-backup-receipt.json' : 'docs/qa/icloud-backup-receipt.json');
 const pendingReport = `${reportPath}.${randomUUID()}.partial`;
 await writeFile(pendingReport, `${JSON.stringify(result, null, 2)}\n`, { flag: 'wx' });
 await rename(pendingReport, reportPath);
