@@ -12,9 +12,9 @@ const baseline = vm.createContext({});
 vm.runInContext(execFileSync('git', ['show', 'd9fac1ce2a22815c2e45acab22478741e1edf922:course-data.js'], { encoding: 'utf8' }) + ';globalThis.items=[COURSE_TOPIC,HOPE_TOPIC];', baseline);
 assert.deepEqual(topics.slice(0, 2), JSON.parse(JSON.stringify(baseline.items)), 'Existing 107 and Hope metadata changed');
 const manifest = JSON.parse(await fs.readFile('docs/acceptance.json', 'utf8'));
-const published = JSON.parse(execFileSync('git', ['show', 'd9fac1ce2a22815c2e45acab22478741e1edf922:docs/acceptance.json'], { encoding: 'utf8' }));
-assert.equal(published.required.length, 18);
-assert.deepEqual(manifest.required.slice(0, 18), published.required, 'Published 18 gates must remain unchanged');
+const published = JSON.parse(execFileSync('git', ['show', '262713766a2c410f455ca025df042e781e34dbe9:docs/acceptance.json'], { encoding: 'utf8' }));
+assert.equal(published.required.length, 21);
+assert.deepEqual(manifest.required.slice(0, 21), published.required, 'Published 21 gates must remain unchanged');
 const media = JSON.parse(await fs.readFile('docs/qa/scripture-1109/media-final-receipt.json', 'utf8'));
 assert.equal(media.files.length, 12);
 assert.deepEqual(topics.slice(2).map(topic => topic.tracks.length), [3, 9]);
@@ -38,4 +38,4 @@ for (const topic of topics.slice(2)) {
     console.log(`PASS ${track.id} ${track.bytes} bytes duration=${track.duration} sha256=${track.sha256}`);
   }
 }
-console.log('PASS published 18 gates, 107 course tracks and Hope metadata preserved');
+console.log('PASS published 21 gates, 107 course tracks and Hope metadata preserved');

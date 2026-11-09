@@ -2,6 +2,31 @@
   "version": 1,
   "required": [
     {
+      "id": "private-catalog-regression",
+      "kind": "test",
+      "command": "node scripts/private-catalog-check.mjs"
+    },
+    {
+      "id": "private-evidence-gate-regression",
+      "kind": "test",
+      "command": "node scripts/acceptance-check.mjs"
+    },
+    {
+      "id": "private-recording-candidate",
+      "kind": "external",
+      "receipt": ".omo/evidence/private-recording-final.json",
+      "scenarios": [
+        "private-catalog-and-real-file-input",
+        "corrupt-catalog-and-media-rejected",
+        "play-seek-resume-offline-cold-reopen",
+        "existing-tracks-and-bookmarks-preserved",
+        "private-media-http-denied",
+        "ios-files-playback-and-offline",
+        "independent-coverage-code-architecture-review",
+        "shell-upgrade-and-final-fingerprint"
+      ]
+    },
+    {
       "id": "hope-source-media",
       "kind": "test",
       "command": "node scripts/hope-check.mjs media"
@@ -252,6 +277,10 @@
     "scripts/hope-check.mjs",
     "scripts/hope-import-check.mjs",
     "docs/hope-source.json",
+    "scripts/private-catalog-check.mjs",
+    "scripts/private-recording-evidence.mjs",
+    "scripts/acceptance-check.mjs",
+    "scripts/private-recording-browser-check.mjs",
     "scripts/scripture-check.mjs",
     "scripts/scripture-import-check.mjs",
     "scripts/scripture-gate-check.mjs"

@@ -3,6 +3,10 @@ import path from 'node:path';
 import vm from 'node:vm';
 import { createHash } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
+import { validatePrivateRecording } from './private-recording-evidence.mjs';
+const args = process.argv.slice(2);
+if (args.length && (args.length !== 2 || args[0] !== '--check')) throw new Error('用法: node scripts/acceptance.mjs [--check <id>]');
+const selected = args[1];
 const evidence = path.resolve(process.env.EVIDENCE_DIR || '.omo/evidence/topic-player');
 await fs.mkdir(evidence,{recursive:true});
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
@@ -22,7 +26,8 @@ function fresh(value) {
   for(const [name,sha] of Object.entries(sources)) if(value.sources?.[name]!==sha) throw new Error(`过期或缺少源码指纹 ${name}`);
 }
 const manifest=JSON.parse(await fs.readFile('docs/acceptance.json','utf8'));
-for(const required of manifest.required) await check(required.id,async()=>{
+if (selected && !manifest.required.some(item => item.id === selected)) throw new Error(`未知检查 ${selected}`);
+for(const required of manifest.required.filter(item => !selected || item.id === selected)) await check(required.id,async()=>{
   switch(required.kind) {
     case 'media': {
       const context=vm.createContext({});
@@ -82,6 +87,7 @@ for(const required of manifest.required) await check(required.id,async()=>{
     }
     case 'external': {
       const value=await receipt(required.receipt); fresh(value);
+      if (required.id === 'private-recording-candidate') return validatePrivateRecording(value, required, sources);
       for(const scenario of required.scenarios) if(!value.checks?.some(item=>item.id===scenario && item.status==='pass')) throw new Error(`缺少必需场景 ${scenario}`);
       if(!Array.isArray(value.checks) || !value.checks.length || value.checks.some(item=>item.status!=='pass')) throw new Error('必需环境存在失败/跳过或空检查');
       if(!Array.isArray(value.artifacts) || !value.artifacts.length) throw new Error('缺少验收制品');
@@ -92,6 +98,7 @@ for(const required of manifest.required) await check(required.id,async()=>{
   }
 });
 const passed=checks.every(item=>item.status==='pass');
-await fs.writeFile(path.join(evidence,'acceptance-result.json'),JSON.stringify({status:passed?'pass':'blocked',invocation:'node scripts/acceptance.mjs',sources,checks},null,2));
-console.log(JSON.stringify({status:passed?'pass':'blocked',checks},null,2));
+const status=passed?(selected?'partial-pass':'pass'):'blocked';
+await fs.writeFile(path.join(evidence,'acceptance-result.json'),JSON.stringify({status,scope:selected?'partial':'full',invocation:process.argv.slice(1),sources,checks},null,2));
+console.log(JSON.stringify({status,scope:selected?'partial':'full',checks},null,2));
 process.exitCode=passed?0:1;

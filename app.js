@@ -5,9 +5,16 @@ const topics = [
   BIBLE_TOPIC,
   DIAMOND_TOPIC
 ];
+let privateTracks = [];
+try { privateTracks = readPrivateCatalog(); }
+catch (error) {
+  if (error instanceof Error) privateCatalogStatus(`私人目录读取失败：${error.message}。已保留原数据，修复前不能导入新目录。`);
+  else throw error;
+}
+if (privateTracks.length) topics.push({ id: 'private-library', title: '私人录音', tracks: privateTracks });
 const byId = id => document.getElementById(id);
 const audio = byId('audioPlayer');
-const canFetchTrack = item => !item.privateAudio || ['localhost', '127.0.0.1', '[::1]'].includes(location.hostname);
+const canFetchTrack = item => !item.localOnly && (!item.privateAudio || ['localhost', '127.0.0.1', '[::1]'].includes(location.hostname));
 const allTracks = topics.flatMap(topic => topic.tracks);
 let track = allTracks.find(item => item.id === localStorage.getItem('mw_lastTrack')) || ORIGINAL_TRACK;
 let topic = topics.find(item => item.tracks.includes(track));
@@ -90,6 +97,7 @@ function renderList() {
   byId('btnNext').disabled = topic.tracks.indexOf(track) === topic.tracks.length - 1;
   byId('importSection').hidden = !topic.tracks.some(item => item.privateAudio);
   byId('importInstructions').textContent = `在“文件”中选择 iCloud 云盘里的“应用备份 → 心智随身听 → ${topic.backupFolder || '正解道德经'}”文件夹。导入后可离线收听，音频不会上传。`;
+  if (track.localOnly) byId('importInstructions').textContent = '选择私人目录对应的本地音频文件。目录和音频仅保存在当前浏览器，不会上传。';
   byId('btnCacheAll').hidden = !canFetchTrack(track);
   byId('btnCacheTopic').hidden = topic.tracks.some(item => !canFetchTrack(item));
   byId('cacheStatus').hidden = !canFetchTrack(track);
@@ -226,7 +234,7 @@ window.addEventListener('pagehide', savePosition);
 document.addEventListener('visibilitychange', () => { if (document.hidden) savePosition(); });
 window.addEventListener('online', updateOfflineStatus);
 window.addEventListener('offline', updateOfflineStatus);
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?v=13').catch(error => {
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?v=14').catch(error => {
   if (error instanceof Error) byId('cacheStatus').textContent = `应用离线壳未就绪：${error.message}`; else throw error;
 });
 setupControls();

@@ -1,19 +1,20 @@
 {
   "version": 1,
-  "doc_hash": "265563b0356e1d13d3091aa84966486a01b900768af1c8d0997b5564af4398d2",
+  "doc_hash": "d1d8798392da4940ed318834b2a22bac2d97164dec94eee27d60258e7d930990",
   "fingerprints": {
-    ".gitignore": "17e694410e197c513c9e546528f2a3c1a8600ccb086f9258f9dd8d729f20ac12",
-    "app.js": "4817fd06a675e9f3ab2e18a53e73accf6f25564acd0bf637d996a1b6018f39ef",
+    ".gitignore": "a5d550a9b34a3cac839faa40281a1d371dcf69eace3a678b781194c15d44b83c",
+    "app.js": "276fa7da42f9201cffdd7fd0d7113d75c30c2b09a5043802290477a52ae12a50",
     "controls.js": "62b24b94bb58742f3869c094a87249435b982612472105b51bebcb317b0bd98f",
     "course-data.js": "b7112309e1fbc53756c1ae704102d520f89476cb325cc23894fea22a42ce905d",
-    "docs/acceptance.json": "c83cc53bf266ec7ce65e0fef5585fe25167c7aa7e55fddedb3509e96408739bc",
+    "docs/acceptance.json": "194c0633d5563fedc7800ef1f379fbf42354a357fe090bf5fad8b508b936ee4b",
     "docs/daodejing-source-directory.json": "4c01a944552001aef8175d97c833990458f093396a764e4feb536fb03c2c8a3a",
     "docs/hope-source.json": "aabb99ff011481966cd374b25f38ca64be62aeacefb1700a005db70d2a8705e7",
     "docs/qa/bilibili-source-map.json": "5f790a2581782459cd4667b3cad5271bda1aaf563cf153ca1181cc2598e39e49",
-    "importer.js": "a890a81a29b88887ab147dbdab76bf3d93441154f0a671ecc13ad61f3f855830",
-    "index.html": "e60525c29f6feb156f6d5f1a3967d8d54a724a54d185f1464fad29d06010edcd",
+    "importer.js": "9e34a71ef132574aebbcfb436a07c770c5d86166da86185faa685e8b7208fed2",
+    "index.html": "19d01b78a8eedad0e9aaa50633272e0ddda1ac41b019da8d16a9e5cd6146778f",
     "manifest.json": "00be2e5030b8024f07314ef558aca601816a46fda272a214b5ebfd9cc43dfb4a",
-    "scripts/acceptance.mjs": "c081945db4daf08e1b90dd3af0d6697cd83dbf1c21bc08e411c385db9332984b",
+    "scripts/acceptance-check.mjs": "480b6c48c87300d9651102d1d6ce7a766c7f000b5fc9633d1325159c38aa584c",
+    "scripts/acceptance.mjs": "f36f6b04bb4bc6b75584a8f0e5c2371ed2bda5e5834c52dac35041c3d9d21a00",
     "scripts/backup-check.mjs": "3694c0bf55dcadc75e1b88dde41c97369cbca2294d6f41556508b98b052398c5",
     "scripts/backup-course.mjs": "97b5d9ea706caa3b05e68444d41229f90ef62b20fe323db76637943519f0e8fd",
     "scripts/browser-check.mjs": "934502fdca3e6e6082ae846cedcebd412f1b37f58081b5d126276de1dd0979fd",
@@ -22,17 +23,19 @@
     "scripts/hope-gate-check.mjs": "9b521b77f42ce1da04d920b6f9fc8ce6a94662c138f62d357fa26070ea0b8e65",
     "scripts/hope-import-check.mjs": "e7dd092d7cbb157e354063089d126b7ff3785cdf5402dc54f92970c62223b903",
     "scripts/import-check.mjs": "988d37e515ab54cb1f95eb0103563f058f22f565fc66ec1a59477c74698b10e7",
+    "scripts/private-catalog-check.mjs": "f76325f07ba76b34c7dec33524dd4cf5e971bdfa46105228542373adcb6fcca6",
+    "scripts/private-recording-evidence.mjs": "982d3ddfee85506aa8bb95c1cbb28a9628a4dcba102ee83b1c44f8dacb1870dc",
     "scripts/progress-check.mjs": "eb0efa06f4e78ff0e2f2481f6c4d28ba3528c2247fbff8866030b2a600f147f1",
-    "scripts/scripture-check.mjs": "01f7f38676cd1eb99a4575e7d0c61e7621e8610bd5d64a13f056fff6d182f83c",
+    "scripts/scripture-check.mjs": "6fbbb372f2bd67c7f0ebf97ebb58d03508c79308b91af3bbfa776e78ae9b813f",
     "scripts/scripture-gate-check.mjs": "e3daeef57de594c7cede8f824967de9fac7c64bac22b7b344b0e5471e6a78b36",
     "scripts/scripture-import-check.mjs": "1e8141994b8616840721043a86a3485b5904d628e41db1b10b6c4ed1db0411cc",
     "scripts/serve.mjs": "9b42a59a456b0a67e6be0feda879b9a39f9dbd8fbffbe69fb1f9f8a8ef67d20d",
     "scripts/server-check.mjs": "4561b271592f19cb96da0ea3a6c3e38ee5003097ffcdc4193b1b6de4382e52a1",
     "scripts/sw-check.mjs": "6f68ac3f84c0ebfede0515de2d9103547cd8e5f31515ab5fcede000ecb21a4cb",
     "scripts/upgrade-check.mjs": "da4924ba4e195170458c23741aec96359505a668170dee3b960474ae5b5fee1d",
-    "storage.js": "1fe96d2d452c904b508e28bd775bca06235642e8732963dce0724f89306fe10f",
+    "storage.js": "dcd565fb6a5a1748d90d62a5efeced03362dba7a368f2c3bbc7431bf528a9435",
     "styles.css": "655445d0268500a70d9b9d24e25ca50bcd28dd49ecd12ea0b1c0832724a6c582",
-    "sw.js": "fff1c8168739121413c5f022c4901aff81667d13bdad5bfc8e87eacc6af8f694",
+    "sw.js": "6e91733da92893f54e83f65f1f63ed944a881eedc0f8bf33c4928c54f9414af9",
     "tracks.js": "2d893c6f03583355b5e51b89aa553008bf6c8421cfd6f57e9e29fd76226ea4cc"
   },
   "records": [
@@ -128,25 +131,46 @@
       "doc_hash": "0e158bbd7127437e490847c6a03e9966f0c65f8f5d309f089af73b9a2c2b79b1"
     },
     {
-      "date": "2026-11-09T22:38:29+08:00",
-      "summary": "2026-11-09 reviewed static Bible3 Diamond9 design, v13 shell, all18 gates retained plus four scripture gates; external evidence remains blocked",
+      "date": "2026-11-09T08:54:59+08:00",
+      "summary": "新增浏览器本地私有目录及仅文件导入契约；完整验收仍阻断并待独立审查",
       "impact": "architecture",
-      "sections": "目标与范围,模块与目录,数据模型,接口与契约,部署与配置,安全与隐私,测试与验收,技术决策,迭代同步",
-      "doc_hash": "3d90ebd258ec0c470f4f83e76f82e003bef0e9f29bbd3592d26cae88aa26afb6"
+      "sections": "数据模型,接口与契约,安全与隐私,测试与验收,迭代同步",
+      "doc_hash": "cd10a94180560cb43c87c54df0759c7b55bec33a90b40a2ebbd8cc0a7ce83fe8"
     },
     {
-      "date": "2026-11-09T23:16:23+08:00",
-      "summary": "Correct published v11 versus pending v13, historical approvals, four private directories and unverified footer device claim",
+      "date": "2026-11-09T21:47:11+08:00",
+      "summary": "修复私人目录身份冲突、合并保留、文件名边界和可见存储错误，完成六组定向回归",
       "impact": "architecture",
-      "sections": "目标与范围、模块与目录、部署与配置、迭代同步：校正历史与当前状态；仅修改页脚能力说明，不改变播放、存储、接口或媒体契约，GUI/iOS仍待最终源码实测",
-      "doc_hash": "dda70f54e96225821bfe8fa637ce5bf342bacd79d52ea998dd38c3d457e5772c"
+      "sections": "迭代同步：实施前定义身份与保留契约，实施后复核存储边界与验证范围；完整验收由父会话另行执行",
+      "doc_hash": "becb49f850fd2257872079736ce2d7807f5c5d32f51dab7fcf5dbdf6fd00093e"
     },
     {
-      "date": "2026-11-09T23:27:53+08:00",
-      "summary": "记录用户知悉未完成验收后直接发布及改由Codex执行的本次决定，不改门禁或回执状态",
+      "date": "2026-11-09T22:16:06+08:00",
+      "summary": "有界恢复：登记既有v12证据契约、壳版本和最终候选验证边界，整体保持BLOCKED",
+      "impact": "architecture",
+      "sections": "迭代同步：已核对目录身份修复、结构化门禁、负例测试与v12缓存契约；本次只补取证状态，不修改运行代码；独立审阅及iOS仍阻断",
+      "doc_hash": "414f06f695203f8b6cc940b09a21b234548b54e34fb5f36bdba60944b538cbd5"
+    },
+    {
+      "date": "2026-11-09T23:01:01+08:00",
+      "summary": "v12按本次明确授权准备发布，公开通用目录和证据校验代码，私人QA上下文与详细报告保留本地",
+      "impact": "architecture",
+      "sections": "部署与配置、安全与隐私、测试与验收、迭代同步：现行实现已独立审阅；公开泛化架构并明确17/21未通过与一次性发布例外，不修改生产代码或完整清单。",
+      "doc_hash": "f86c40024610cad87151c6c9aeab10514ca99884b1cc8025a10fcbb70d2057a4"
+    },
+    {
+      "date": "2026-11-09T23:01:53+08:00",
+      "summary": "发布隐私检查将私人报告改为通用Markdown忽略规则，避免公开排除规则暴露私人主题",
       "impact": "implementation",
-      "sections": "部署与配置、测试与验收：仅记录本次发布顺序例外，生产代码、媒体、存储与接口均未变化",
-      "doc_hash": "265563b0356e1d13d3091aa84966486a01b900768af1c8d0997b5564af4398d2"
+      "sections": "仅修改Git排除模式，因为公开范围和本地证据保留架构未改变，已跟踪设计文档仍跟踪；生产与21项门禁不变。",
+      "doc_hash": "f86c40024610cad87151c6c9aeab10514ca99884b1cc8025a10fcbb70d2057a4"
+    },
+    {
+      "date": "2026-11-09T23:32:54+08:00",
+      "summary": "合并已发布v12私人目录功能与两个静态专题，统一v14并完整保留25门禁",
+      "impact": "architecture",
+      "sections": "模块与目录、数据模型、部署与配置、测试与验收、迭代同步；保留localOnly与内容身份约束，无新服务或权限",
+      "doc_hash": "d1d8798392da4940ed318834b2a22bac2d97164dec94eee27d60258e7d930990"
     }
   ]
 }
