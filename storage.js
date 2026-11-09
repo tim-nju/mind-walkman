@@ -35,6 +35,7 @@ const AudioStore = (() => {
       await this.put(track.id, new Blob([blob], { type: track.mime || 'audio/mpeg' }));
     },
     async download(track, signal) {
+      if (track.localOnly) throw new Error('请选择本地私人音频文件');
       if (track.privateAudio && !['localhost', '127.0.0.1', '[::1]'].includes(location.hostname)) throw new Error('请从 iCloud 文件夹导入课程');
       // Native fetch retained for the zero-build, dependency-free browser app.
       const response = await fetch(track.audioSrc, { signal });

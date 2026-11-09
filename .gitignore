@@ -6,5 +6,9 @@ __pycache__/
 public/audio/daodejing/
 public/audio/hope/
 .omo/evidence/
+.private-media/
+# Local QA harness and reports retain private fixture / workstation context.
+scripts/private-recording-browser-check.mjs
+docs/*.md
 docs/qa/*
 !docs/qa/bilibili-source-map.json

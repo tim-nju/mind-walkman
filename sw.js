@@ -1,5 +1,5 @@
-const CACHE_NAME = 'mind-walkman-shell-v11';
-const STATIC_ASSETS = ['./', './index.html', './styles.css?v=11', './tracks.js?v=11', './course-data.js?v=11', './storage.js?v=11', './controls.js?v=11', './importer.js?v=11', './app.js?v=11', './manifest.json', './public/icons/icon-192.png', './public/icons/icon-512.png'];
+const CACHE_NAME = 'mind-walkman-shell-v12';
+const STATIC_ASSETS = ['./', './index.html', './styles.css?v=12', './tracks.js?v=12', './course-data.js?v=12', './storage.js?v=12', './controls.js?v=12', './importer.js?v=12', './app.js?v=12', './manifest.json', './public/icons/icon-192.png', './public/icons/icon-512.png'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(STATIC_ASSETS)).then(() => self.skipWaiting()));
 });

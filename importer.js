@@ -1,6 +1,46 @@
 let importPlan = [];
 let importController = null;
 let importTopic = null;
+function privateCatalog(value) {
+  if (!Array.isArray(value) || !value.length) throw new Error('私人目录必须包含音轨');
+  const ids = new Set();
+  const names = new Set();
+  return value.map(item => {
+    if (!item || typeof item.id !== 'string' || !/^private-[a-z0-9-]+$/.test(item.id) || ids.has(item.id) ||
+        !['title', 'date', 'fileName'].every(key => typeof item[key] === 'string' && item[key].length > 0) ||
+        !Number.isFinite(item.duration) || item.duration <= 0 || !Number.isSafeInteger(item.bytes) || item.bytes <= 0 ||
+        !/^[a-f0-9]{64}$/.test(item.sha256) || !['audio/mp4', 'audio/mpeg', 'audio/ogg'].includes(item.mime)) {
+      throw new Error('私人目录格式无效');
+    }
+    if (names.has(item.fileName) || item.fileName !== item.fileName.trim() ||
+        /[/\\:\u0000-\u001f\u007f]/.test(item.fileName) || ['.', '..'].includes(item.fileName)) {
+      throw new Error('私人目录文件名必须唯一且为可选择的本地文件名');
+    }
+    ids.add(item.id);
+    names.add(item.fileName);
+    return { id: item.id, title: item.title, date: item.date, fileName: item.fileName,
+      duration: item.duration, bytes: item.bytes, sha256: item.sha256, mime: item.mime,
+      speaker: '', chapters: [], privateAudio: true, localOnly: true, audioSrc: '' };
+  });
+}
+function readPrivateCatalog() {
+  const raw = localStorage.getItem('mw_private_catalog');
+  if (raw === null) return [];
+  const value = JSON.parse(raw);
+  if (Array.isArray(value) && !value.length) return [];
+  return privateCatalog(value);
+}
+function privateCatalogStatus(text) {
+  let message = document.getElementById('privateCatalogStatus');
+  if (!message) {
+    message = document.createElement('p');
+    message.id = 'privateCatalogStatus';
+    message.setAttribute('role', 'status');
+    message.setAttribute('aria-live', 'polite');
+    document.getElementById('importSection').before(message);
+  }
+  message.textContent = text;
+}
 function resetImportSelection() {
   importPlan = [];
   importTopic = null;
@@ -69,6 +109,37 @@ async function importSelectedFiles() {
   }
 }
 function setupImporter() {
+  const label = document.createElement('label');
+  label.textContent = '导入私人目录 ';
+  const input = document.createElement('input');
+  input.id = 'privateCatalogInput';
+  input.type = 'file';
+  input.accept = '.json,application/json';
+  label.append(input);
+  byId('importSection').before(label);
+  if (!document.getElementById('privateCatalogStatus')) privateCatalogStatus('');
+  input.addEventListener('change', async () => {
+    const file = input.files[0];
+    if (!file) return;
+    try {
+      const incoming = privateCatalog(JSON.parse(await file.text()));
+      const entries = readPrivateCatalog();
+      for (const item of incoming) {
+        const existing = entries.find(entry => entry.id === item.id);
+        if (existing) {
+          if (existing.bytes !== item.bytes || existing.sha256 !== item.sha256) {
+            throw new Error('私人目录 ID 已对应不同音频，请使用新的 ID');
+          }
+        } else entries.push(item);
+      }
+      privateCatalog(entries);
+      localStorage.setItem('mw_private_catalog', JSON.stringify(entries));
+      location.reload();
+    } catch (error) {
+      if (error instanceof Error) privateCatalogStatus(`私人目录导入失败：${error.message}。原目录未更改。`);
+      else throw error;
+    }
+  });
   for (const id of ['folderInput', 'filesInput']) byId(id).addEventListener('change', event => {
     showImportSelection(Array.from(event.target.files || []));
     event.target.value = '';
