@@ -239,6 +239,11 @@
         "failed-evidence-rejected",
         "stale-evidence-rejected"
       ]
+    },
+    {
+      "id": "sealed-media-authentication",
+      "kind": "test",
+      "command": "node scripts/sealed-media-check.mjs"
     }
   ],
   "releaseBoundary": "真实GitHub Pages仅发布应用壳；课程私有音频从iCloud文件夹导入，不公开上传。用户已授权父会话发布，原生桥接执行器不得提交或发布；完整门禁仍须如实报告阻断。",
@@ -283,6 +288,11 @@
     "scripts/private-recording-browser-check.mjs",
     "scripts/scripture-check.mjs",
     "scripts/scripture-import-check.mjs",
-    "scripts/scripture-gate-check.mjs"
+    "scripts/scripture-gate-check.mjs",
+    "listen.html",
+    "sealed-media.js",
+    "private-delivery.js",
+    "scripts/sealed-media-check.mjs",
+    "scripts/seal-media.mjs"
   ]
 }

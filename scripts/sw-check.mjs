@@ -25,3 +25,21 @@ for (const file of ['daodejing/001.m4a', 'hope/hope-workplace-03.mp3', 'scriptur
 }
 assert.equal(networkUsed,false);
 console.log('PASS public missing private media never reaches network');
+
+// Browser HTTP cache may still hold the previous release at unversioned URLs.
+// Assert the platform cache-mode contract at the real worker install boundary.
+const installRequests=[];
+context.Request=class extends Request {
+  constructor(input, options) { super(new URL(input,'https://example.test/player/'),options); }
+};
+context.caches.open=async()=>({addAll:async requests=>installRequests.push(...requests)});
+context.self.skipWaiting=async()=>{};
+let installation;
+handlers.get('install')({waitUntil:value=>{installation=value;}});
+await installation;
+assert.ok(installRequests.length>0);
+for(const request of installRequests) {
+  assert.ok(request instanceof Request,'install must declare the HTTP cache policy');
+  assert.equal(request.cache,'reload','new shell must bypass stale HTTP cache');
+}
+console.log('PASS install bypasses old HTTP cache for every shell resource');

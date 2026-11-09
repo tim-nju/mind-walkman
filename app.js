@@ -95,7 +95,7 @@ function renderList() {
   byId('topicCount').textContent = `${topic.tracks.length} 集 · 已缓存 ${topic.tracks.filter(item => cacheKeys.has(item.id)).length} 集`;
   byId('btnPrevious').disabled = topic.tracks.indexOf(track) === 0;
   byId('btnNext').disabled = topic.tracks.indexOf(track) === topic.tracks.length - 1;
-  byId('importSection').hidden = !topic.tracks.some(item => item.privateAudio);
+  byId('importSection').hidden = !topic.tracks.some(item => item.privateAudio) || (track.localOnly && cacheKeys.has(track.id));
   byId('importInstructions').textContent = `在“文件”中选择 iCloud 云盘里的“应用备份 → 心智随身听 → ${topic.backupFolder || '正解道德经'}”文件夹。导入后可离线收听，音频不会上传。`;
   if (track.localOnly) byId('importInstructions').textContent = '选择私人目录对应的本地音频文件。目录和音频仅保存在当前浏览器，不会上传。';
   byId('btnCacheAll').hidden = !canFetchTrack(track);
@@ -234,7 +234,7 @@ window.addEventListener('pagehide', savePosition);
 document.addEventListener('visibilitychange', () => { if (document.hidden) savePosition(); });
 window.addEventListener('online', updateOfflineStatus);
 window.addEventListener('offline', updateOfflineStatus);
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?v=14').catch(error => {
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?v=15').catch(error => {
   if (error instanceof Error) byId('cacheStatus').textContent = `应用离线壳未就绪：${error.message}`; else throw error;
 });
 setupControls();

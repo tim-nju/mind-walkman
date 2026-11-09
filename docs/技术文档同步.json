@@ -1,18 +1,20 @@
 {
   "version": 1,
-  "doc_hash": "d1d8798392da4940ed318834b2a22bac2d97164dec94eee27d60258e7d930990",
+  "doc_hash": "dccc8fbc8c1cd5347fab0fe38dbc23ecb585ffe4bc2f1f94614cf8bc8b17d4e8",
   "fingerprints": {
     ".gitignore": "a5d550a9b34a3cac839faa40281a1d371dcf69eace3a678b781194c15d44b83c",
-    "app.js": "276fa7da42f9201cffdd7fd0d7113d75c30c2b09a5043802290477a52ae12a50",
+    "app.js": "99484c94f2fb18fcae31d4a995ceb5f6676b8b88ca2e131d0c7064508c2941b8",
     "controls.js": "62b24b94bb58742f3869c094a87249435b982612472105b51bebcb317b0bd98f",
     "course-data.js": "b7112309e1fbc53756c1ae704102d520f89476cb325cc23894fea22a42ce905d",
-    "docs/acceptance.json": "194c0633d5563fedc7800ef1f379fbf42354a357fe090bf5fad8b508b936ee4b",
+    "docs/acceptance.json": "0192c0eb0ed5145b238a379e00ec1a3846623b3d192f82b70ce9143d0bfe8bcd",
     "docs/daodejing-source-directory.json": "4c01a944552001aef8175d97c833990458f093396a764e4feb536fb03c2c8a3a",
     "docs/hope-source.json": "aabb99ff011481966cd374b25f38ca64be62aeacefb1700a005db70d2a8705e7",
     "docs/qa/bilibili-source-map.json": "5f790a2581782459cd4667b3cad5271bda1aaf563cf153ca1181cc2598e39e49",
     "importer.js": "9e34a71ef132574aebbcfb436a07c770c5d86166da86185faa685e8b7208fed2",
-    "index.html": "19d01b78a8eedad0e9aaa50633272e0ddda1ac41b019da8d16a9e5cd6146778f",
+    "index.html": "d6edb6ef7e7e2a0bfa523bbc87225e382fb9dc5edd568ec70c0fa025a382d19a",
+    "listen.html": "d6edb6ef7e7e2a0bfa523bbc87225e382fb9dc5edd568ec70c0fa025a382d19a",
     "manifest.json": "00be2e5030b8024f07314ef558aca601816a46fda272a214b5ebfd9cc43dfb4a",
+    "private-delivery.js": "7afc05390f26306b7932397c850a2374b8100a8e0c3f215fe539fd14312a48ba",
     "scripts/acceptance-check.mjs": "480b6c48c87300d9651102d1d6ce7a766c7f000b5fc9633d1325159c38aa584c",
     "scripts/acceptance.mjs": "f36f6b04bb4bc6b75584a8f0e5c2371ed2bda5e5834c52dac35041c3d9d21a00",
     "scripts/backup-check.mjs": "3694c0bf55dcadc75e1b88dde41c97369cbca2294d6f41556508b98b052398c5",
@@ -29,13 +31,16 @@
     "scripts/scripture-check.mjs": "6fbbb372f2bd67c7f0ebf97ebb58d03508c79308b91af3bbfa776e78ae9b813f",
     "scripts/scripture-gate-check.mjs": "e3daeef57de594c7cede8f824967de9fac7c64bac22b7b344b0e5471e6a78b36",
     "scripts/scripture-import-check.mjs": "1e8141994b8616840721043a86a3485b5904d628e41db1b10b6c4ed1db0411cc",
-    "scripts/serve.mjs": "9b42a59a456b0a67e6be0feda879b9a39f9dbd8fbffbe69fb1f9f8a8ef67d20d",
+    "scripts/seal-media.mjs": "858c21987d8b4f735db6fe338692c84f3353384d619069ae66bb7102b61828e5",
+    "scripts/sealed-media-check.mjs": "6faeaded66e16fdc7e16dd1cb83deba270be69c44c2aee2ba04af7618d825c7e",
+    "scripts/serve.mjs": "29a2c2f17839b5142ac1e3a31fc7d8ac5df1b333f0ffe1ac086e8cf5383c0c6f",
     "scripts/server-check.mjs": "4561b271592f19cb96da0ea3a6c3e38ee5003097ffcdc4193b1b6de4382e52a1",
-    "scripts/sw-check.mjs": "6f68ac3f84c0ebfede0515de2d9103547cd8e5f31515ab5fcede000ecb21a4cb",
+    "scripts/sw-check.mjs": "511007728636dd820b4bdf79cf65c17d8efbb0f54464390ba8db3e5ebd232768",
     "scripts/upgrade-check.mjs": "da4924ba4e195170458c23741aec96359505a668170dee3b960474ae5b5fee1d",
+    "sealed-media.js": "4b61589914185860bcf008f3ed5ae2092cc7ffa592ec61fc4a569d8dac741221",
     "storage.js": "dcd565fb6a5a1748d90d62a5efeced03362dba7a368f2c3bbc7431bf528a9435",
     "styles.css": "655445d0268500a70d9b9d24e25ca50bcd28dd49ecd12ea0b1c0832724a6c582",
-    "sw.js": "6e91733da92893f54e83f65f1f63ed944a881eedc0f8bf33c4928c54f9414af9",
+    "sw.js": "8d2d64abc0f5c4418eab836ddc902cc17931045358b3f67abb099ddbbba141e5",
     "tracks.js": "2d893c6f03583355b5e51b89aa553008bf6c8421cfd6f57e9e29fd76226ea4cc"
   },
   "records": [
@@ -171,6 +176,20 @@
       "impact": "architecture",
       "sections": "模块与目录、数据模型、部署与配置、测试与验收、迭代同步；保留localOnly与内容身份约束，无新服务或权限",
       "doc_hash": "d1d8798392da4940ed318834b2a22bac2d97164dec94eee27d60258e7d930990"
+    },
+    {
+      "date": "2026-11-09T23:44:58+08:00",
+      "summary": "合并已上线v14全部专题及门禁，v15修复缓存并发布经明确授权的AES-GCM密文；不上传密钥",
+      "impact": "architecture",
+      "sections": "加密私人收听交付（本轮设计）,迭代同步",
+      "doc_hash": "67bcfe5047296ae668de0d9f9a4c004cbc8efb10b0d20c060523c56f7edec57a"
+    },
+    {
+      "date": "2026-11-10T00:19:17+08:00",
+      "summary": "缩小加密分块并兼容旧包，原音与密钥仍不发布",
+      "impact": "architecture",
+      "sections": "加密私人收听交付（本轮设计）",
+      "doc_hash": "dccc8fbc8c1cd5347fab0fe38dbc23ecb585ffe4bc2f1f94614cf8bc8b17d4e8"
     }
   ]
 }

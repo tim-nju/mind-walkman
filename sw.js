@@ -1,7 +1,7 @@
-const CACHE_NAME = 'mind-walkman-shell-v14';
-const STATIC_ASSETS = ['./', './index.html', './styles.css?v=14', './tracks.js?v=14', './course-data.js?v=14', './storage.js?v=14', './controls.js?v=14', './importer.js?v=14', './app.js?v=14', './manifest.json', './public/icons/icon-192.png', './public/icons/icon-512.png'];
+const CACHE_NAME = 'mind-walkman-shell-v15';
+const STATIC_ASSETS = ['./', './index.html', './listen.html', './styles.css?v=15', './tracks.js?v=15', './course-data.js?v=15', './storage.js?v=15', './controls.js?v=15', './importer.js?v=15', './app.js?v=15', './sealed-media.js?v=15', './private-delivery.js?v=15', './manifest.json', './public/icons/icon-192.png', './public/icons/icon-512.png'];
 self.addEventListener('install', event => {
-  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(STATIC_ASSETS)).then(() => self.skipWaiting()));
+  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(STATIC_ASSETS.map(asset => new Request(asset, { cache: 'reload' })))).then(() => self.skipWaiting()));
 });
 self.addEventListener('activate', event => {
   // Keep v2 media cache: existing offline recordings must survive an upgrade.

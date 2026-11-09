@@ -1,0 +1,26 @@
+import { readFileSync } from 'node:fs';
+import { createCipheriv, randomBytes, webcrypto } from 'node:crypto';
+import vm from 'node:vm';
+import assert from 'node:assert/strict';
+
+const context = vm.createContext({ crypto: webcrypto, atob, TextEncoder, Uint8Array, Error });
+vm.runInContext(readFileSync('sealed-media.js', 'utf8') + '\nglobalThis.protocol = SealedMedia;', context);
+const protocol = context.protocol;
+const id = '0123456789abcdef0123456789abcdef';
+const key = randomBytes(32);
+const envelope = protocol.parseToken(`${id}.${key.toString('base64url')}`);
+const plaintext = Buffer.from('private fixture: authenticated content');
+const iv = randomBytes(12);
+const cipher = createCipheriv('aes-256-gcm', key, iv);
+cipher.setAAD(Buffer.from(`${id}/0`));
+const bytes = Buffer.concat([iv, cipher.update(plaintext), cipher.final(), cipher.getAuthTag()]);
+assert.deepEqual(Buffer.from(await protocol.open(envelope, '0', bytes)), plaintext);
+const modified = Buffer.from(bytes);
+modified[15] ^= 1;
+await assert.rejects(protocol.open(envelope, '0', modified));
+await assert.rejects(protocol.open(envelope, '1', bytes));
+await assert.rejects(protocol.open({ ...envelope, id: 'f'.repeat(32) }, '0', bytes));
+await assert.rejects(protocol.open({ ...envelope, raw: randomBytes(32) }, '0', bytes));
+await assert.rejects(protocol.open(envelope, '0', bytes.subarray(0, 27)));
+for (const value of ['', '../escape.key', `${id}.short`]) assert.throws(() => protocol.parseToken(value));
+console.log('PASS authenticated roundtrip; changed ciphertext, part, bundle, key, truncation and malformed link rejected');
