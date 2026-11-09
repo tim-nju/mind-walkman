@@ -1,7 +1,9 @@
 const topics = [
   { id: 'lixiong', title: '黎雄 · 生命分享', speaker: '黎雄', tracks: [ORIGINAL_TRACK] },
   COURSE_TOPIC,
-  HOPE_TOPIC
+  HOPE_TOPIC,
+  BIBLE_TOPIC,
+  DIAMOND_TOPIC
 ];
 const byId = id => document.getElementById(id);
 const audio = byId('audioPlayer');
@@ -224,7 +226,7 @@ window.addEventListener('pagehide', savePosition);
 document.addEventListener('visibilitychange', () => { if (document.hidden) savePosition(); });
 window.addEventListener('online', updateOfflineStatus);
 window.addEventListener('offline', updateOfflineStatus);
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?v=11').catch(error => {
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?v=13').catch(error => {
   if (error instanceof Error) byId('cacheStatus').textContent = `应用离线壳未就绪：${error.message}`; else throw error;
 });
 setupControls();

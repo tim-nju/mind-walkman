@@ -1526,3 +1526,201 @@ const HOPE_TOPIC = {
     privateAudio: true
   }]
 };
+
+const BIBLE_TOPIC = {
+  "id": "bible",
+  "title": "《圣经》· 孙大中（三集）",
+  "speaker": "孙大中",
+  "backupFolder": "圣经-孙大中-首三集",
+  "tracks": [
+    {
+      "id": "bible-sundazhong-mw230903",
+      "title": "你要保守你心—箴言4:23",
+      "speaker": "孙大中",
+      "date": "2023-09-03 · 旷野吗哪（读经与讲解）",
+      "duration": 1760.224,
+      "audioSrc": "./public/audio/scripture/mw230903.mp3",
+      "mime": "audio/mpeg",
+      "chapters": [],
+      "sourceUrl": "https://r.729ly.net/devotionals/devotionals-mw/devotionals-mw-mw230903",
+      "bytes": 14125824,
+      "sha256": "08fec050ab5984cbc8909210d99b4289806275774b9b616cba1bfdbab6010672",
+      "fileName": "mw230903.mp3",
+      "privateAudio": true
+    },
+    {
+      "id": "bible-sundazhong-mw200810",
+      "title": "得力的秘诀—以赛亚40:28–31",
+      "speaker": "孙大中",
+      "date": "2020-08-10 · 旷野吗哪（读经与讲解）",
+      "duration": 1760.904,
+      "audioSrc": "./public/audio/scripture/mw200810.mp3",
+      "mime": "audio/mpeg",
+      "chapters": [],
+      "sourceUrl": "https://r.729ly.net/devotionals/devotionals-mw/devotionals-mw-mw200810",
+      "bytes": 14131264,
+      "sha256": "87c4e5aaffb96c4d5cfe96140a847ff70093b9ff9199c2c0dcf8458e22df2a88",
+      "fileName": "mw200810.mp3",
+      "privateAudio": true
+    },
+    {
+      "id": "bible-sundazhong-mw200614",
+      "title": "杖与竿—诗篇23",
+      "speaker": "孙大中",
+      "date": "2020-06-14 · 旷野吗哪（读经与讲解）",
+      "duration": 1760.928,
+      "audioSrc": "./public/audio/scripture/mw200614.mp3",
+      "mime": "audio/mpeg",
+      "chapters": [],
+      "sourceUrl": "https://r.729ly.net/devotionals/devotionals-mw/devotionals-mw-mw200614",
+      "bytes": 14131456,
+      "sha256": "bd42442538c763655b93ec6b8f23151901ea646719e03164ea3fd3bd6abda642",
+      "fileName": "mw200614.mp3",
+      "privateAudio": true
+    }
+  ]
+};
+
+const DIAMOND_TOPIC = {
+  "id": "diamond",
+  "title": "《金刚经》· 聖嚴法師《金剛經》如是說九集主题导读",
+  "speaker": "聖嚴法師",
+  "backupFolder": "金刚经-圣严-如是说九集",
+  "tracks": [
+    {
+      "id": "diamond-shengyen-01",
+      "title": "緒論（上）",
+      "speaker": "聖嚴法師",
+      "date": "如是說 1/9 · 主题导读",
+      "duration": 883.474625,
+      "audioSrc": "./public/audio/diamond/diamond-shengyen-01.mp3",
+      "mime": "audio/mpeg",
+      "chapters": [],
+      "sourceUrl": "https://player.soundon.fm/p/5440c9b1-f88c-4d30-b493-8a1f3a941d35/episodes/e05613ba-e17c-4951-92b7-8bd7caae8394",
+      "bytes": 14139946,
+      "sha256": "0af1a8cf112bb946f8a8c5143c64b0f2441054251f0cd61f8bcaecc235ca5f16",
+      "fileName": "diamond-shengyen-01.mp3",
+      "privateAudio": true
+    },
+    {
+      "id": "diamond-shengyen-02",
+      "title": "緒論（下）；當機說法與請法者；教化的對象",
+      "speaker": "聖嚴法師",
+      "date": "如是說 2/9 · 主题导读",
+      "duration": 726.73475,
+      "audioSrc": "./public/audio/diamond/diamond-shengyen-02.mp3",
+      "mime": "audio/mpeg",
+      "chapters": [],
+      "sourceUrl": "https://player.soundon.fm/p/5440c9b1-f88c-4d30-b493-8a1f3a941d35/episodes/f5b4f19b-41ff-4e0d-9f71-aa0be655d0f1",
+      "bytes": 11631852,
+      "sha256": "18aadbbb96b5a62aa8ce2d032be9c7bcdb6c262a88e00073ab211cf3c6a91f4a",
+      "fileName": "diamond-shengyen-02.mp3",
+      "privateAudio": true
+    },
+    {
+      "id": "diamond-shengyen-03",
+      "title": "全經要義",
+      "speaker": "聖嚴法師",
+      "date": "如是說 3/9 · 主题导读",
+      "duration": 1390.155688,
+      "audioSrc": "./public/audio/diamond/diamond-shengyen-03.mp3",
+      "mime": "audio/mpeg",
+      "chapters": [],
+      "sourceUrl": "https://player.soundon.fm/p/5440c9b1-f88c-4d30-b493-8a1f3a941d35/episodes/5b43cd5f-ef25-4f8c-b030-3698839be376",
+      "bytes": 22246587,
+      "sha256": "c4fbf6de4bba3dc7558b1b31bfeb63eab4500388749e18e988c2263f9098b7f6",
+      "fileName": "diamond-shengyen-03.mp3",
+      "privateAudio": true
+    },
+    {
+      "id": "diamond-shengyen-04",
+      "title": "四種思辨型式",
+      "speaker": "聖嚴法師",
+      "date": "如是說 4/9 · 主题导读",
+      "duration": 1310.899625,
+      "audioSrc": "./public/audio/diamond/diamond-shengyen-04.mp3",
+      "mime": "audio/mpeg",
+      "chapters": [],
+      "sourceUrl": "https://player.soundon.fm/p/5440c9b1-f88c-4d30-b493-8a1f3a941d35/episodes/15325b87-ac0e-4264-8622-c250652f8011",
+      "bytes": 20978746,
+      "sha256": "a5bf225d82a02c484edc9005c5c5a69579600a5f4fc694766a2e5b7e0f1ed78e",
+      "fileName": "diamond-shengyen-04.mp3",
+      "privateAudio": true
+    },
+    {
+      "id": "diamond-shengyen-05",
+      "title": "十九個實例（上）",
+      "speaker": "聖嚴法師",
+      "date": "如是說 5/9 · 主题导读",
+      "duration": 1261.380875,
+      "audioSrc": "./public/audio/diamond/diamond-shengyen-05.mp3",
+      "mime": "audio/mpeg",
+      "chapters": [],
+      "sourceUrl": "https://player.soundon.fm/p/5440c9b1-f88c-4d30-b493-8a1f3a941d35/episodes/824a6e78-b86e-4481-9644-e46773ed5c3e",
+      "bytes": 20186190,
+      "sha256": "5cd8c2dfa8374fca24fe5e28b7be56e15ee1bff01099117d05cbe1913de59981",
+      "fileName": "diamond-shengyen-05.mp3",
+      "privateAudio": true
+    },
+    {
+      "id": "diamond-shengyen-06",
+      "title": "十九個實例（下）",
+      "speaker": "聖嚴法師",
+      "date": "如是說 6/9 · 主题导读",
+      "duration": 811.020875,
+      "audioSrc": "./public/audio/diamond/diamond-shengyen-06.mp3",
+      "mime": "audio/mpeg",
+      "chapters": [],
+      "sourceUrl": "https://player.soundon.fm/p/5440c9b1-f88c-4d30-b493-8a1f3a941d35/episodes/4c5ab8b8-26c3-4e46-99a7-0b4f48faa304",
+      "bytes": 12980430,
+      "sha256": "7a0e1c7a2eb48a9ea729ae9be86ea819fd4566322ec582578a6d06599a95a311",
+      "fileName": "diamond-shengyen-06.mp3",
+      "privateAudio": true
+    },
+    {
+      "id": "diamond-shengyen-07",
+      "title": "無相離相（上）",
+      "speaker": "聖嚴法師",
+      "date": "如是說 7/9 · 主题导读",
+      "duration": 1095.6755,
+      "audioSrc": "./public/audio/diamond/diamond-shengyen-07.mp3",
+      "mime": "audio/mpeg",
+      "chapters": [],
+      "sourceUrl": "https://player.soundon.fm/p/5440c9b1-f88c-4d30-b493-8a1f3a941d35/episodes/34c18459-2a0b-49ea-a685-bc36c87d5d48",
+      "bytes": 17535160,
+      "sha256": "a255a571f3c4f61a7f1ee3409ed1bf41c6da20dff6936f32dfaeed2e472be3fb",
+      "fileName": "diamond-shengyen-07.mp3",
+      "privateAudio": true
+    },
+    {
+      "id": "diamond-shengyen-08",
+      "title": "無相離相（下）",
+      "speaker": "聖嚴法師",
+      "date": "如是說 8/9 · 主题导读",
+      "duration": 1080.090125,
+      "audioSrc": "./public/audio/diamond/diamond-shengyen-08.mp3",
+      "mime": "audio/mpeg",
+      "chapters": [],
+      "sourceUrl": "https://player.soundon.fm/p/5440c9b1-f88c-4d30-b493-8a1f3a941d35/episodes/96dc540f-1ad5-4b29-9108-89a1086b9d47",
+      "bytes": 17285538,
+      "sha256": "88b2f812e9299914f0daacb034a27350e8d91cdda75d82c31932d1dd913086fc",
+      "fileName": "diamond-shengyen-08.mp3",
+      "privateAudio": true
+    },
+    {
+      "id": "diamond-shengyen-09",
+      "title": "信受演說《金剛經》的功德",
+      "speaker": "聖嚴法師",
+      "date": "如是說 9/9 · 主题导读",
+      "duration": 939.639313,
+      "audioSrc": "./public/audio/diamond/diamond-shengyen-09.mp3",
+      "mime": "audio/mpeg",
+      "chapters": [],
+      "sourceUrl": "https://player.soundon.fm/p/5440c9b1-f88c-4d30-b493-8a1f3a941d35/episodes/086d7b34-445d-4907-b827-1632aff4f865",
+      "bytes": 15038325,
+      "sha256": "da24baa171b4c2b4ff3cd3b005d893fe7be0b0af12d61db3985f22d92663f684",
+      "fileName": "diamond-shengyen-09.mp3",
+      "privateAudio": true
+    }
+  ]
+};

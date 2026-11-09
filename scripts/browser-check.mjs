@@ -1,10 +1,11 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { tmpdir } from 'node:os';
 import { createHash } from 'node:crypto';
 const driver = process.env.OMOWRIGHT_DRIVER || '/Users/chuangwen/.codex/plugins/cache/sisyphuslabs/omo/5.1.63/skills/browser/scripts/omowright.mjs';
 const { loadOmowright } = await import(driver);
 const { omowright } = await loadOmowright();
-const profile = await fs.mkdtemp('/private/tmp/topic-qa-');
+const profile = await fs.mkdtemp(path.join(tmpdir(), 'topic-qa-'));
 const output = path.resolve('.omo/evidence/topic-player');
 await fs.mkdir(output, { recursive: true });
 const browser = await omowright.connectPipe({ browserPath: process.env.CHROME_PATH || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', browserArgs: ['--headless', '--no-first-run', '--autoplay-policy=no-user-gesture-required', `--user-data-dir=${profile}`], storageRoot: profile });

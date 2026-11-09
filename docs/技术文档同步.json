@@ -1,35 +1,38 @@
 {
   "version": 1,
-  "doc_hash": "0e158bbd7127437e490847c6a03e9966f0c65f8f5d309f089af73b9a2c2b79b1",
+  "doc_hash": "265563b0356e1d13d3091aa84966486a01b900768af1c8d0997b5564af4398d2",
   "fingerprints": {
-    ".gitignore": "11426cdceae07639bfea445307a1ba6af9a5a000e86b911a729e82452c56c3e2",
-    "app.js": "37d88d5352847a86ebd9695a133c1f59cf91ae8c9af5093ef7d523467ade58d6",
+    ".gitignore": "17e694410e197c513c9e546528f2a3c1a8600ccb086f9258f9dd8d729f20ac12",
+    "app.js": "4817fd06a675e9f3ab2e18a53e73accf6f25564acd0bf637d996a1b6018f39ef",
     "controls.js": "62b24b94bb58742f3869c094a87249435b982612472105b51bebcb317b0bd98f",
-    "course-data.js": "989b3b21055aa36802d4d7638925673235c1605d404051c8a9babdb6ce9d4d9e",
-    "docs/acceptance.json": "7bdcfaf4eb06a1bbee6e42aa56b853974c91d5539dbd2edf0b19922e9f7a5c74",
+    "course-data.js": "b7112309e1fbc53756c1ae704102d520f89476cb325cc23894fea22a42ce905d",
+    "docs/acceptance.json": "c83cc53bf266ec7ce65e0fef5585fe25167c7aa7e55fddedb3509e96408739bc",
     "docs/daodejing-source-directory.json": "4c01a944552001aef8175d97c833990458f093396a764e4feb536fb03c2c8a3a",
     "docs/hope-source.json": "aabb99ff011481966cd374b25f38ca64be62aeacefb1700a005db70d2a8705e7",
     "docs/qa/bilibili-source-map.json": "5f790a2581782459cd4667b3cad5271bda1aaf563cf153ca1181cc2598e39e49",
     "importer.js": "a890a81a29b88887ab147dbdab76bf3d93441154f0a671ecc13ad61f3f855830",
-    "index.html": "a8edb7b6c24955047a0c452fe7d6f6438a382f49a9a0b5ef4566f74b614f60ae",
+    "index.html": "e60525c29f6feb156f6d5f1a3967d8d54a724a54d185f1464fad29d06010edcd",
     "manifest.json": "00be2e5030b8024f07314ef558aca601816a46fda272a214b5ebfd9cc43dfb4a",
     "scripts/acceptance.mjs": "c081945db4daf08e1b90dd3af0d6697cd83dbf1c21bc08e411c385db9332984b",
     "scripts/backup-check.mjs": "3694c0bf55dcadc75e1b88dde41c97369cbca2294d6f41556508b98b052398c5",
     "scripts/backup-course.mjs": "97b5d9ea706caa3b05e68444d41229f90ef62b20fe323db76637943519f0e8fd",
-    "scripts/browser-check.mjs": "883a264ec7be43bfdd50847a06af18201d95dfc26def612378300502aafd2437",
+    "scripts/browser-check.mjs": "934502fdca3e6e6082ae846cedcebd412f1b37f58081b5d126276de1dd0979fd",
     "scripts/check_technical_docs.py": "5849b968b8e554520469007801ca30a270ef5694b2da4c9c3705874cbb645f12",
     "scripts/hope-check.mjs": "df1fdd131c6c51a45a426f19f1475a2a9e3601a9a0ca8e28e17d515948012248",
     "scripts/hope-gate-check.mjs": "9b521b77f42ce1da04d920b6f9fc8ce6a94662c138f62d357fa26070ea0b8e65",
-    "scripts/hope-import-check.mjs": "6995cc1b96188424f940c0af26dd7126f949222b45ffa7355dc24e584d8b2109",
-    "scripts/import-check.mjs": "0cb625d657869c404c898fcdb23c7033a58610b9593e579189b383b2f830fd60",
+    "scripts/hope-import-check.mjs": "e7dd092d7cbb157e354063089d126b7ff3785cdf5402dc54f92970c62223b903",
+    "scripts/import-check.mjs": "988d37e515ab54cb1f95eb0103563f058f22f565fc66ec1a59477c74698b10e7",
     "scripts/progress-check.mjs": "eb0efa06f4e78ff0e2f2481f6c4d28ba3528c2247fbff8866030b2a600f147f1",
+    "scripts/scripture-check.mjs": "01f7f38676cd1eb99a4575e7d0c61e7621e8610bd5d64a13f056fff6d182f83c",
+    "scripts/scripture-gate-check.mjs": "e3daeef57de594c7cede8f824967de9fac7c64bac22b7b344b0e5471e6a78b36",
+    "scripts/scripture-import-check.mjs": "1e8141994b8616840721043a86a3485b5904d628e41db1b10b6c4ed1db0411cc",
     "scripts/serve.mjs": "9b42a59a456b0a67e6be0feda879b9a39f9dbd8fbffbe69fb1f9f8a8ef67d20d",
     "scripts/server-check.mjs": "4561b271592f19cb96da0ea3a6c3e38ee5003097ffcdc4193b1b6de4382e52a1",
-    "scripts/sw-check.mjs": "c6ee94525f3eae46e0456fe96f944ae593822fecc5ae93d9f9a7993cd186e0c3",
+    "scripts/sw-check.mjs": "6f68ac3f84c0ebfede0515de2d9103547cd8e5f31515ab5fcede000ecb21a4cb",
     "scripts/upgrade-check.mjs": "da4924ba4e195170458c23741aec96359505a668170dee3b960474ae5b5fee1d",
     "storage.js": "1fe96d2d452c904b508e28bd775bca06235642e8732963dce0724f89306fe10f",
     "styles.css": "655445d0268500a70d9b9d24e25ca50bcd28dd49ecd12ea0b1c0832724a6c582",
-    "sw.js": "0f93f94bd5a6f478579a3c6ac745980f81444341becbd158402b2657cafc1d4a",
+    "sw.js": "fff1c8168739121413c5f022c4901aff81667d13bdad5bfc8e87eacc6af8f694",
     "tracks.js": "2d893c6f03583355b5e51b89aa553008bf6c8421cfd6f57e9e29fd76226ea4cc"
   },
   "records": [
@@ -123,6 +126,27 @@
       "impact": "implementation",
       "sections": "仅完成已有独立审阅st_01a1bc3b的命令记录与机器回执，因为现行架构已于01:51:13显式同步且文档哈希相同；本任务不修改生产代码、测试、架构设计或部署契约。",
       "doc_hash": "0e158bbd7127437e490847c6a03e9966f0c65f8f5d309f089af73b9a2c2b79b1"
+    },
+    {
+      "date": "2026-11-09T22:38:29+08:00",
+      "summary": "2026-11-09 reviewed static Bible3 Diamond9 design, v13 shell, all18 gates retained plus four scripture gates; external evidence remains blocked",
+      "impact": "architecture",
+      "sections": "目标与范围,模块与目录,数据模型,接口与契约,部署与配置,安全与隐私,测试与验收,技术决策,迭代同步",
+      "doc_hash": "3d90ebd258ec0c470f4f83e76f82e003bef0e9f29bbd3592d26cae88aa26afb6"
+    },
+    {
+      "date": "2026-11-09T23:16:23+08:00",
+      "summary": "Correct published v11 versus pending v13, historical approvals, four private directories and unverified footer device claim",
+      "impact": "architecture",
+      "sections": "目标与范围、模块与目录、部署与配置、迭代同步：校正历史与当前状态；仅修改页脚能力说明，不改变播放、存储、接口或媒体契约，GUI/iOS仍待最终源码实测",
+      "doc_hash": "dda70f54e96225821bfe8fa637ce5bf342bacd79d52ea998dd38c3d457e5772c"
+    },
+    {
+      "date": "2026-11-09T23:27:53+08:00",
+      "summary": "记录用户知悉未完成验收后直接发布及改由Codex执行的本次决定，不改门禁或回执状态",
+      "impact": "implementation",
+      "sections": "部署与配置、测试与验收：仅记录本次发布顺序例外，生产代码、媒体、存储与接口均未变化",
+      "doc_hash": "265563b0356e1d13d3091aa84966486a01b900768af1c8d0997b5564af4398d2"
     }
   ]
 }

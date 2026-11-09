@@ -1,12 +1,13 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { tmpdir } from 'node:os';
 import { createHash } from 'node:crypto';
 import { spawn } from 'node:child_process';
 const {loadOmowright}=await import(process.env.OMOWRIGHT_DRIVER || '/Users/chuangwen/.codex/plugins/cache/sisyphuslabs/omo/5.1.63/skills/browser/scripts/omowright.mjs');
 const {omowright}=await loadOmowright();
 const root=process.cwd();
-const profile=await fs.mkdtemp('/private/tmp/import-browser-');
-const fixture=await fs.mkdtemp('/private/tmp/import-files-');
+const profile=await fs.mkdtemp(path.join(tmpdir(),'import-browser-'));
+const fixture=await fs.mkdtemp(path.join(tmpdir(),'import-files-'));
 const output='.omo/evidence/private-import';await fs.mkdir(output,{recursive:true});
 const names=JSON.parse(await fs.readFile('docs/acceptance.json','utf8')).fingerprintFiles;
 const fingerprint=async()=>Object.fromEntries(await Promise.all(names.map(async name=>[name,createHash('sha256').update(await fs.readFile(name)).digest('hex')])));

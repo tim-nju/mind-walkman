@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { tmpdir } from 'node:os';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { spawn } from 'node:child_process';
@@ -7,7 +8,7 @@ const { loadOmowright } = await import(process.env.OMOWRIGHT_DRIVER || '/Users/c
 const { omowright } = await loadOmowright();
 const output = '.omo/evidence/hope';
 await fs.mkdir(output, { recursive: true });
-const temporary = await fs.mkdtemp('/private/tmp/hope-release.9IHTLq/executor-st01a1bbfd/browser-');
+const temporary = await fs.mkdtemp(path.join(tmpdir(), 'hope-browser-'));
 const profile = path.join(temporary, 'profile');
 const origin = 'http://tim-nju.github.io:8773';
 const names = JSON.parse(await fs.readFile('docs/acceptance.json', 'utf8')).fingerprintFiles;

@@ -169,6 +169,51 @@
       "id": "technical-docs",
       "kind": "command",
       "command": "python3 scripts/check_technical_docs.py check --root ."
+    },
+    {
+      "id": "scripture-source-media",
+      "kind": "test",
+      "command": "node scripts/scripture-check.mjs"
+    },
+    {
+      "id": "scripture-file-import",
+      "kind": "browser",
+      "receipt": ".omo/evidence/scripture/import-results.json",
+      "scenarios": [
+        "scripture-public-shell-no-private-http",
+        "scripture-wrong-topic-file-rejected",
+        "scripture-same-size-corruption-rejected",
+        "bible-real-folder-import-three",
+        "diamond-real-folder-import-nine",
+        "scripture-reimport-skips-verified-files",
+        "scripture-topic-progress-and-legacy-preserved",
+        "scripture-offline-cold-reopen"
+      ]
+    },
+    {
+      "id": "scripture-ios",
+      "kind": "external",
+      "receipt": "docs/qa/scripture-1109/ios-receipt.json",
+      "scenarios": [
+        "bible-system-files-import-three",
+        "diamond-system-files-import-nine",
+        "real-media-time-advances",
+        "wrong-and-corrupt-media-rejected",
+        "reimport-and-topic-progress",
+        "offline-cold-reopen",
+        "private-backup-restore",
+        "legacy-course-hope-and-progress-preserved"
+      ]
+    },
+    {
+      "id": "scripture-gate-injections",
+      "kind": "external",
+      "receipt": ".omo/evidence/scripture/gate-results.json",
+      "scenarios": [
+        "corrupt-media-rejected",
+        "failed-evidence-rejected",
+        "stale-evidence-rejected"
+      ]
     }
   ],
   "releaseBoundary": "真实GitHub Pages仅发布应用壳；课程私有音频从iCloud文件夹导入，不公开上传。用户已授权父会话发布，原生桥接执行器不得提交或发布；完整门禁仍须如实报告阻断。",
@@ -206,6 +251,9 @@
     "scripts/progress-check.mjs",
     "scripts/hope-check.mjs",
     "scripts/hope-import-check.mjs",
-    "docs/hope-source.json"
+    "docs/hope-source.json",
+    "scripts/scripture-check.mjs",
+    "scripts/scripture-import-check.mjs",
+    "scripts/scripture-gate-check.mjs"
   ]
 }

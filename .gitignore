@@ -5,6 +5,8 @@ __pycache__/
 .vscode/
 public/audio/daodejing/
 public/audio/hope/
+public/audio/scripture/
+public/audio/diamond/
 .omo/evidence/
 docs/qa/*
 !docs/qa/bilibili-source-map.json
