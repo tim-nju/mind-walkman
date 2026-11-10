@@ -18,6 +18,6 @@ services:
       - key: HOST
         value: "0.0.0.0"
       - key: ALLOWED_ORIGINS
-        value: https://tim-nju.github.io
+        value: https://tim-nju.github.io,https://mind-walkman-sync.onrender.com
       - key: DATABASE_URL
         sync: false
