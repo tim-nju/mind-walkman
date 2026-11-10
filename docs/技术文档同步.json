@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "doc_hash": "01109a6643f50d9ddba16ad7dde3ce1d1d9214b0b0b08e28665e522ae3e0440b",
+  "doc_hash": "fa74d4bade3210552a281744f4f9faa7e09d3bba841358fa7a4047ca2bd2641d",
   "fingerprints": {
     ".gitignore": "6c72a17878392dbe990df4b36e7c9caa724c4b6b1e7261e3231293fab27f1981",
     "app.js": "059eb8bbc717d6a501094d24f0c06ee93866c37ccd4ea8d03d7ea5ba4defc7d0",
@@ -17,7 +17,7 @@
     "package-lock.json": "a9d138c898e98dd64b7fb3b1f7adc3146a5219b8a75d65bca53632e3cba5a84c",
     "package.json": "19f0e498c47b7a0df96a0277ecf67bfdc8313983a6cdfe3e607a19ede219f37a",
     "private-delivery.js": "7afc05390f26306b7932397c850a2374b8100a8e0c3f215fe539fd14312a48ba",
-    "render.yaml": "bd49175d650be36f131ac15961b07303d789245edb4e483b0363ac40a84cbbcc",
+    "render.yaml": "c6e85ee7b1a527698eae7ca48c9d44cd782298379f2a0c3b2961889bdac8e209",
     "scripts/acceptance-check.mjs": "480b6c48c87300d9651102d1d6ce7a766c7f000b5fc9633d1325159c38aa584c",
     "scripts/acceptance.mjs": "604227f775c00a6875c44d274d9302a34c0d9ca89250357229ebd09ef5a66f2a",
     "scripts/backup-check.mjs": "3694c0bf55dcadc75e1b88dde41c97369cbca2294d6f41556508b98b052398c5",
@@ -254,6 +254,13 @@
       "impact": "architecture",
       "sections": "目标与范围,技术栈,模块与目录,数据模型,接口与契约,部署与配置,迭代同步",
       "doc_hash": "01109a6643f50d9ddba16ad7dde3ce1d1d9214b0b0b08e28665e522ae3e0440b"
+    },
+    {
+      "date": "2026-11-10T23:31:12+08:00",
+      "summary": "心智随身听收听同步服务在 Render (R03) 与 Neon (新加坡) 正式部署上线，Mac 定时任务正式接入并实测生成 iCloud 快照",
+      "impact": "architecture",
+      "sections": "部署与配置,迭代同步",
+      "doc_hash": "fa74d4bade3210552a281744f4f9faa7e09d3bba841358fa7a4047ca2bd2641d"
     }
   ]
 }
