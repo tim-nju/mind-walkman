@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: mind-walkman-sync
+    runtime: node
+    plan: free
+    region: singapore
+    buildCommand: npm ci --omit=dev
+    startCommand: node server/server.mjs
+    healthCheckPath: /health
+    autoDeployTrigger: commit
+    envVars:
+      - key: NODE_VERSION
+        value: "26"
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "10000"
+      - key: HOST
+        value: "0.0.0.0"
+      - key: ALLOWED_ORIGINS
+        value: https://tim-nju.github.io
+      - key: DATABASE_URL
+        sync: false

@@ -532,6 +532,16 @@ body {
 .track-row small { color: var(--text-sub); font-size: 12px; font-variant-numeric: tabular-nums; }
 .track-row[aria-current="true"] { background: var(--active-highlight); color: var(--accent); }
 .track-row:hover { background: var(--card-hover); }
+@keyframes trackLocatePulse {
+  0% { box-shadow: 0 0 0 0 rgba(212, 163, 115, 0.7); background: rgba(212, 163, 115, 0.35); }
+  50% { box-shadow: 0 0 0 8px rgba(212, 163, 115, 0); background: rgba(212, 163, 115, 0.22); }
+  100% { box-shadow: none; background: var(--active-highlight); }
+}
+.track-row-locate-pulse {
+  animation: trackLocatePulse 1.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.btn-locate-track { font-size: 12px; padding: 4px 10px; min-height: 32px; border-radius: 8px; background: var(--card-border); color: var(--accent); border: 1px solid var(--accent-glow); cursor: pointer; }
+.btn-locate-track:hover { background: var(--card-hover); }
 .status-line { color: var(--text-sub); font-size: 13px; margin: 8px 0; min-height: 20px; overflow-wrap: anywhere; }
 button:disabled { opacity: .55; cursor: default; }
 button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }

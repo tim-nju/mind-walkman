@@ -79,10 +79,36 @@ for(const required of manifest.required.filter(item => !selected || item.id === 
       if(result.status!==0) throw new Error(`命令失败 ${required.command}，见 ${artifact}`);
       return {exit:result.status,artifact};
     }
-    case 'browser': {
+    case 'browser':
+    case 'browser-evidence': {
       const value=await receipt(required.receipt); fresh(value);
       for(const scenario of required.scenarios) if(!value.results.some(item=>item.name===scenario && item.pass===true)) throw new Error(`缺少必需场景 ${scenario}`);
       if(!value.results.length || value.results.some(item=>item.pass!==true)) throw new Error('浏览器存在失败结果');
+      if (required.kind === 'browser-evidence') {
+        if (value.schema !== 'browser-evidence/v1') throw new Error('浏览器证据格式无效');
+        const directory = await fs.realpath(path.dirname(required.receipt));
+        for (const result of value.results) {
+          if (!Array.isArray(result.artifacts) || !result.artifacts.length) throw new Error(`场景缺少证据 ${result.name}`);
+          for (const artifact of result.artifacts) {
+            if (!artifact || typeof artifact.path !== 'string' || path.isAbsolute(artifact.path) ||
+                artifact.path.split(/[\\/]/).includes('..') || !/^[a-f0-9]{64}$/.test(artifact.sha256 || '') ||
+                !Number.isSafeInteger(artifact.bytes) || artifact.bytes <= 0 ||
+                !['json', 'screenshot', 'log'].includes(artifact.kind)) throw new Error(`证据描述无效 ${result.name}`);
+            const file = path.resolve(directory, artifact.path);
+            const actual = await fs.realpath(file);
+            if (!actual.startsWith(directory + path.sep) || !(await fs.lstat(file)).isFile()) throw new Error(`证据路径越界 ${result.name}`);
+            const bytes = await fs.readFile(actual);
+            if (bytes.length !== artifact.bytes || hash(bytes) !== artifact.sha256) throw new Error(`证据缺失或已篡改 ${artifact.path}`);
+            if (artifact.kind === 'json') {
+              const data = JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(bytes));
+              if (!data || typeof data !== 'object') throw new Error(`JSON证据无效 ${artifact.path}`);
+            }
+            if (artifact.kind === 'screenshot' && !bytes.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) {
+              throw new Error(`截图不是PNG ${artifact.path}`);
+            }
+          }
+        }
+      }
       return {scenarios:value.results.map(item=>item.name),receipt:required.receipt};
     }
     case 'external': {

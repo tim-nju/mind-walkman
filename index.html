@@ -15,6 +15,7 @@
   <link rel="apple-touch-icon" href="./public/icons/icon-192.png">
   <link rel="manifest" href="./manifest.json">
   <link rel="stylesheet" href="./styles.css?v=15">
+  <link rel="stylesheet" href="./sync.css">
 </head>
 <body>
   <div class="app-container">
@@ -84,7 +85,7 @@
 
       <input id="seekInput" type="range" min="0" max="4612" value="0" step="1" aria-label="播放进度">
       <p id="playerStatus" class="status-line" role="status"></p>
-      <div class="track-navigation"><button class="pill-toggle" id="btnPrevious">上一集</button><button class="pill-toggle" id="btnNext">下一集</button></div>
+      <div class="track-navigation"><button class="pill-toggle" id="btnPrevious">上一集</button><button class="pill-toggle" id="btnLocateInList" title="在专题目录中查看并定位此集">定位目录</button><button class="pill-toggle" id="btnNext">下一集</button></div>
       <!-- Controls -->
       <div class="control-cluster">
         <!-- Commute Quick Seek & Play -->
@@ -131,7 +132,7 @@
     </section>
 
     <section class="library-section" aria-label="专题目录">
-      <div class="section-title-bar"><h3 class="section-title">专题目录</h3><span id="topicCount" class="section-hint"></span></div>
+      <div class="section-title-bar"><h3 class="section-title">专题目录</h3><button class="pill-toggle btn-locate-track" id="btnLocateTrack" title="定位到当前正在收听的剧集">📍 定位当前集</button><span id="topicCount" class="section-hint"></span></div>
       <div class="cache-actions"><button class="pill-toggle" id="btnCacheTopic">缓存整专题</button><button class="pill-toggle" id="btnStopCache" hidden>停止后续缓存</button></div>
       <p id="cacheStatus" class="status-line" role="status">缓存整专题会下载所有音频，请留意设备剩余空间。</p>
       <ol id="trackList" class="track-list"></ol>
@@ -169,5 +170,6 @@
   <script src="./app.js?v=15"></script>
   <script src="./sealed-media.js?v=15"></script>
   <script src="./private-delivery.js?v=15"></script>
+  <script type="module" src="./sync-player.js"></script>
 </body>
 </html>

@@ -1,22 +1,25 @@
 {
   "version": 1,
-  "doc_hash": "dccc8fbc8c1cd5347fab0fe38dbc23ecb585ffe4bc2f1f94614cf8bc8b17d4e8",
+  "doc_hash": "01109a6643f50d9ddba16ad7dde3ce1d1d9214b0b0b08e28665e522ae3e0440b",
   "fingerprints": {
-    ".gitignore": "a5d550a9b34a3cac839faa40281a1d371dcf69eace3a678b781194c15d44b83c",
-    "app.js": "99484c94f2fb18fcae31d4a995ceb5f6676b8b88ca2e131d0c7064508c2941b8",
-    "controls.js": "62b24b94bb58742f3869c094a87249435b982612472105b51bebcb317b0bd98f",
+    ".gitignore": "6c72a17878392dbe990df4b36e7c9caa724c4b6b1e7261e3231293fab27f1981",
+    "app.js": "059eb8bbc717d6a501094d24f0c06ee93866c37ccd4ea8d03d7ea5ba4defc7d0",
+    "controls.js": "d990122d75becf3d72e850d5d04403a3fc2e39c4fc820973d97465b6d741ab8b",
     "course-data.js": "b7112309e1fbc53756c1ae704102d520f89476cb325cc23894fea22a42ce905d",
-    "docs/acceptance.json": "0192c0eb0ed5145b238a379e00ec1a3846623b3d192f82b70ce9143d0bfe8bcd",
+    "docs/acceptance.json": "d80804f318a8ec49e8b0175e19d526c61465b75b35a1b870effac0a24f6edb0a",
     "docs/daodejing-source-directory.json": "4c01a944552001aef8175d97c833990458f093396a764e4feb536fb03c2c8a3a",
     "docs/hope-source.json": "aabb99ff011481966cd374b25f38ca64be62aeacefb1700a005db70d2a8705e7",
     "docs/qa/bilibili-source-map.json": "5f790a2581782459cd4667b3cad5271bda1aaf563cf153ca1181cc2598e39e49",
     "importer.js": "9e34a71ef132574aebbcfb436a07c770c5d86166da86185faa685e8b7208fed2",
-    "index.html": "d6edb6ef7e7e2a0bfa523bbc87225e382fb9dc5edd568ec70c0fa025a382d19a",
-    "listen.html": "d6edb6ef7e7e2a0bfa523bbc87225e382fb9dc5edd568ec70c0fa025a382d19a",
+    "index.html": "31a04f16574939400ad57786ed36953b49e821cef5a18fc67faf0313c81764d1",
+    "listen.html": "babb5599cacc8ca24facfcea65589bd14d8581e59c4525dd2c565463a162ea44",
     "manifest.json": "00be2e5030b8024f07314ef558aca601816a46fda272a214b5ebfd9cc43dfb4a",
+    "package-lock.json": "a9d138c898e98dd64b7fb3b1f7adc3146a5219b8a75d65bca53632e3cba5a84c",
+    "package.json": "19f0e498c47b7a0df96a0277ecf67bfdc8313983a6cdfe3e607a19ede219f37a",
     "private-delivery.js": "7afc05390f26306b7932397c850a2374b8100a8e0c3f215fe539fd14312a48ba",
+    "render.yaml": "bd49175d650be36f131ac15961b07303d789245edb4e483b0363ac40a84cbbcc",
     "scripts/acceptance-check.mjs": "480b6c48c87300d9651102d1d6ce7a766c7f000b5fc9633d1325159c38aa584c",
-    "scripts/acceptance.mjs": "f36f6b04bb4bc6b75584a8f0e5c2371ed2bda5e5834c52dac35041c3d9d21a00",
+    "scripts/acceptance.mjs": "604227f775c00a6875c44d274d9302a34c0d9ca89250357229ebd09ef5a66f2a",
     "scripts/backup-check.mjs": "3694c0bf55dcadc75e1b88dde41c97369cbca2294d6f41556508b98b052398c5",
     "scripts/backup-course.mjs": "97b5d9ea706caa3b05e68444d41229f90ef62b20fe323db76637943519f0e8fd",
     "scripts/browser-check.mjs": "934502fdca3e6e6082ae846cedcebd412f1b37f58081b5d126276de1dd0979fd",
@@ -33,14 +36,33 @@
     "scripts/scripture-import-check.mjs": "1e8141994b8616840721043a86a3485b5904d628e41db1b10b6c4ed1db0411cc",
     "scripts/seal-media.mjs": "858c21987d8b4f735db6fe338692c84f3353384d619069ae66bb7102b61828e5",
     "scripts/sealed-media-check.mjs": "6faeaded66e16fdc7e16dd1cb83deba270be69c44c2aee2ba04af7618d825c7e",
-    "scripts/serve.mjs": "29a2c2f17839b5142ac1e3a31fc7d8ac5df1b333f0ffe1ac086e8cf5383c0c6f",
+    "scripts/serve.mjs": "eeb13cb392c739811d24eb45a46a261ab5026e477552721e49907f7380f3d165",
     "scripts/server-check.mjs": "4561b271592f19cb96da0ea3a6c3e38ee5003097ffcdc4193b1b6de4382e52a1",
     "scripts/sw-check.mjs": "511007728636dd820b4bdf79cf65c17d8efbb0f54464390ba8db3e5ebd232768",
-    "scripts/upgrade-check.mjs": "da4924ba4e195170458c23741aec96359505a668170dee3b960474ae5b5fee1d",
+    "scripts/sync-client-check.mjs": "e2cfe2047dd1d56b95df90ab8f4c08c956d1e032fc87d61d8824a28285942310",
+    "scripts/sync-evidence-check.mjs": "46c34859bc8af591a20a726130e5bcd53c24fce90c97b7a12b7566ebb7e84ba8",
+    "scripts/sync-model-check.mjs": "8632095de69b3a0594563b4550a67586cf03d2d562f8a48b8abc1cee8d77a616",
+    "scripts/sync-server-check.mjs": "ec8e2fb462b938575f77bc314ab16dc7d29c4362cd3c4fed3e3370e478277155",
+    "scripts/topic-locator-browser-check.mjs": "c303a3581f79dbcb6fdf966d4e47e4be2ba5eb0426a8877b79050c32c98cf0bb",
+    "scripts/topic-locator-check.mjs": "cdba86a7f4ca1685ac2e9e50f6ccf45f8cba5d0400cddad297f0571d286d56c8",
+    "scripts/upgrade-check.mjs": "3975993a4a9d6e78febb35e8ae9809c7a5c454efc26e1bd739676dacf3ef8155",
     "sealed-media.js": "4b61589914185860bcf008f3ed5ae2092cc7ffa592ec61fc4a569d8dac741221",
+    "server/admin.mjs": "dc614e4797709e5346752746e95638a7d1bc0cb111d346d2df916f7319b510b5",
+    "server/db.mjs": "7adab3c9ac0d58f605d854b9108afbf8105e2a11ec25ce41024c38d75c6faa34",
+    "server/restore.mjs": "3b3fa32f11ce6259ed1400d5558c645506f204569aeba1390980977f24f9cb4b",
+    "server/schema.sql": "1ee1923a7ae6a7b27da04b03dc66ed14d27a46f51365afbc6582c44afbf982d6",
+    "server/server.mjs": "49ec74da76ad69025920cc66807426f04af2cf41a2e811afa540e8e7abce02c8",
+    "server/service.mjs": "7e9fb3fe713eb999085dc99248c99efa0922135d45860c7db46f9e6a75a53784",
     "storage.js": "dcd565fb6a5a1748d90d62a5efeced03362dba7a368f2c3bbc7431bf528a9435",
-    "styles.css": "655445d0268500a70d9b9d24e25ca50bcd28dd49ecd12ea0b1c0832724a6c582",
-    "sw.js": "8d2d64abc0f5c4418eab836ddc902cc17931045358b3f67abb099ddbbba141e5",
+    "styles.css": "40a25f67876bb259948063005bed6c2ecc65c6ffd915d1d7fbad340f9fd9dfe7",
+    "sw.js": "c29eee1dbf40ed13872f0c727d06623c90c57687d2e78010a93c4de0295700be",
+    "sync-client.js": "6fa584307328d9a00ff307e12c737de53016c2f2cefbbe03b891ce5553385693",
+    "sync-model.js": "c26c74f57c1f2637f79b21dfe3c84c1d87d9b29284731dc846b104f72afbc625",
+    "sync-player.js": "308ab710e6e0658d18dc0bac8b7684efe9c85dcdb070ed4ebcb11dbf09795e3e",
+    "sync-store.js": "7ef237e1a141c46e56079ea2c776e23bf57f8f4767320f2314e2024e28ce7f93",
+    "sync-transport.js": "567a3c91e6f2e76c12803c6b92c073a20b4bdbdd6f094365cfe5d089fdc51141",
+    "sync-ui.js": "9a42be74294d646f9eee9132e858a103e44fbedb424854e3d763feeb9d74e4b8",
+    "sync.css": "21804707c6889624341f99c8e4c7914337f134ab5c6679f869deac54f0250b92",
     "tracks.js": "2d893c6f03583355b5e51b89aa553008bf6c8421cfd6f57e9e29fd76226ea4cc"
   },
   "records": [
@@ -171,25 +193,67 @@
       "doc_hash": "f86c40024610cad87151c6c9aeab10514ca99884b1cc8025a10fcbb70d2057a4"
     },
     {
-      "date": "2026-11-09T23:32:54+08:00",
-      "summary": "合并已发布v12私人目录功能与两个静态专题，统一v14并完整保留25门禁",
+      "date": "2026-11-09T23:36:32+08:00",
+      "summary": "v13隔离旧壳缓存并强制安装网络重载；新增AES-GCM私人链接自动解密导入，公开仅密文且密钥不提交；保留旧门禁不虚构iOS通过",
       "impact": "architecture",
-      "sections": "模块与目录、数据模型、部署与配置、测试与验收、迭代同步；保留localOnly与内容身份约束，无新服务或权限",
-      "doc_hash": "d1d8798392da4940ed318834b2a22bac2d97164dec94eee27d60258e7d930990"
+      "sections": "加密私人收听交付（本轮设计）,测试与验收,安全与隐私",
+      "doc_hash": "052781174fe1aeac68f46242b2eca5eae636fe0d1736142a0af7e08cc212e221"
     },
     {
-      "date": "2026-11-09T23:44:58+08:00",
-      "summary": "合并已上线v14全部专题及门禁，v15修复缓存并发布经明确授权的AES-GCM密文；不上传密钥",
+      "date": "2026-11-10T00:34:20+08:00",
+      "summary": "新增个人收听自动同步候选、独立PostgreSQL和设备轮换、Mac备份协议与真实隔离恢复；生产与iOS未启用，保留并行v13交付",
       "impact": "architecture",
-      "sections": "加密私人收听交付（本轮设计）,迭代同步",
-      "doc_hash": "67bcfe5047296ae668de0d9f9a4c004cbc8efb10b0d20c060523c56f7edec57a"
+      "sections": "目标与范围、技术栈、模块与目录、数据模型、接口与契约、部署与配置、安全与隐私、测试与验收、技术决策、迭代同步；主会话双设备与离线验证，独立审阅待执行",
+      "doc_hash": "47169c3481b33c765e87f92d02debaa5948252fd5809f1378f7c0d13decc9532"
     },
     {
-      "date": "2026-11-10T00:19:17+08:00",
-      "summary": "缩小加密分块并兼容旧包，原音与密钥仍不发布",
+      "date": "2026-11-10T00:56:53+08:00",
+      "summary": "独立审阅发现浏览器制品缺失仍通过；新增严格制品哈希与路径校验及9类攻击回归，运行时代码未变，生产接入仍待授权",
+      "impact": "implementation",
+      "sections": "仅强化模块与目录、测试与验收、迭代同步中的交付证据完整性，因为不改变播放器、同步协议、持久化或部署现状；新增文件属于验收门禁回归。",
+      "doc_hash": "418243bb318c1710a2ebf2f559116fb1464c80f05d5cef4c878823175439591e"
+    },
+    {
+      "date": "2026-11-10T01:30:22+08:00",
+      "summary": "旧升级验收夹具漏复制新增运行时导致worker安装失败；补齐已登记根级资源并新增离线同步模块断言，既有4场景实际通过",
+      "impact": "implementation",
+      "sections": "仅修改测试与验收及迭代同步中的夹具准备，因为生产播放器、同步服务、数据模型和部署均未改变；保持全部原升级断言并加强离线模块检查。",
+      "doc_hash": "34ff25f01f3a39b79a37bce098724114a29faabdb48c488f9dff2817a562cc8f"
+    },
+    {
+      "date": "2026-11-10T01:36:57+08:00",
+      "summary": "记录本地代码、证据门禁与升级夹具独立批准；iOS两次初始化超时如实阻断，生产与Mac正式备份未启用",
+      "impact": "implementation",
+      "sections": "仅更新测试与验收及迭代同步的执行事实，因为生产代码、数据模型、协议和云端配置均未改变；旧回执不伪造刷新。",
+      "doc_hash": "fe6f42e7719ac02c4042edd95ba73d2ad0e6f2f13dbeb66a0ea56bec3f4c1f89"
+    },
+    {
+      "date": "2026-11-10T03:55:53+08:00",
+      "summary": "修复明确播放和私人选曲的上次收听同步，补充最终 v13-sync4 的真实 iOS 离线冷开及自动补传证据；客户端18、播放器16、升级4场景通过。",
+      "impact": "implementation",
+      "sections": "模块目录与迭代同步已更新。仅修正用户操作入口与补齐验收证据，因为数据模型、接口、鉴权、数据库、生产依赖和部署均未变化；生产 Mac/iCloud 仍未启用。",
+      "doc_hash": "626657212bdc062597e8b01e39705b7bc145ea014403ebc327cb5ea4608d4c06"
+    },
+    {
+      "date": "2026-11-10T09:15:41+08:00",
+      "summary": "更新端到端实测事实：iOS离线冷启与108集播放、断网排队与恢复网络自动同步(seq 40)、Mac Personal Backup Kit快照导出、mw_restore_qa空库隔离恢复比对、钥匙串清理与LaunchAgent核验",
+      "impact": "implementation",
+      "sections": "迭代同步已更新并记录最新实测事实。仅追加端到端验收与真实备份恢复验证，数据模型、协议契约、鉴权机制、数据库架构及依赖均未改变；生产部署与云端凭据保持阻断待核实。",
+      "doc_hash": "ed6e4e87a6c1ad5b4e06244e0f9cfa69d7f9c7c89129e0afae349e2c08473110"
+    },
+    {
+      "date": "2026-11-10T21:27:06+08:00",
+      "summary": "跨专题选集记忆与目录平滑滚动定位：切换资源时自动识别并定位目标集数，添加目录与播放器直达定位",
       "impact": "architecture",
-      "sections": "加密私人收听交付（本轮设计）",
-      "doc_hash": "dccc8fbc8c1cd5347fab0fe38dbc23ecb585ffe4bc2f1f94614cf8bc8b17d4e8"
+      "sections": "数据模型,关键流程,迭代同步",
+      "doc_hash": "94e0e8d7f5593b491704f8c266a2d9586c4b7107c1e9194c2e707b7063a9c273"
+    },
+    {
+      "date": "2026-11-10T22:05:42+08:00",
+      "summary": "合并 origin/main (v15 加密交付与圣经/金刚经专题)，集成个人收听自动同步与 Render 部署配置",
+      "impact": "architecture",
+      "sections": "目标与范围,技术栈,模块与目录,数据模型,接口与契约,部署与配置,迭代同步",
+      "doc_hash": "01109a6643f50d9ddba16ad7dde3ce1d1d9214b0b0b08e28665e522ae3e0440b"
     }
   ]
 }

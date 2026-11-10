@@ -17,6 +17,7 @@ function clearAB() {
 }
 function seekTo(seconds) {
   if (!sourceReady || !Number.isFinite(audio.duration)) return;
+  globalThis.ListeningSync?.intent(track.id, 'seek');
   audio.currentTime = Math.min(Math.max(0, seconds), audio.duration);
   savePosition();
   updateProgressUI();
@@ -91,12 +92,14 @@ function setupControls() {
     const speeds = [0.8, 1, 1.25, 1.5, 2];
     audio.playbackRate = speeds[(speeds.indexOf(audio.playbackRate) + 1) % speeds.length];
     localStorage.setItem('mw_speed', String(audio.playbackRate));
+    globalThis.ListeningSync?.preference('speed', audio.playbackRate);
     byId('btnSpeed').textContent = `${audio.playbackRate}x`;
   });
   byId('btnLoop').addEventListener('click', () => {
     clearAB();
     loopMode = loopMode === 'one' ? 'normal' : 'one';
     localStorage.setItem('mw_loop', loopMode);
+    globalThis.ListeningSync?.preference('loop', loopMode);
     applyLoop();
   });
   byId('btnAB').addEventListener('click', () => {

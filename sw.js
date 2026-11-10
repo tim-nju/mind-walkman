@@ -1,5 +1,5 @@
-const CACHE_NAME = 'mind-walkman-shell-v15';
-const STATIC_ASSETS = ['./', './index.html', './listen.html', './styles.css?v=15', './tracks.js?v=15', './course-data.js?v=15', './storage.js?v=15', './controls.js?v=15', './importer.js?v=15', './app.js?v=15', './sealed-media.js?v=15', './private-delivery.js?v=15', './manifest.json', './public/icons/icon-192.png', './public/icons/icon-512.png'];
+const CACHE_NAME = 'mind-walkman-shell-v15-sync';
+const STATIC_ASSETS = ['./', './index.html', './listen.html', './styles.css?v=15', './tracks.js?v=15', './course-data.js?v=15', './storage.js?v=15', './controls.js?v=15', './importer.js?v=15', './app.js?v=15', './sealed-media.js?v=15', './private-delivery.js?v=15', './sync-model.js', './sync-client.js', './sync-store.js', './sync-transport.js', './sync-player.js', './sync-ui.js', './sync.css', './manifest.json', './public/icons/icon-192.png', './public/icons/icon-512.png'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(STATIC_ASSETS.map(asset => new Request(asset, { cache: 'reload' })))).then(() => self.skipWaiting()));
 });

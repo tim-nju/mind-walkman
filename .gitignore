@@ -3,6 +3,9 @@ __pycache__/
 *.pyc
 .idea/
 .vscode/
+node_modules/
+.env
+.env.*
 public/audio/daodejing/
 public/audio/hope/
 public/audio/scripture/

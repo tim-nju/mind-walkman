@@ -38,7 +38,11 @@ try {
   });
   if(!seeded.keys.includes('mind-walkman-v2')||seeded.position!=='150'||!seeded.controller.endsWith('/sw.js'))throw new Error(JSON.stringify(seeded));
   checks.push({id:'legacy-v2-seeded',status:'pass',observable:seeded});
-  for(const name of ['index.html','styles.css','app.js','tracks.js','course-data.js','storage.js','controls.js','importer.js','manifest.json']) await fs.copyFile(path.join(root,name),path.join(folder,name));
+  // Copy the candidate's complete root-level runtime, including new module imports.
+  // The worker is still withheld until the mixed-shell phase has been exercised.
+  const runtimeFiles=names.filter(name=>!name.includes('/') && name!=='sw.js' &&
+    (/\.(html|css|js)$/.test(name) || name==='manifest.json'));
+  for(const name of runtimeFiles) await fs.copyFile(path.join(root,name),path.join(folder,name));
   await fs.unlink(path.join(folder,'sw.js'));
   await page.goto('http://127.0.0.1:8878/index.html?mixed-shell=legacy-v2');
   const mixed=await page.evaluate(async()=>{
@@ -66,12 +70,12 @@ try {
   server.kill('SIGTERM');await new Promise(resolve=>server.once('exit',resolve));server=null;
   await page.goto('http://127.0.0.1:8878');
   const offline=await page.evaluate(async()=>{
-    const limit=performance.now()+20000;while(typeof sourceReady==='undefined'||!sourceReady){if(performance.now()>limit)throw new Error('offline metadata timeout');await new Promise(resolve=>requestAnimationFrame(resolve));}
+    const limit=performance.now()+20000;while(typeof sourceReady==='undefined'||!sourceReady||typeof ListeningSync==='undefined'){if(performance.now()>limit)throw new Error('offline metadata or sync module timeout');await new Promise(resolve=>requestAnimationFrame(resolve));}
     seekTo(180);await playAudio();
     while(audio.currentTime<180.2){if(performance.now()>limit)throw new Error('offline playback timeout');await new Promise(resolve=>requestAnimationFrame(resolve));}
-    audio.pause();return {time:audio.currentTime,src:audio.currentSrc,ready:audio.readyState};
+    audio.pause();return {time:audio.currentTime,src:audio.currentSrc,ready:audio.readyState,syncLoaded:typeof ListeningSync==='object'};
   });
-  if(offline.time<180.2||offline.time>182)throw new Error(JSON.stringify(offline));
+  if(offline.time<180.2||offline.time>182||!offline.syncLoaded)throw new Error(JSON.stringify(offline));
   checks.push({id:'upgraded-v2-offline-reload-seek-play',status:'pass',observable:offline});
   await fs.writeFile('.omo/evidence/topic-player/upgrade.png',await page.screenshot());
   if(JSON.stringify(sources)!==JSON.stringify(await fingerprints()))throw new Error('source changed during upgrade scenario');

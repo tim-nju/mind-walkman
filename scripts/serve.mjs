@@ -9,7 +9,7 @@ createServer(async (req, res) => {
     const url = new URL(req.url, 'http://localhost');
     const decoded = decodeURIComponent(url.pathname);
     if (decoded.split('/').some(segment => segment === '..' || segment === '.' || segment.startsWith('.'))) { res.writeHead(403).end(); return; }
-    if (!/^\/(?:(?:index|listen)\.html|app\.js|sealed-media\.js|private-delivery\.js|tracks\.js|course-data\.js|controls\.js|importer\.js|storage\.js|sw\.js|styles\.css|manifest\.json|public\/(?:audio|icons|sealed)\/[^?]+)?$/.test(decoded)) { res.writeHead(403).end(); return; }
+    if (!/^\/(?:(?:index|listen)\.html|app\.js|sync-(?:model|client|store|transport|player|ui)\.js|sync\.css|sealed-media\.js|private-delivery\.js|tracks\.js|course-data\.js|controls\.js|importer\.js|storage\.js|sw\.js|styles\.css|manifest\.json|public\/(?:audio|icons|sealed)\/[^?]+)?$/.test(decoded)) { res.writeHead(403).end(); return; }
     const path = await realpath(resolve(root, `.${(decoded === '/' ? '/index.html' : decoded)}`));
     if (!path.startsWith(`${root}${sep}`) || (decoded.startsWith('/public/') && !path.startsWith(resolve(root, 'public', decoded.split('/')[2]) + sep))) { res.writeHead(403).end(); return; }
     const info = await stat(path);

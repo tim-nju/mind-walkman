@@ -1,0 +1,56 @@
+.sync-panel {
+  color: var(--text-main);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 8px 16px;
+  min-width: 0;
+}
+.sync-panel summary {
+  min-height: 44px;
+  padding: 10px 0;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.sync-panel p {
+  font-size: 14px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+  user-select: text;
+}
+.sync-panel #syncStatus { margin: 8px 0 16px; }
+.sync-form { display: grid; gap: 16px; margin: 16px 0 24px; }
+.sync-form[hidden] { display: none; }
+.sync-form label { display: grid; gap: 8px; font-size: 14px; }
+.sync-form input {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--text-sub);
+  border-radius: 8px;
+  background: var(--bg-color);
+  color: var(--text-main);
+  caret-color: var(--accent);
+  font: inherit;
+  font-size: 16px;
+  user-select: text;
+}
+.sync-form button {
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: var(--accent);
+  color: var(--bg-color);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.sync-form button:hover { filter: brightness(1.08); }
+.sync-form button:active { filter: brightness(0.9); }
+.sync-form button:disabled { opacity: 0.6; cursor: wait; }
+.sync-panel :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.sync-panel ::selection { color: var(--bg-color); background: var(--accent); }
+.sync-panel .sync-note { color: var(--text-sub); margin-bottom: 12px; }

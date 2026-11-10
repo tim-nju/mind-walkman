@@ -58,7 +58,7 @@ function updateListProgress() {
   }
 }
 function savePosition() {
-  if (!sourceReady) return;
+  if (!sourceReady || globalThis.ListeningSync?.isProjecting()) return;
   const position = audio.ended ? 0 : audio.currentTime;
   if (!Number.isFinite(position) || position < 0) return;
   const progress = readProgress(track);
@@ -67,8 +67,55 @@ function savePosition() {
   if (Number.isFinite(audio.duration) && audio.duration > 0) progress.duration = audio.duration;
   localStorage.setItem(`mw_progress_${track.id}`, JSON.stringify(progress));
   localStorage.setItem(`mw_pos_${track.id}`, String(position));
+  if (topic) localStorage.setItem(`mw_lastTrack_${topic.id}`, track.id);
   if (track.id === ORIGINAL_TRACK.id) localStorage.setItem('mw_pos', String(position));
+  globalThis.ListeningSync?.observe({
+    trackId: track.id, positionMs: Math.round(position * 1000),
+    durationMs: Math.round(progress.duration * 1000), ended: audio.ended
+  });
   updateListProgress();
+}
+function findActiveTrack(targetTopic) {
+  if (!targetTopic || !Array.isArray(targetTopic.tracks) || !targetTopic.tracks.length) return null;
+  const rememberedId = localStorage.getItem(`mw_lastTrack_${targetTopic.id}`);
+  if (rememberedId) {
+    const remembered = targetTopic.tracks.find(item => item.id === rememberedId);
+    if (remembered) return remembered;
+  }
+  const globalLastId = localStorage.getItem('mw_lastTrack');
+  if (globalLastId) {
+    const globalLast = targetTopic.tracks.find(item => item.id === globalLastId);
+    if (globalLast) return globalLast;
+  }
+  const inProgress = targetTopic.tracks.filter(item => {
+    const prog = readProgress(item);
+    return savedPosition(item) > 0 && !prog.completed;
+  });
+  if (inProgress.length > 0) return inProgress[inProgress.length - 1];
+  let lastCompletedIndex = -1;
+  for (let i = 0; i < targetTopic.tracks.length; i++) {
+    if (readProgress(targetTopic.tracks[i]).completed) lastCompletedIndex = i;
+  }
+  if (lastCompletedIndex >= 0) {
+    if (lastCompletedIndex + 1 < targetTopic.tracks.length) {
+      return targetTopic.tracks[lastCompletedIndex + 1];
+    }
+    return targetTopic.tracks[lastCompletedIndex];
+  }
+  return targetTopic.tracks[0];
+}
+function scrollToActiveTrack({ behavior = 'smooth', block = 'center', flash = true } = {}) {
+  requestAnimationFrame(() => {
+    const activeRow = byId('trackList')?.querySelector('[aria-current="true"]');
+    if (!activeRow) return;
+    activeRow.scrollIntoView({ behavior, block });
+    if (flash) {
+      activeRow.classList.remove('track-row-locate-pulse');
+      void activeRow.offsetWidth;
+      activeRow.classList.add('track-row-locate-pulse');
+      setTimeout(() => activeRow.classList.remove('track-row-locate-pulse'), 1800);
+    }
+  });
 }
 function savedPosition(item) {
   const raw = localStorage.getItem(`mw_pos_${item.id}`) ??
@@ -88,7 +135,7 @@ function renderList() {
     const detail = document.createElement('small');
     detail.textContent = `${formatTime(item.duration)} · ${cacheKeys.has(item.id) ? '已缓存' : '未缓存'} · ${progressLabel(item)}`;
     button.append(title, detail);
-    button.addEventListener('click', () => selectTrack(item, true));
+    button.addEventListener('click', () => selectTrack(item, true, true));
     row.append(button);
     return row;
   }));
@@ -113,7 +160,7 @@ async function refreshCache() {
   renderList();
   updateOfflineStatus();
 }
-async function selectTrack(next, autoplay = false) {
+async function selectTrack(next, autoplay = false, intent = true) {
   savePosition();
   const token = ++selection;
   sourceReady = false;
@@ -122,9 +169,13 @@ async function selectTrack(next, autoplay = false) {
   audio.load();
   if (blobURL) { URL.revokeObjectURL(blobURL); blobURL = null; }
   track = next;
+  if (intent) globalThis.ListeningSync?.intent(track.id, 'select');
   if (topic !== topics.find(item => item.tracks.includes(track))) resetImportSelection();
   topic = topics.find(item => item.tracks.includes(track));
-  localStorage.setItem('mw_lastTrack', track.id);
+  if (intent) {
+    localStorage.setItem('mw_lastTrack', track.id);
+    if (topic) localStorage.setItem(`mw_lastTrack_${topic.id}`, track.id);
+  }
   pendingPosition = savedPosition(track);
   pendingAutoplay = autoplay;
   byId('topicSelect').value = topic.id;
@@ -158,15 +209,16 @@ async function selectTrack(next, autoplay = false) {
 }
 function nextTrack(offset, autoplay = !audio.paused) {
   const next = topic.tracks[topic.tracks.indexOf(track) + offset];
-  if (next) selectTrack(next, autoplay);
+  if (next) selectTrack(next, autoplay, true);
 }
-async function playAudio() {
+async function playAudio(intent = true) {
   if (!sourceReady) {
-    if (cacheKeys.has(track.id)) await selectTrack(track, true);
+    if (cacheKeys.has(track.id)) await selectTrack(track, true, intent);
     else if (!canFetchTrack(track)) status('请先从 iCloud 文件夹导入本集。');
     return;
   }
   const token = selection;
+  if (intent) globalThis.ListeningSync?.intent(track.id, 'play');
   try { await audio.play(); if (token === selection) status('正在播放'); }
   catch (error) {
     if (token !== selection || (error instanceof DOMException && error.name === 'AbortError')) return;
@@ -203,9 +255,17 @@ async function downloadTracks(items) {
   }
 }
 byId('topicSelect').replaceChildren(...topics.map(item => new Option(item.title, item.id)));
-byId('topicSelect').addEventListener('change', event => selectTrack(topics.find(item => item.id === event.target.value).tracks[0]));
+byId('topicSelect').addEventListener('change', event => {
+  const nextTopic = topics.find(item => item.id === event.target.value);
+  if (!nextTopic) return;
+  const targetTrack = findActiveTrack(nextTopic);
+  selectTrack(targetTrack, false, true);
+  scrollToActiveTrack({ behavior: 'smooth', block: 'center', flash: true });
+});
 byId('btnPrevious').addEventListener('click', () => nextTrack(-1));
 byId('btnNext').addEventListener('click', () => nextTrack(1));
+byId('btnLocateInList')?.addEventListener('click', () => scrollToActiveTrack({ behavior: 'smooth', block: 'center', flash: true }));
+byId('btnLocateTrack')?.addEventListener('click', () => scrollToActiveTrack({ behavior: 'smooth', block: 'center', flash: true }));
 byId('btnCacheAll').addEventListener('click', () => downloadTracks([track]));
 byId('btnCacheTopic').addEventListener('click', () => downloadTracks([...topic.tracks]));
 byId('btnStopCache').addEventListener('click', () => downloadController?.abort());
@@ -215,7 +275,7 @@ audio.addEventListener('loadedmetadata', () => {
   pendingPosition = 0;
   sourceReady = true;
   audio.playbackRate = Number(localStorage.getItem('mw_speed')) || 1;
-  if (pendingAutoplay) { pendingAutoplay = false; playAudio(); }
+  if (pendingAutoplay) { pendingAutoplay = false; playAudio(false); }
   status(audio.paused ? '已就绪' : '正在播放');
   updateProgressUI();
 });
@@ -225,7 +285,7 @@ audio.addEventListener('ended', () => {
   savePosition();
   if (loopMode === 'one') {
     audio.currentTime = 0;
-    playAudio();
+    playAudio(false);
   } else if (loopMode === 'normal') nextTrack(1, true);
 });
 audio.addEventListener('pause', savePosition);
@@ -240,4 +300,4 @@ if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?v=15
 setupControls();
 setupImporter();
 refreshCache().catch(error => { if (error instanceof Error) status(`缓存不可用：${error.message}`); else throw error; });
-selectTrack(track);
+selectTrack(track, false, false);
