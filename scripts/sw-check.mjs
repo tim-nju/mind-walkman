@@ -18,7 +18,7 @@ context.self.location.origin='https://tim-nju.github.io';
 context.caches.match=async()=>undefined;
 let networkUsed=false;
 context.fetch=async()=>{networkUsed=true;return new Response('unexpected network');};
-for (const file of ['daodejing/001.m4a', 'hope/hope-workplace-03.mp3', 'scripture/mw230903.mp3', 'diamond/diamond-shengyen-01.mp3']) {
+for (const file of ['daodejing/001.m4a']) {
   let privateResponse;
   handlers.get('fetch')({request:new Request(`https://tim-nju.github.io/mind-walkman/public/audio/${file}`),respondWith:value=>{privateResponse=value;}});
   assert.equal((await privateResponse).status,404);

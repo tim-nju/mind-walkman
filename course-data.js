@@ -1724,3 +1724,28 @@ const DIAMOND_TOPIC = {
     }
   ]
 };
+
+const COUNSELING_TOPIC = {
+  id: "counseling",
+  title: "心理咨询 · 2026-11-01",
+  speaker: "心理咨询",
+  backupFolder: "私人录音",
+  sealedEnvelope: "867ab76b2e9bd70e05bce3c30e8857ff.tEjLntXnjRujW22AkKdHanEKjticSnCWSzQAO9YjZ2Y",
+  tracks: [
+    {
+      id: "private-recording-20261101",
+      title: "心理咨询 · 2026-11-01",
+      speaker: "心理咨询",
+      date: "2026-11-01 原声录音 (3:09:48)",
+      duration: 11388.38,
+      audioSrc: "./public/audio/counseling/心理咨询-2026-11-01.m4a",
+      mime: "audio/mp4",
+      chapters: [],
+      bytes: 142189907,
+      sha256: "775850c4bba3b3cbc1599d89b45123083ef7647a08b2f4c4c702da2125244b91",
+      fileName: "心理咨询-2026-11-01.m4a",
+      sealedEnvelope: "867ab76b2e9bd70e05bce3c30e8857ff.tEjLntXnjRujW22AkKdHanEKjticSnCWSzQAO9YjZ2Y",
+      privateAudio: true
+    }
+  ]
+};

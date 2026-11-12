@@ -6,11 +6,9 @@ __pycache__/
 node_modules/
 .env
 .env.*
+.omo/
 public/audio/daodejing/
-public/audio/hope/
-public/audio/scripture/
-public/audio/diamond/
-.omo/evidence/
+public/audio/counseling/
 .private-media/
 # Local QA harness and reports retain private fixture / workstation context.
 scripts/private-recording-browser-check.mjs

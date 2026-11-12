@@ -180,7 +180,7 @@
           <div class="settings-group-title"><span>📥</span> 课程与音频导入</div>
           <section id="importSection" class="import-section" hidden aria-labelledby="importHeading">
             <h2 id="importHeading" style="font-size:14px;color:var(--text-sub);">从 iCloud 导入课程</h2>
-            <p id="importInstructions">在“文件”中选择 iCloud 云盘里的“应用备份 → 心智随身听”专题文件夹。导入后可离线收听，音频不会上传。</p>
+            <p id="importInstructions">在“文件”中选择 iCloud 云盘里的“应用备份 → 心智随身听”专题文件夹。支持跨课程一次多选导入整部音频（iPhone / iPad 用户在文件窗口中点击右上角「···」并点击「全选」，即可一次性全量导入所有集数）。</p>
             <div class="import-actions">
               <label class="file-choice">从文件夹导入<input id="folderInput" type="file" webkitdirectory multiple aria-label="从文件夹导入"></label>
               <label class="file-choice">选择音频文件<input id="filesInput" type="file" multiple accept=".m4a,.mp3,audio/mp4,audio/mpeg" aria-label="选择音频文件"></label>
@@ -197,14 +197,14 @@
   <!-- Audio Element -->
   <audio id="audioPlayer" preload="metadata" playsinline></audio>
 
-  <script src="./tracks.js?v=16"></script>
-  <script src="./course-data.js?v=16"></script>
-  <script src="./storage.js?v=16"></script>
-  <script src="./controls.js?v=16"></script>
-  <script src="./importer.js?v=16"></script>
-  <script src="./app.js?v=16"></script>
-  <script src="./sealed-media.js?v=16"></script>
-  <script src="./private-delivery.js?v=16"></script>
+  <script src="./tracks.js?v=17"></script>
+  <script src="./course-data.js?v=17"></script>
+  <script src="./storage.js?v=17"></script>
+  <script src="./controls.js?v=17"></script>
+  <script src="./importer.js?v=17"></script>
+  <script src="./app.js?v=17"></script>
+  <script src="./sealed-media.js?v=17"></script>
+  <script src="./private-delivery.js?v=17"></script>
   <script type="module" src="./sync-player.js"></script>
 </body>
 </html>

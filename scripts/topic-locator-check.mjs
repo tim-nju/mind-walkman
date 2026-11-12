@@ -81,6 +81,7 @@ const sandbox = {
   HOPE_TOPIC: { id: 'hope-topic', title: 'Hope', tracks: [{ id: 'hope-01', duration: 50 }] },
   BIBLE_TOPIC: { id: 'bible-topic', title: 'Bible', tracks: [{ id: 'bible-01', duration: 50 }] },
   DIAMOND_TOPIC: { id: 'diamond-topic', title: 'Diamond', tracks: [{ id: 'diamond-01', duration: 50 }] },
+  COUNSELING_TOPIC: { id: 'counseling-topic', title: 'Counseling', tracks: [{ id: 'counseling-01', duration: 50 }] },
   readPrivateCatalog: () => [],
   importController: null,
   privateCatalogStatus: () => {},

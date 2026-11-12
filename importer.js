@@ -49,27 +49,50 @@ function resetImportSelection() {
 }
 function showImportSelection(files) {
   if (importController) return;
-  importTopic = topic;
-  const known = new Map(importTopic.tracks.map(item => [item.fileName, item]));
+  importTopic = typeof topic !== 'undefined' ? topic : null;
+  const availableTracks = (typeof allTracks !== 'undefined' && Array.isArray(allTracks))
+    ? allTracks
+    : (importTopic?.tracks || []);
+  const allKnown = new Map(availableTracks.map(item => [item.fileName, item]));
   const selected = new Map();
   const duplicates = [];
   const unknown = [];
   for (const file of files) {
-    if (!known.has(file.name)) { unknown.push(file.name); continue; }
+    if (!allKnown.has(file.name)) { unknown.push(file.name); continue; }
     if (selected.has(file.name)) duplicates.push(file.name);
     else selected.set(file.name, file);
   }
-  const missing = importTopic.tracks.filter(item => !selected.has(item.fileName));
-  importPlan = importTopic.tracks.filter(item => selected.has(item.fileName)).map(item => ({ track: item, file: selected.get(item.fileName) }));
-  const lines = [`选中 ${importPlan.length} / ${importTopic.tracks.length} 集。`];
-  if (duplicates.length) lines.push(`发现重名文件：${[...new Set(duplicates)].join('、')}。请只选择一份课程文件夹后重试。`);
+  importPlan = [];
+  for (const [name, file] of selected.entries()) {
+    const matchedTrack = allKnown.get(name);
+    if (matchedTrack) importPlan.push({ track: matchedTrack, file });
+  }
+  const availableTopics = (typeof topics !== 'undefined' && Array.isArray(topics))
+    ? topics
+    : (importTopic ? [importTopic] : []);
+  const topicGroups = new Map();
+  for (const plan of importPlan) {
+    const parentTopic = availableTopics.find(t => t.tracks?.includes(plan.track)) || importTopic;
+    if (parentTopic) {
+      if (!topicGroups.has(parentTopic.id)) topicGroups.set(parentTopic.id, { topic: parentTopic, count: 0 });
+      topicGroups.get(parentTopic.id).count++;
+    }
+  }
+  const lines = [`选中 ${importPlan.length} 集音频。`];
+  if (topicGroups.size > 1) {
+    const summary = Array.from(topicGroups.values()).map(g => `${g.topic.title}（${g.count}/${g.topic.tracks.length} 集）`).join('、');
+    lines.push(`跨专题自动识别：${summary}。`);
+  } else if (topicGroups.size === 1) {
+    const g = Array.from(topicGroups.values())[0];
+    lines.push(`对应“${g.topic.title}”（${g.count}/${g.topic.tracks?.length || g.count} 集）。`);
+  }
+  if (duplicates.length) lines.push(`发现重名文件：${[...new Set(duplicates)].join('、')}。请排除重复文件后重试。`);
   if (unknown.length) lines.push(`不属于课程的 ${unknown.length} 个文件将忽略：${unknown.slice(0, 8).join('、')}${unknown.length > 8 ? '…' : ''}。`);
-  if (missing.length) lines.push(`本次未选择 ${missing.length} 集：${missing.slice(0, 8).map(item => item.fileName).join('、')}${missing.length > 8 ? '…' : ''}。可以先导入已选集数，之后补齐。`);
-  if (!importPlan.length) lines.push(`请选择“${importTopic.title}”的音频文件（${importTopic.tracks[0].fileName}）。`);
+  if (!importPlan.length) lines.push(`请选择音频文件（如 001.m4a 或各专题音频）。`);
   byId('importPreview').textContent = lines.join('\n');
   byId('btnStartImport').hidden = !importPlan.length;
   byId('btnStartImport').disabled = !!duplicates.length;
-  byId('btnStartImport').textContent = `导入这 ${importPlan.length} 集`;
+  byId('btnStartImport').textContent = `一键导入这 ${importPlan.length} 集`;
 }
 async function importSelectedFiles() {
   if (importController || downloadController || !importPlan.length || byId('btnStartImport').disabled) return;
@@ -96,8 +119,19 @@ async function importSelectedFiles() {
       updateOfflineStatus();
       if (entry.track.id === track.id && !sourceReady) status('本集已导入，点击播放即可收听。');
     }
-    const count = selectedTopic.tracks.filter(item => cacheKeys.has(item.id)).length;
-    byId('importStatus').textContent = `“${selectedTopic.title}”：本次导入 ${completed} 集，已有 ${skipped} 集无需重复导入。${count === selectedTopic.tracks.length ? `全部 ${selectedTopic.tracks.length} 集已就绪，可离线收听。` : `现有 ${count}/${selectedTopic.tracks.length} 集；其余集数需继续导入。`}`;
+    const availableTopics = (typeof topics !== 'undefined' && Array.isArray(topics))
+      ? topics
+      : (selectedTopic ? [selectedTopic] : []);
+    const affectedTopics = new Set();
+    for (const entry of entries) {
+      const parentTopic = availableTopics.find(t => t.tracks?.includes(entry.track)) || selectedTopic;
+      if (parentTopic) affectedTopics.add(parentTopic);
+    }
+    const topicSummaries = Array.from(affectedTopics).map(t => {
+      const ready = t.tracks ? t.tracks.filter(item => cacheKeys.has(item.id)).length : completed;
+      return `“${t.title}”现有 ${ready}/${t.tracks?.length || ready} 集`;
+    }).join('；');
+    byId('importStatus').textContent = `本次成功导入 ${completed} 集，已有 ${skipped} 集无需重复导入。${topicSummaries}。全部已就绪内容可随时离线收听。`;
   } catch (error) {
     if (error instanceof Error) byId('importStatus').textContent = `${error.name === 'AbortError' ? '导入已停止' : `${currentName} 导入失败：${error.message}`}。已完成 ${completed} 集，已有 ${skipped} 集；重新选择文件即可继续，已完成内容会保留。`;
     else throw error;

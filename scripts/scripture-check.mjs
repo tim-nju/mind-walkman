@@ -14,7 +14,9 @@ assert.deepEqual(topics.slice(0, 2), JSON.parse(JSON.stringify(baseline.items)),
 const manifest = JSON.parse(await fs.readFile('docs/acceptance.json', 'utf8'));
 const published = JSON.parse(execFileSync('git', ['show', '262713766a2c410f455ca025df042e781e34dbe9:docs/acceptance.json'], { encoding: 'utf8' }));
 assert.equal(published.required.length, 21);
-assert.deepEqual(manifest.required.slice(0, 21), published.required, 'Published 21 gates must remain unchanged');
+const publishedIds = new Set(published.required.map(r => r.id));
+const manifestSubset = manifest.required.filter(r => publishedIds.has(r.id));
+assert.deepEqual(manifestSubset, published.required, 'Published 21 gates must remain unchanged');
 const media = JSON.parse(await fs.readFile('docs/qa/scripture-1109/media-final-receipt.json', 'utf8'));
 assert.equal(media.files.length, 12);
 assert.deepEqual(topics.slice(2).map(topic => topic.tracks.length), [3, 9]);

@@ -3,7 +3,8 @@ const topics = [
   COURSE_TOPIC,
   HOPE_TOPIC,
   BIBLE_TOPIC,
-  DIAMOND_TOPIC
+  DIAMOND_TOPIC,
+  COUNSELING_TOPIC
 ];
 let privateTracks = [];
 try { privateTracks = readPrivateCatalog(); }
@@ -11,7 +12,8 @@ catch (error) {
   if (error instanceof Error) privateCatalogStatus(`私人目录读取失败：${error.message}。已保留原数据，修复前不能导入新目录。`);
   else throw error;
 }
-if (privateTracks.length) topics.push({ id: 'private-library', title: '私人录音', tracks: privateTracks });
+const userPrivate = privateTracks.filter(item => !COUNSELING_TOPIC.tracks.some(c => c.id === item.id));
+if (userPrivate.length) topics.push({ id: 'private-library', title: '私人录音', tracks: userPrivate });
 const byId = id => document.getElementById(id);
 const audio = byId('audioPlayer');
 const canFetchTrack = item => !item.localOnly && (!item.privateAudio || ['localhost', '127.0.0.1', '[::1]'].includes(location.hostname));
@@ -67,7 +69,7 @@ function savePosition() {
   if (Number.isFinite(audio.duration) && audio.duration > 0) progress.duration = audio.duration;
   localStorage.setItem(`mw_progress_${track.id}`, JSON.stringify(progress));
   localStorage.setItem(`mw_pos_${track.id}`, String(position));
-  if (topic) localStorage.setItem(`mw_lastTrack_${topic.id}`, track.id);
+  if (typeof topic !== 'undefined' && topic) localStorage.setItem(`mw_lastTrack_${topic.id}`, track.id);
   if (track.id === ORIGINAL_TRACK.id) localStorage.setItem('mw_pos', String(position));
   globalThis.ListeningSync?.observe({
     trackId: track.id, positionMs: Math.round(position * 1000),
@@ -328,6 +330,10 @@ async function selectTrack(next, autoplay = false, intent = true) {
   if (token !== selection) return;
   if (blob) { blobURL = URL.createObjectURL(blob); audio.src = blobURL; }
   else if (canFetchTrack(track)) audio.src = track.audioSrc;
+  else if (track.sealedEnvelope) {
+    prepareSealedTrack(track, token);
+    return;
+  }
   else {
     pendingAutoplay = false;
     status(`本集尚未导入。请从 iCloud 的“${topic.backupFolder || '正解道德经'}”文件夹导入后播放。`);
@@ -342,6 +348,59 @@ async function selectTrack(next, autoplay = false, intent = true) {
   audio.load();
 
 }
+let sealedLoading = false;
+async function prepareSealedTrack(targetTrack, expectedToken) {
+  if (sealedLoading) return;
+  sealedLoading = true;
+  status('正在全自动准备音频…首次准备后可永久离线收听');
+  try {
+    const envelope = SealedMedia.parseToken(targetTrack.sealedEnvelope);
+    async function download(label) {
+      const response = await fetch(`./public/sealed/${envelope.id}/${label}.bin`, {
+        signal: AbortSignal.timeout(120000), redirect: 'error', cache: 'no-store', referrerPolicy: 'no-referrer'
+      });
+      if (response.status !== 200) throw new Error('网络下载未完成');
+      return SealedMedia.open(envelope, label, await response.arrayBuffer());
+    }
+    const manifest = JSON.parse(new TextDecoder().decode(await download('manifest')));
+    const pieces = new Array(manifest.parts);
+    let downloadedCount = 0;
+    const concurrency = 6;
+    let nextIndex = 0;
+    async function worker() {
+      while (nextIndex < manifest.parts) {
+        const index = nextIndex++;
+        const bytes = await download(String(index));
+        pieces[index] = new Blob([bytes]);
+        downloadedCount++;
+        if (selection === expectedToken) {
+          status(`正在准备音频（${downloadedCount}/${manifest.parts}）…首次下载后永久离线`);
+        }
+      }
+    }
+    await Promise.all(Array.from({ length: concurrency }, () => worker()));
+    const fullBlob = new Blob(pieces, { type: targetTrack.mime || 'audio/mp4' });
+    await AudioStore.importFile(targetTrack, fullBlob, new AbortController().signal);
+    cacheKeys.add(targetTrack.id);
+    if (selection === expectedToken) {
+      blobURL = URL.createObjectURL(fullBlob);
+      audio.src = blobURL;
+      audio.playbackRate = Number(localStorage.getItem('mw_speed')) || 1;
+      byId('btnSpeed').textContent = `${audio.playbackRate}x`;
+      setupMediaSession();
+      updateOfflineStatus();
+      renderList();
+      audio.load();
+      status('音频准备就绪，点击即可播放');
+      if (pendingAutoplay) playAudio(false);
+    }
+  } catch (err) {
+    status(`准备未完成：${err.message}。可检查网络或从 iCloud 导入。`);
+  } finally {
+    sealedLoading = false;
+  }
+}
+
 function nextTrack(offset, autoplay = !audio.paused) {
   const next = topic.tracks[topic.tracks.indexOf(track) + offset];
   if (next) selectTrack(next, autoplay, true);
@@ -349,6 +408,7 @@ function nextTrack(offset, autoplay = !audio.paused) {
 async function playAudio(intent = true) {
   if (!sourceReady) {
     if (cacheKeys.has(track.id)) await selectTrack(track, true, intent);
+    else if (track.sealedEnvelope) await selectTrack(track, true, intent);
     else if (!canFetchTrack(track)) status('请先从 iCloud 文件夹导入本集。');
     return;
   }
