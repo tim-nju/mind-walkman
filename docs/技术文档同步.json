@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "doc_hash": "fa74d4bade3210552a281744f4f9faa7e09d3bba841358fa7a4047ca2bd2641d",
+  "doc_hash": "db05cec5609b760961573841e0873d4bdd94356f797c89d7a2093c393fd4fe43",
   "fingerprints": {
     ".gitignore": "6c72a17878392dbe990df4b36e7c9caa724c4b6b1e7261e3231293fab27f1981",
-    "app.js": "059eb8bbc717d6a501094d24f0c06ee93866c37ccd4ea8d03d7ea5ba4defc7d0",
+    "app.js": "d577b2bb5273b13d2efcac82d1d9e24f4730f9518ba898a9e537bf601f917f4e",
     "controls.js": "d990122d75becf3d72e850d5d04403a3fc2e39c4fc820973d97465b6d741ab8b",
     "course-data.js": "b7112309e1fbc53756c1ae704102d520f89476cb325cc23894fea22a42ce905d",
     "docs/acceptance.json": "d80804f318a8ec49e8b0175e19d526c61465b75b35a1b870effac0a24f6edb0a",
@@ -11,8 +11,8 @@
     "docs/hope-source.json": "aabb99ff011481966cd374b25f38ca64be62aeacefb1700a005db70d2a8705e7",
     "docs/qa/bilibili-source-map.json": "5f790a2581782459cd4667b3cad5271bda1aaf563cf153ca1181cc2598e39e49",
     "importer.js": "9e34a71ef132574aebbcfb436a07c770c5d86166da86185faa685e8b7208fed2",
-    "index.html": "31a04f16574939400ad57786ed36953b49e821cef5a18fc67faf0313c81764d1",
-    "listen.html": "babb5599cacc8ca24facfcea65589bd14d8581e59c4525dd2c565463a162ea44",
+    "index.html": "c3d1b955273e09cd3b3f01a0ebb41cdd7d5890e0971306c67bfe7674a6ab853d",
+    "listen.html": "41bb368e3e07bf2c666e2b86b2563142d91385d1b30fcc1c6ee5b7eac290b5cd",
     "manifest.json": "00be2e5030b8024f07314ef558aca601816a46fda272a214b5ebfd9cc43dfb4a",
     "package-lock.json": "a9d138c898e98dd64b7fb3b1f7adc3146a5219b8a75d65bca53632e3cba5a84c",
     "package.json": "19f0e498c47b7a0df96a0277ecf67bfdc8313983a6cdfe3e607a19ede219f37a",
@@ -31,6 +31,7 @@
     "scripts/private-catalog-check.mjs": "f76325f07ba76b34c7dec33524dd4cf5e971bdfa46105228542373adcb6fcca6",
     "scripts/private-recording-evidence.mjs": "982d3ddfee85506aa8bb95c1cbb28a9628a4dcba102ee83b1c44f8dacb1870dc",
     "scripts/progress-check.mjs": "eb0efa06f4e78ff0e2f2481f6c4d28ba3528c2247fbff8866030b2a600f147f1",
+    "scripts/qa-ui-modernization.mjs": "f30bc81f15f3244f2380f3a973f0b11e510b200e2fa51fd362fe8e1d9dc62a2b",
     "scripts/scripture-check.mjs": "6fbbb372f2bd67c7f0ebf97ebb58d03508c79308b91af3bbfa776e78ae9b813f",
     "scripts/scripture-gate-check.mjs": "e3daeef57de594c7cede8f824967de9fac7c64bac22b7b344b0e5471e6a78b36",
     "scripts/scripture-import-check.mjs": "1e8141994b8616840721043a86a3485b5904d628e41db1b10b6c4ed1db0411cc",
@@ -44,7 +45,7 @@
     "scripts/sync-model-check.mjs": "8632095de69b3a0594563b4550a67586cf03d2d562f8a48b8abc1cee8d77a616",
     "scripts/sync-server-check.mjs": "ec8e2fb462b938575f77bc314ab16dc7d29c4362cd3c4fed3e3370e478277155",
     "scripts/topic-locator-browser-check.mjs": "c303a3581f79dbcb6fdf966d4e47e4be2ba5eb0426a8877b79050c32c98cf0bb",
-    "scripts/topic-locator-check.mjs": "cdba86a7f4ca1685ac2e9e50f6ccf45f8cba5d0400cddad297f0571d286d56c8",
+    "scripts/topic-locator-check.mjs": "3ed0a35dfa571fcb1e0e2f8d1ad1e1c9c7401b09ab2410b4bf2b4160b2dcca6d",
     "scripts/upgrade-check.mjs": "3975993a4a9d6e78febb35e8ae9809c7a5c454efc26e1bd739676dacf3ef8155",
     "sealed-media.js": "4b61589914185860bcf008f3ed5ae2092cc7ffa592ec61fc4a569d8dac741221",
     "server/admin.mjs": "dc614e4797709e5346752746e95638a7d1bc0cb111d346d2df916f7319b510b5",
@@ -54,15 +55,15 @@
     "server/server.mjs": "49ec74da76ad69025920cc66807426f04af2cf41a2e811afa540e8e7abce02c8",
     "server/service.mjs": "7e9fb3fe713eb999085dc99248c99efa0922135d45860c7db46f9e6a75a53784",
     "storage.js": "dcd565fb6a5a1748d90d62a5efeced03362dba7a368f2c3bbc7431bf528a9435",
-    "styles.css": "40a25f67876bb259948063005bed6c2ecc65c6ffd915d1d7fbad340f9fd9dfe7",
-    "sw.js": "c29eee1dbf40ed13872f0c727d06623c90c57687d2e78010a93c4de0295700be",
+    "styles.css": "082a6c4c2123ad1eb629b89edb6ef82a42f42e6b40f0f376f7eebd26ea1b0145",
+    "sw.js": "89862d5361aaa7a95f908e7d9afcc492e7978b7156083ff7d10088ca6bfd8817",
     "sync-client.js": "6fa584307328d9a00ff307e12c737de53016c2f2cefbbe03b891ce5553385693",
     "sync-model.js": "c26c74f57c1f2637f79b21dfe3c84c1d87d9b29284731dc846b104f72afbc625",
     "sync-player.js": "308ab710e6e0658d18dc0bac8b7684efe9c85dcdb070ed4ebcb11dbf09795e3e",
     "sync-store.js": "7ef237e1a141c46e56079ea2c776e23bf57f8f4767320f2314e2024e28ce7f93",
     "sync-transport.js": "567a3c91e6f2e76c12803c6b92c073a20b4bdbdd6f094365cfe5d089fdc51141",
-    "sync-ui.js": "9a42be74294d646f9eee9132e858a103e44fbedb424854e3d763feeb9d74e4b8",
-    "sync.css": "21804707c6889624341f99c8e4c7914337f134ab5c6679f869deac54f0250b92",
+    "sync-ui.js": "00d1326bf370cee7c5bee0c1484e60ef9168f3286324398e18325e53864864a7",
+    "sync.css": "903337ed4d1f354f71581215f0f3cf9501216b04b1f06434030b56574d67c370",
     "tracks.js": "2d893c6f03583355b5e51b89aa553008bf6c8421cfd6f57e9e29fd76226ea4cc"
   },
   "records": [
@@ -261,6 +262,34 @@
       "impact": "architecture",
       "sections": "部署与配置,迭代同步",
       "doc_hash": "fa74d4bade3210552a281744f4f9faa7e09d3bba841358fa7a4047ca2bd2641d"
+    },
+    {
+      "date": "2026-11-12T21:19:50+08:00",
+      "summary": "修复 topic-locator-check 单元测试沙箱中缺少圣经与金刚经全局变量导致的引用异常",
+      "impact": "implementation",
+      "sections": "仅补全测试沙箱环境变量，因为不涉及运行时业务逻辑、存储或网络契约变更，对技术架构无影响",
+      "doc_hash": "fa74d4bade3210552a281744f4f9faa7e09d3bba841358fa7a4047ca2bd2641d"
+    },
+    {
+      "date": "2026-11-12T21:36:21+08:00",
+      "summary": "现代移动端 UI/UX 架构重塑：引入日课护眼温润纸书美学与柔和深色模式、长列表智能折叠、横向药丸专题导航与收拢式设置面板",
+      "impact": "architecture",
+      "sections": "模块与目录,关键流程,测试与验收,迭代同步",
+      "doc_hash": "da3dcda2d1f8ca98754696cce59918d6a830ceb1db61dc0bdd76519953baa13f"
+    },
+    {
+      "date": "2026-11-12T21:38:07+08:00",
+      "summary": "细化剧集折叠 CSS 选择器与行项类名，修复 smart folding 下已过集数展开与收起渲染",
+      "impact": "implementation",
+      "sections": "仅调整样式与折叠渲染类名选择器，因为不修改底层数据结构与外部接口，对技术架构无影响",
+      "doc_hash": "da3dcda2d1f8ca98754696cce59918d6a830ceb1db61dc0bdd76519953baa13f"
+    },
+    {
+      "date": "2026-11-12T21:44:45+08:00",
+      "summary": "提升 Service Worker 缓存至 v16，更新静态资源查询串，严格保证已有用户收听进度与本地音频缓存完整保留",
+      "impact": "architecture",
+      "sections": "模块与目录,关键流程,测试与验收,迭代同步",
+      "doc_hash": "db05cec5609b760961573841e0873d4bdd94356f797c89d7a2093c393fd4fe43"
     }
   ]
 }

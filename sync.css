@@ -2,55 +2,99 @@
   color: var(--text-main);
   background: var(--card-bg);
   border: 1px solid var(--card-border);
-  border-radius: 12px;
-  padding: 8px 16px;
+  border-radius: var(--radius-lg, 16px);
+  padding: 12px 16px;
   min-width: 0;
+  box-shadow: var(--card-shadow, none);
 }
 .sync-panel summary {
   min-height: 44px;
   padding: 10px 0;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
   cursor: pointer;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 .sync-panel p {
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.6;
   overflow-wrap: anywhere;
   user-select: text;
 }
-.sync-panel #syncStatus { margin: 8px 0 16px; }
-.sync-form { display: grid; gap: 16px; margin: 16px 0 24px; }
-.sync-form[hidden] { display: none; }
-.sync-form label { display: grid; gap: 8px; font-size: 14px; }
+.sync-panel #syncStatus {
+  margin: 8px 0 16px;
+  color: var(--text-sub);
+}
+.sync-form {
+  display: grid;
+  gap: 14px;
+  margin: 14px 0 20px;
+}
+.sync-form[hidden] {
+  display: none;
+}
+.sync-form label {
+  display: grid;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--text-main);
+  font-weight: 500;
+}
 .sync-form input {
   width: 100%;
   min-width: 0;
   min-height: 44px;
-  padding: 10px 12px;
-  border: 1px solid var(--text-sub);
-  border-radius: 8px;
-  background: var(--bg-color);
+  padding: 10px 14px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  background: var(--card-surface-2);
   color: var(--text-main);
   caret-color: var(--accent);
   font: inherit;
-  font-size: 16px;
+  font-size: 15px;
   user-select: text;
+  transition: border-color 0.15s ease;
+}
+.sync-form input:focus {
+  border-color: var(--accent);
 }
 .sync-form button {
   min-height: 44px;
-  padding: 10px 12px;
+  padding: 10px 14px;
   border: 1px solid transparent;
-  border-radius: 8px;
+  border-radius: 10px;
   background: var(--accent);
-  color: var(--bg-color);
+  color: var(--accent-ink);
   font: inherit;
   font-weight: 600;
   cursor: pointer;
+  transition: transform 0.1s ease, filter 0.1s ease;
 }
-.sync-form button:hover { filter: brightness(1.08); }
-.sync-form button:active { filter: brightness(0.9); }
-.sync-form button:disabled { opacity: 0.6; cursor: wait; }
-.sync-panel :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-.sync-panel ::selection { color: var(--bg-color); background: var(--accent); }
-.sync-panel .sync-note { color: var(--text-sub); margin-bottom: 12px; }
+.sync-form button:hover {
+  filter: brightness(1.05);
+}
+.sync-form button:active {
+  transform: scale(0.98);
+  filter: brightness(0.95);
+}
+.sync-form button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.sync-panel :focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.sync-panel ::selection {
+  color: var(--accent-ink);
+  background: var(--accent);
+}
+.sync-panel .sync-note {
+  color: var(--text-dim);
+  font-size: 12px;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}

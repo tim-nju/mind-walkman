@@ -14,7 +14,7 @@
   
   <link rel="apple-touch-icon" href="./public/icons/icon-192.png">
   <link rel="manifest" href="./manifest.json">
-  <link rel="stylesheet" href="./styles.css?v=15">
+  <link rel="stylesheet" href="./styles.css?v=16">
   <link rel="stylesheet" href="./sync.css">
 </head>
 <body>
@@ -28,21 +28,12 @@
       <div class="header-badges">
         <span class="badge offline-badge" id="offlineStatus">正在检查缓存</span>
         <button class="badge-btn" id="btnCacheAll" title="缓存完整音频到本地">缓存本集</button>
+        <button class="btn-icon" id="btnOpenSettings" title="设置与同步" aria-label="打开设置">⚙️</button>
       </div>
     </header>
 
+    <nav class="topic-segmented-bar" id="topicSegmentedBar" role="tablist" aria-label="收听专题"></nav>
     <section class="topic-picker"><label for="topicSelect">收听专题</label><select id="topicSelect"></select></section>
-    <section id="importSection" class="import-section" hidden aria-labelledby="importHeading">
-      <h2 id="importHeading">从 iCloud 导入课程</h2>
-      <p id="importInstructions">在“文件”中选择 iCloud 云盘里的“应用备份 → 心智随身听”专题文件夹。导入后可离线收听，音频不会上传。</p>
-      <div class="import-actions">
-        <label class="file-choice">从文件夹导入<input id="folderInput" type="file" webkitdirectory multiple aria-label="从文件夹导入"></label>
-        <label class="file-choice">选择音频文件<input id="filesInput" type="file" multiple accept=".m4a,.mp3,audio/mp4,audio/mpeg" aria-label="选择音频文件"></label>
-      </div>
-      <p class="status-line" id="importPreview" role="status">可一次选择整个文件夹，也可以分批选择音频文件。</p>
-      <div class="import-actions"><button class="pill-toggle" id="btnStartImport" hidden>开始导入</button><button class="pill-toggle" id="btnStopImport" hidden>停止后续导入</button></div>
-      <p class="status-line" id="importStatus" role="status"></p>
-    </section>
     <!-- Main Player Card (Sticky / Top Focus) -->
     <section class="player-card">
       <div class="track-artwork">
@@ -132,10 +123,16 @@
     </section>
 
     <section class="library-section" aria-label="专题目录">
-      <div class="section-title-bar"><h3 class="section-title">专题目录</h3><button class="pill-toggle btn-locate-track" id="btnLocateTrack" title="定位到当前正在收听的剧集">📍 定位当前集</button><span id="topicCount" class="section-hint"></span></div>
+      <div class="section-title-bar"><h3 class="section-title">专题目录</h3><div style="display:flex;gap:6px;"><button class="pill-toggle btn-locate-track" id="btnLocateTrack" title="定位到当前正在收听的剧集">📍 定位当前集</button><button class="pill-toggle" id="btnToggleAllFold" title="展开或折叠全部集数">全部展开</button></div><span id="topicCount" class="section-hint"></span></div>
       <div class="cache-actions"><button class="pill-toggle" id="btnCacheTopic">缓存整专题</button><button class="pill-toggle" id="btnStopCache" hidden>停止后续缓存</button></div>
       <p id="cacheStatus" class="status-line" role="status">缓存整专题会下载所有音频，请留意设备剩余空间。</p>
+      <div id="foldPrevBanner" class="track-fold-banner fold-prev" hidden>
+        <button type="button" class="btn-fold-toggle" id="btnTogglePrevTracks">展开已听集数 ▾</button>
+      </div>
       <ol id="trackList" class="track-list"></ol>
+      <div id="foldFutureBanner" class="track-fold-banner fold-future" hidden>
+        <button type="button" class="btn-fold-toggle" id="btnToggleFutureTracks">展开后续集数 ▾</button>
+      </div>
     </section>
     <!-- Synchronized Chapters & Core Takeaways -->
     <section class="chapters-section">
@@ -159,17 +156,55 @@
     </footer>
   </div>
 
+  <div id="settingsBackdrop" class="modal-backdrop" hidden>
+    <div id="settingsSheet" class="settings-sheet" role="dialog" aria-modal="true" aria-labelledby="settingsHeading">
+      <div class="settings-header">
+        <h3 id="settingsHeading">偏好与设置</h3>
+        <button id="btnCloseSettings" class="btn-close-sheet" aria-label="关闭设置">✕</button>
+      </div>
+      <div class="settings-body">
+        <div class="settings-group">
+          <div class="settings-group-title"><span>🎨</span> 外观主题</div>
+          <div class="theme-selector-bar" role="radiogroup" aria-label="选择主题">
+            <button type="button" class="theme-pill-btn active" data-theme-val="system">跟随系统</button>
+            <button type="button" class="theme-pill-btn" data-theme-val="light">暖阳护眼</button>
+            <button type="button" class="theme-pill-btn" data-theme-val="dark">柔和深色</button>
+          </div>
+        </div>
+
+        <div class="settings-group" id="settingsSyncContainer">
+          <div class="settings-group-title"><span>☁️</span> 个人收听记录同步</div>
+        </div>
+
+        <div class="settings-group" id="settingsImportContainer">
+          <div class="settings-group-title"><span>📥</span> 课程与音频导入</div>
+          <section id="importSection" class="import-section" hidden aria-labelledby="importHeading">
+            <h2 id="importHeading" style="font-size:14px;color:var(--text-sub);">从 iCloud 导入课程</h2>
+            <p id="importInstructions">在“文件”中选择 iCloud 云盘里的“应用备份 → 心智随身听”专题文件夹。导入后可离线收听，音频不会上传。</p>
+            <div class="import-actions">
+              <label class="file-choice">从文件夹导入<input id="folderInput" type="file" webkitdirectory multiple aria-label="从文件夹导入"></label>
+              <label class="file-choice">选择音频文件<input id="filesInput" type="file" multiple accept=".m4a,.mp3,audio/mp4,audio/mpeg" aria-label="选择音频文件"></label>
+            </div>
+            <p class="status-line" id="importPreview" role="status">可一次选择整个文件夹，也可以分批选择音频文件。</p>
+            <div class="import-actions"><button class="pill-toggle" id="btnStartImport" hidden>开始导入</button><button class="pill-toggle" id="btnStopImport" hidden>停止后续导入</button></div>
+            <p class="status-line" id="importStatus" role="status"></p>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Audio Element -->
   <audio id="audioPlayer" preload="metadata" playsinline></audio>
 
-  <script src="./tracks.js?v=15"></script>
-  <script src="./course-data.js?v=15"></script>
-  <script src="./storage.js?v=15"></script>
-  <script src="./controls.js?v=15"></script>
-  <script src="./importer.js?v=15"></script>
-  <script src="./app.js?v=15"></script>
-  <script src="./sealed-media.js?v=15"></script>
-  <script src="./private-delivery.js?v=15"></script>
+  <script src="./tracks.js?v=16"></script>
+  <script src="./course-data.js?v=16"></script>
+  <script src="./storage.js?v=16"></script>
+  <script src="./controls.js?v=16"></script>
+  <script src="./importer.js?v=16"></script>
+  <script src="./app.js?v=16"></script>
+  <script src="./sealed-media.js?v=16"></script>
+  <script src="./private-delivery.js?v=16"></script>
   <script type="module" src="./sync-player.js"></script>
 </body>
 </html>

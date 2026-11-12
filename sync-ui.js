@@ -38,7 +38,12 @@ export function mountSyncPanel(connect) {
   explanation.textContent = '首次授权后，进度与偏好自动保存到个人同步服务。Mac 完成首次配对后，会在可运行时每小时备份到 iCloud；服务器已同步不等于 iCloud 已上传。';
   form.append(originLabel, secretLabel, button);
   panel.append(summary, status, form, explanation);
-  document.querySelector('.app-header').after(panel);
+  const syncHost = document.getElementById('settingsSyncContainer');
+  if (syncHost) {
+    syncHost.append(panel);
+  } else {
+    document.querySelector('.app-header').after(panel);
+  }
   function setStatus(message, short = '查看状态') {
     status.textContent = message;
     summary.textContent = `收听记录同步 · ${short}`;

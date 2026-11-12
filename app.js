@@ -104,6 +104,90 @@ function findActiveTrack(targetTopic) {
   }
   return targetTopic.tracks[0];
 }
+let listFoldState = { expandPrev: false, expandFuture: false, forceAll: false };
+function renderTopicSegments() {
+  const bar = byId('topicSegmentedBar');
+  if (!bar) return;
+  bar.replaceChildren(...topics.map(item => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = `topic-pill ${item.id === topic?.id ? 'is-active' : ''}`;
+    btn.dataset.topicId = item.id;
+    btn.setAttribute('role', 'tab');
+    btn.setAttribute('aria-selected', item.id === topic?.id ? 'true' : 'false');
+    const label = document.createElement('span');
+    label.textContent = item.title;
+    const count = document.createElement('span');
+    count.className = 'topic-pill-count';
+    count.textContent = item.tracks.length;
+    btn.append(label, count);
+    btn.addEventListener('click', () => {
+      if (item.id === topic?.id) return;
+      byId('topicSelect').value = item.id;
+      byId('topicSelect').dispatchEvent(new Event('change'));
+    });
+    return btn;
+  }));
+}
+function updateActiveTopicSegment() {
+  const bar = byId('topicSegmentedBar');
+  if (!bar) return;
+  for (const pill of bar.querySelectorAll('.topic-pill')) {
+    const isActive = pill.dataset.topicId === topic?.id;
+    pill.classList.toggle('is-active', isActive);
+    pill.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    if (isActive && pill.scrollIntoView) {
+      pill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+  }
+}
+function applyTheme(mode) {
+  const root = document.documentElement;
+  if (!root) return;
+  if (mode === 'light') {
+    root.setAttribute('data-theme', 'light');
+    localStorage.setItem('mw_theme', 'light');
+  } else if (mode === 'dark') {
+    root.setAttribute('data-theme', 'dark');
+    localStorage.setItem('mw_theme', 'dark');
+  } else {
+    root.removeAttribute('data-theme');
+    localStorage.removeItem('mw_theme');
+  }
+}
+function setupSettingsModal() {
+  const backdrop = byId('settingsBackdrop');
+  const btnOpen = byId('btnOpenSettings');
+  const btnClose = byId('btnCloseSettings');
+  if (btnOpen && backdrop) {
+    btnOpen.addEventListener('click', () => { backdrop.hidden = false; });
+  }
+  if (btnClose && backdrop) {
+    btnClose.addEventListener('click', () => { backdrop.hidden = true; });
+  }
+  if (backdrop) {
+    backdrop.addEventListener('click', event => {
+      if (event.target === backdrop) backdrop.hidden = true;
+    });
+  }
+  window.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && backdrop && !backdrop.hidden) {
+      backdrop.hidden = true;
+    }
+  });
+  const savedTheme = localStorage.getItem('mw_theme') || 'system';
+  applyTheme(savedTheme);
+  const themeBtns = document.querySelectorAll('.theme-pill-btn');
+  themeBtns.forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.themeVal === savedTheme);
+    btn.addEventListener('click', () => {
+      const mode = btn.dataset.themeVal;
+      applyTheme(mode);
+      themeBtns.forEach(b => b.classList.toggle('active', b.dataset.themeVal === mode));
+    });
+  });
+}
+
 function scrollToActiveTrack({ behavior = 'smooth', block = 'center', flash = true } = {}) {
   requestAnimationFrame(() => {
     const activeRow = byId('trackList')?.querySelector('[aria-current="true"]');
@@ -124,8 +208,33 @@ function savedPosition(item) {
   return Number.isFinite(value) && value >= 0 && (!Number.isFinite(item.duration) || item.duration <= 0 || value < item.duration) ? value : 0;
 }
 function renderList() {
-  byId('trackList').replaceChildren(...topic.tracks.map((item, index) => {
+  const total = topic.tracks.length;
+  const activeIdx = Math.max(0, topic.tracks.findIndex(item => item.id === track.id));
+  const isFoldEnabled = total > 6 && !listFoldState.forceAll;
+
+  const btnToggleAll = byId('btnToggleAllFold');
+  if (btnToggleAll) {
+    btnToggleAll.textContent = listFoldState.forceAll ? '智能折叠' : '全部展开';
+    btnToggleAll.hidden = total <= 6;
+  }
+
+  const elements = [];
+
+  const futureCutoff = activeIdx + 5;
+
+  topic.tracks.forEach((item, index) => {
     const row = document.createElement('li');
+    row.className = 'track-row track-row-item';
+    let isFolded = false;
+    if (isFoldEnabled) {
+      if (index < activeIdx && !listFoldState.expandPrev) {
+        isFolded = true;
+      } else if (index >= futureCutoff && !listFoldState.expandFuture) {
+        isFolded = true;
+      }
+    }
+    row.dataset.folded = isFolded ? 'true' : 'false';
+
     const button = document.createElement('button');
     button.className = 'track-row';
     button.dataset.trackId = item.id;
@@ -137,8 +246,33 @@ function renderList() {
     button.append(title, detail);
     button.addEventListener('click', () => selectTrack(item, true, true));
     row.append(button);
-    return row;
-  }));
+    elements.push(row);
+  });
+
+  byId('trackList').replaceChildren(...elements);
+
+  const prevBanner = byId('foldPrevBanner');
+  const btnPrevToggle = byId('btnTogglePrevTracks');
+  if (prevBanner && btnPrevToggle) {
+    if (activeIdx > 0 && isFoldEnabled) {
+      prevBanner.hidden = false;
+      btnPrevToggle.textContent = listFoldState.expandPrev ? `收起前面 ${activeIdx} 集 ▴` : `展开前面 ${activeIdx} 集 ▾`;
+    } else {
+      prevBanner.hidden = true;
+    }
+  }
+
+  const futureBanner = byId('foldFutureBanner');
+  const btnFutureToggle = byId('btnFutureTracks') || byId('btnToggleFutureTracks');
+  if (futureBanner && btnFutureToggle) {
+    if (futureCutoff < total && isFoldEnabled) {
+      const remainingCount = total - futureCutoff;
+      futureBanner.hidden = false;
+      btnFutureToggle.textContent = listFoldState.expandFuture ? `收起后续 ${remainingCount} 集 ▴` : `展开后续 ${remainingCount} 集 ▾`;
+    } else {
+      futureBanner.hidden = true;
+    }
+  }
   byId('topicCount').textContent = `${topic.tracks.length} 集 · 已缓存 ${topic.tracks.filter(item => cacheKeys.has(item.id)).length} 集`;
   byId('btnPrevious').disabled = topic.tracks.indexOf(track) === 0;
   byId('btnNext').disabled = topic.tracks.indexOf(track) === topic.tracks.length - 1;
@@ -151,6 +285,7 @@ function renderList() {
   byId('btnCacheAll').disabled = !!importController || !!downloadController || cacheKeys.has(track.id);
   byId('btnCacheAll').textContent = cacheKeys.has(track.id) ? '本集已缓存' : '缓存本集';
   byId('btnCacheTopic').disabled = !!importController || !!downloadController || topic.tracks.every(item => cacheKeys.has(item.id));
+  updateActiveTopicSegment();
 }
 function updateOfflineStatus() {
   byId('offlineStatus').textContent = cacheKeys.has(track.id) ? '本集可离线' : navigator.onLine ? '本集未缓存' : '断网 · 本集未缓存';
@@ -258,10 +393,27 @@ byId('topicSelect').replaceChildren(...topics.map(item => new Option(item.title,
 byId('topicSelect').addEventListener('change', event => {
   const nextTopic = topics.find(item => item.id === event.target.value);
   if (!nextTopic) return;
+  listFoldState = { expandPrev: false, expandFuture: false, forceAll: false };
   const targetTrack = findActiveTrack(nextTopic);
   selectTrack(targetTrack, false, true);
   scrollToActiveTrack({ behavior: 'smooth', block: 'center', flash: true });
 });
+renderTopicSegments();
+byId('btnToggleAllFold')?.addEventListener('click', () => {
+  listFoldState.forceAll = !listFoldState.forceAll;
+  renderList();
+  scrollToActiveTrack({ behavior: 'smooth', block: 'center', flash: false });
+});
+setupSettingsModal();
+byId('btnTogglePrevTracks')?.addEventListener('click', () => {
+  listFoldState.expandPrev = !listFoldState.expandPrev;
+  renderList();
+});
+byId('btnToggleFutureTracks')?.addEventListener('click', () => {
+  listFoldState.expandFuture = !listFoldState.expandFuture;
+  renderList();
+});
+
 byId('btnPrevious').addEventListener('click', () => nextTrack(-1));
 byId('btnNext').addEventListener('click', () => nextTrack(1));
 byId('btnLocateInList')?.addEventListener('click', () => scrollToActiveTrack({ behavior: 'smooth', block: 'center', flash: true }));
@@ -294,7 +446,7 @@ window.addEventListener('pagehide', savePosition);
 document.addEventListener('visibilitychange', () => { if (document.hidden) savePosition(); });
 window.addEventListener('online', updateOfflineStatus);
 window.addEventListener('offline', updateOfflineStatus);
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?v=15').catch(error => {
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js?v=16').catch(error => {
   if (error instanceof Error) byId('cacheStatus').textContent = `应用离线壳未就绪：${error.message}`; else throw error;
 });
 setupControls();
